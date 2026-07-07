@@ -15,15 +15,15 @@ const services = [
     description: "사립유치원 회계와 운영 지침을 확인합니다.",
   },
   {
-    title: "유보통합",
+    title: "관사현황",
     description: "유보통합 관련 계획과 자료를 확인합니다.",
   },
   {
-    title: "법령·지침",
+    title: "안성맛집",
     description: "업무에 필요한 법령과 지침을 검색합니다.",
   },
   {
-    title: "각종 서식",
+    title: "지침",
     description: "자주 사용하는 행정서식을 확인합니다.",
   },
 ];
