@@ -229,19 +229,18 @@ function NoticesSection() {
   return (
     <section className="banner" id="notices">
       <div className="section-inner">
-        <div className="section-heading">
-          <p>공지사항</p>
-          <h3>새로운 소식을 확인하세요</h3>
+        <div className="notices-head">
+          <h3>공지사항</h3>
         </div>
 
         <ul className="notice-list">
           {notices.map((n) => {
             const open = openId === n.id;
             return (
-              <li key={n.id} className="notice-item">
+              <li key={n.id} className="notice-row">
                 <button
                   type="button"
-                  className="notice-header"
+                  className="notice-line"
                   onClick={() => toggle(n.id)}
                   aria-expanded={open}
                 >
@@ -249,16 +248,8 @@ function NoticesSection() {
                     {n.pinned && <span className="notice-pin">고정</span>}
                     {n.title}
                   </span>
-                  <span className="notice-meta">
-                    <span className="notice-date">
-                      {new Date(n.created_at).toLocaleDateString("ko-KR")}
-                    </span>
-                    <span
-                      className={`notice-caret${open ? " is-open" : ""}`}
-                      aria-hidden="true"
-                    >
-                      ›
-                    </span>
+                  <span className="notice-date">
+                    {n.created_at.slice(0, 10)}
                   </span>
                 </button>
                 {open && n.body && <p className="notice-body">{n.body}</p>}
