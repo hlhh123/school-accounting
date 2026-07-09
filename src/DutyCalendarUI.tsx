@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { monthTasks } from "./dutyCalendar";
+import { useEffect, useState } from "react";
+import { dutyCalendar, type DutyTask } from "./dutyCalendar";
+import { fetchDutyByMonth } from "./lib/duty";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -8,11 +9,13 @@ function MonthCalendar({
   month,
   taskDays,
   compact,
+  onDayHover,
 }: {
   year: number;
   month: number; // 1-12
   taskDays: Set<number>;
   compact?: boolean;
+  onDayHover?: (day: number | null) => void;
 }) {
   const startDow = new Date(year, month - 1, 1).getDay();
   const daysInMonth = new Date(year, month, 0).getDate();
@@ -33,7 +36,7 @@ function MonthCalendar({
           </span>
         ))}
       </div>
-      <div className="cal-grid">
+      <div className="cal-grid" onMouseLeave={() => onDayHover?.(null)}>
         {cells.map((d, i) =>
           d === null ? (
             <span key={i} className="cal-empty" />
@@ -42,12 +45,13 @@ function MonthCalendar({
               key={i}
               className={[
                 "cal-day",
-                (i % 7 === 0) ? "cal-sun" : "",
+                i % 7 === 0 ? "cal-sun" : "",
                 taskDays.has(d) ? "has-task" : "",
                 isThisMonth && today.getDate() === d ? "is-today" : "",
               ]
                 .filter(Boolean)
                 .join(" ")}
+              onMouseEnter={() => onDayHover?.(d)}
             >
               {d}
             </span>
@@ -62,10 +66,19 @@ export function DutyCalendarPanel() {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
-  const tasks = monthTasks(month);
+  const [data, setData] = useState<Record<number, DutyTask[]>>(dutyCalendar);
+  const [hoverDay, setHoverDay] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchDutyByMonth().then(setData);
+  }, []);
+
+  const tasks = data[month] ?? [];
   const taskDays = new Set(
     tasks.filter((t) => t.day).map((t) => t.day as number),
   );
+  const hoverTasks =
+    hoverDay != null ? tasks.filter((t) => t.day === hoverDay) : [];
 
   return (
     <div
@@ -86,10 +99,29 @@ export function DutyCalendarPanel() {
         </span>
       </div>
 
-      <MonthCalendar year={year} month={month} taskDays={taskDays} compact />
+      <MonthCalendar
+        year={year}
+        month={month}
+        taskDays={taskDays}
+        compact
+        onDayHover={setHoverDay}
+      />
 
       <ul className="duty-brief">
-        {tasks.length === 0 ? (
+        {hoverDay != null ? (
+          hoverTasks.length ? (
+            hoverTasks.map((t, i) => (
+              <li key={i}>
+                <span className="duty-brief-day">{hoverDay}일</span>
+                {t.title}
+              </li>
+            ))
+          ) : (
+            <li className="duty-empty">
+              {hoverDay}일 · 등록된 일정이 없습니다.
+            </li>
+          )
+        ) : tasks.length === 0 ? (
           <li className="duty-empty">등록된 일정이 없습니다.</li>
         ) : (
           tasks.slice(0, 4).map((t, i) => (
@@ -110,13 +142,30 @@ export function DutyCalendarView() {
   const now = new Date();
   const year = now.getFullYear();
   const [month, setMonth] = useState(now.getMonth() + 1);
-  const tasks = monthTasks(month);
+  const [data, setData] = useState<Record<number, DutyTask[]>>(dutyCalendar);
+  const [hoverDay, setHoverDay] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchDutyByMonth().then(setData);
+  }, []);
+
+  const tasks = data[month] ?? [];
   const taskDays = new Set(
     tasks.filter((t) => t.day).map((t) => t.day as number),
   );
 
-  const prev = () => setMonth((m) => (m === 1 ? 12 : m - 1));
-  const next = () => setMonth((m) => (m === 12 ? 1 : m + 1));
+  const prev = () => {
+    setHoverDay(null);
+    setMonth((m) => (m === 1 ? 12 : m - 1));
+  };
+  const next = () => {
+    setHoverDay(null);
+    setMonth((m) => (m === 12 ? 1 : m + 1));
+  };
+
+  // 마우스를 올린 날짜가 있으면 그 날짜 일정만, 없으면 이번 달 전체
+  const shown =
+    hoverDay != null ? tasks.filter((t) => t.day === hoverDay) : tasks;
 
   return (
     <section className="duty">
@@ -150,16 +199,25 @@ export function DutyCalendarView() {
 
         <div className="duty-view-grid">
           <div className="duty-view-cal">
-            <MonthCalendar year={year} month={month} taskDays={taskDays} />
+            <MonthCalendar
+              year={year}
+              month={month}
+              taskDays={taskDays}
+              onDayHover={setHoverDay}
+            />
           </div>
 
           <div className="duty-view-tasks">
-            <h4>{month}월 해야 할 일</h4>
-            {tasks.length === 0 ? (
+            <h4>
+              {hoverDay != null
+                ? `${month}월 ${hoverDay}일 일정`
+                : `${month}월 해야 할 일`}
+            </h4>
+            {shown.length === 0 ? (
               <p className="duty-empty">등록된 일정이 없습니다.</p>
             ) : (
               <ul className="duty-task-list">
-                {tasks.map((t, i) => (
+                {shown.map((t, i) => (
                   <li key={i}>
                     <span className="duty-task-when">
                       {t.day ? `${month}.${t.day}` : "이번 달"}
@@ -179,7 +237,10 @@ export function DutyCalendarView() {
                   type="button"
                   key={m}
                   className={`duty-chip${m === month ? " is-active" : ""}`}
-                  onClick={() => setMonth(m)}
+                  onClick={() => {
+                    setHoverDay(null);
+                    setMonth(m);
+                  }}
                 >
                   {m}월
                 </button>

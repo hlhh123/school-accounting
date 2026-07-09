@@ -3,6 +3,7 @@ import { isSupabaseConfigured } from "./lib/supabase";
 import { useAdminAuth } from "./lib/useAdminAuth";
 import GwansaAdmin from "./GwansaAdmin";
 import MatjibAdmin from "./MatjibAdmin";
+import DutyAdmin from "./DutyAdmin";
 import { catalog, findItem } from "./catalog";
 import {
   fetchNotices,
@@ -277,6 +278,13 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           >
             공지사항
           </button>
+          <button
+            type="button"
+            className={`admin-nav-item${selected === "calendar" ? " is-active" : ""}`}
+            onClick={() => setSelected("calendar")}
+          >
+            직무달력
+          </button>
 
           {catalog.map((cat) => (
             <div className="admin-nav-group" key={cat.key}>
@@ -300,6 +308,8 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         <div className="admin-content">
           {selected === "notices" ? (
             <NoticeManager />
+          ) : selected === "calendar" ? (
+            <DutyAdmin />
           ) : selected === "gwansa" ? (
             <GwansaAdmin />
           ) : selected === "food" ? (
