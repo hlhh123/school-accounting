@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { isSupabaseConfigured } from "./lib/supabase";
 import { useAdminAuth } from "./lib/useAdminAuth";
+import GwansaAdmin from "./GwansaAdmin";
 import {
   fetchNotices,
   createNotice,
@@ -255,6 +256,7 @@ export default function AdminPage({ onExit }: { onExit: () => void }) {
                 </button>
               </div>
               <NoticeManager />
+              <GwansaAdmin />
             </>
           )}
         </div>

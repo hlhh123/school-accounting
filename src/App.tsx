@@ -2,16 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
-import {
-  summaryBase,
-  summaryByType,
-  summaryByDetail,
-  sharedBase,
-  sharedTable,
-  gwansaBase,
-  gwansaTable,
-  type TableData,
-} from "./gwansaData";
+import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
+import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
 
 // 업무 (회계, 예산, 공무원급여, 공무직급여 외 추후 2개 추가 예정)
 const workAreas = [
@@ -102,11 +94,29 @@ type GwansaTab = "summary" | "shared" | "gwansa";
 
 function GwansaView({ onBack }: { onBack: () => void }) {
   const [tab, setTab] = useState<GwansaTab>("summary");
+  const [bundle, setBundle] = useState<GwansaBundle | null>(null);
+
+  useEffect(() => {
+    fetchGwansaBundle().then(setBundle);
+  }, []);
 
   const selectTab = (next: GwansaTab) => {
     // 활성화된 버튼을 다시 누르면 요약으로 돌아갑니다.
     setTab((prev) => (prev === next ? "summary" : next));
   };
+
+  if (!bundle) {
+    return (
+      <section className="gwansa">
+        <div className="section-inner">
+          <button type="button" className="back-link" onClick={onBack}>
+            ← 업무지원으로 돌아가기
+          </button>
+          <p className="gwansa-loading">불러오는 중…</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="gwansa">
@@ -145,10 +155,10 @@ function GwansaView({ onBack }: { onBack: () => void }) {
             </div>
 
             <p className="panel-caption">구분별 현황</p>
-            <DataTable data={summaryByType} />
+            <DataTable data={bundle.summaryType} />
 
             <p className="panel-caption">세부구분 현황</p>
-            <DataTable data={summaryByDetail} />
+            <DataTable data={bundle.summaryDetail} />
 
             <p className="panel-hint">
               위 <strong>공동사택</strong> 또는 <strong>관사</strong> 버튼을
@@ -163,7 +173,7 @@ function GwansaView({ onBack }: { onBack: () => void }) {
               <h4>공동사택 현황</h4>
               <span className="panel-base">{sharedBase}</span>
             </div>
-            <DataTable data={sharedTable} />
+            <DataTable data={bundle.shared} />
           </div>
         )}
 
@@ -173,7 +183,7 @@ function GwansaView({ onBack }: { onBack: () => void }) {
               <h4>관사 현황</h4>
               <span className="panel-base">{gwansaBase}</span>
             </div>
-            <DataTable data={gwansaTable} />
+            <DataTable data={bundle.gwansa} />
           </div>
         )}
       </div>

@@ -782,6 +782,32 @@ a {
   color: #999999;
 }
 
+.admin-panel {
+  margin-bottom: 44px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.admin-hint {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  background: #f6f6f6;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.gwansa-loading {
+  padding: 40px 0;
+  color: #888888;
+}
+
 @media (max-width: 900px) {
   .navigation {
     display: none;
