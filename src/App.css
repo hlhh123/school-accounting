@@ -844,6 +844,94 @@ a {
   margin-bottom: 44px;
 }
 
+/* 관리자 분류 레이아웃 */
+.admin-layout {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: sticky;
+  top: 96px;
+}
+
+.admin-nav-item {
+  width: 100%;
+  padding: 9px 12px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #555555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-nav-item:hover {
+  background: #f2f2f2;
+  color: #111111;
+}
+
+.admin-nav-item.is-active {
+  background: #111111;
+  color: #ffffff;
+}
+
+.admin-nav-group {
+  margin-top: 16px;
+}
+
+.admin-nav-label {
+  margin: 0 0 6px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaaaaa;
+}
+
+.admin-content {
+  min-width: 0;
+}
+
+.admin-crumb {
+  color: #999999;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .admin-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  .admin-nav-group {
+    display: contents;
+  }
+
+  .admin-nav-label {
+    display: none;
+  }
+
+  .admin-nav-item {
+    width: auto;
+    border: 1px solid #e0e0e0;
+  }
+}
+
 .field-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

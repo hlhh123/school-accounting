@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { isSupabaseConfigured } from "./lib/supabase";
 import { useAdminAuth } from "./lib/useAdminAuth";
 import GwansaAdmin from "./GwansaAdmin";
+import { catalog, findItem } from "./catalog";
 import {
   fetchNotices,
   createNotice,
@@ -235,6 +236,80 @@ function NoticeManager() {
   );
 }
 
+function AdminPlaceholder({ slug }: { slug: string }) {
+  const found = findItem(slug);
+  const title = found?.item.title ?? slug;
+  const label = found?.category.label ?? "";
+  return (
+    <div className="admin-panel">
+      <div className="admin-panel-head">
+        <h3>
+          {label && <span className="admin-crumb">{label} · </span>}
+          {title}
+        </h3>
+      </div>
+      <p className="admin-empty">
+        이 항목은 아직 편집할 콘텐츠가 없습니다. (준비 중)
+      </p>
+    </div>
+  );
+}
+
+function AdminDashboard({ onLogout }: { onLogout: () => void }) {
+  const [selected, setSelected] = useState<string>("notices");
+
+  return (
+    <>
+      <div className="admin-topbar">
+        <h2>콘텐츠 관리</h2>
+        <button type="button" className="admin-ghost" onClick={onLogout}>
+          로그아웃
+        </button>
+      </div>
+
+      <div className="admin-layout">
+        <aside className="admin-nav">
+          <button
+            type="button"
+            className={`admin-nav-item${selected === "notices" ? " is-active" : ""}`}
+            onClick={() => setSelected("notices")}
+          >
+            공지사항
+          </button>
+
+          {catalog.map((cat) => (
+            <div className="admin-nav-group" key={cat.key}>
+              <p className="admin-nav-label">{cat.label}</p>
+              {cat.items.map((item) => (
+                <button
+                  key={item.slug}
+                  type="button"
+                  className={`admin-nav-item${
+                    selected === item.slug ? " is-active" : ""
+                  }`}
+                  onClick={() => setSelected(item.slug)}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
+          ))}
+        </aside>
+
+        <div className="admin-content">
+          {selected === "notices" ? (
+            <NoticeManager />
+          ) : selected === "gwansa" ? (
+            <GwansaAdmin />
+          ) : (
+            <AdminPlaceholder slug={selected} />
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function AdminPage({ onExit }: { onExit: () => void }) {
   const { ready, isLoggedIn, login, logout } = useAdminAuth();
 
@@ -248,16 +323,7 @@ export default function AdminPage({ onExit }: { onExit: () => void }) {
           ) : !isLoggedIn ? (
             <LoginForm onSubmit={login} />
           ) : (
-            <>
-              <div className="admin-topbar">
-                <h2>콘텐츠 관리</h2>
-                <button type="button" className="admin-ghost" onClick={logout}>
-                  로그아웃
-                </button>
-              </div>
-              <NoticeManager />
-              <GwansaAdmin />
-            </>
+            <AdminDashboard onLogout={logout} />
           )}
         </div>
       </main>
