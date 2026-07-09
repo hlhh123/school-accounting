@@ -148,6 +148,15 @@ a {
   font-size: 13px;
 }
 
+.banner {
+  padding: 70px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.banner:first-of-type {
+  padding-top: 90px;
+}
+
 .services {
   padding: 100px 0;
 }

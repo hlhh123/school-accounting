@@ -11,6 +11,39 @@ import {
   type TableData,
 } from "./gwansaData";
 
+// 신규자를 위한 업무 지침 (공문서 작성법, 품의방법, 급여업무 세팅방법 외 추후 추가 예정)
+const workGuides = [
+  {
+    title: "공문서 작성법",
+    description: "공문서 작성 기준과 예시를 확인합니다.",
+  },
+  {
+    title: "품의방법",
+    description: "품의서 작성과 결재 절차를 안내합니다.",
+  },
+  {
+    title: "급여업무 세팅방법",
+    description: "급여업무 초기 설정 방법을 안내합니다.",
+  },
+];
+
+// 신규자를 위한 안성 생활 정보 (관사, 맛집, 자유게시판)
+const anseongLife = [
+  {
+    title: "관사",
+    description: "공동사택·관사 입주 현황을 확인합니다.",
+    page: "gwansa" as const,
+  },
+  {
+    title: "맛집",
+    description: "안성 지역 추천 맛집을 확인합니다.",
+  },
+  {
+    title: "자유게시판",
+    description: "자유롭게 정보를 나누는 공간입니다.",
+  },
+];
+
 const services = [
   {
     title: "급여 업무",
@@ -207,6 +240,57 @@ function App() {
               <br />
               쉽고 빠르게 처리하세요.
             </h2>
+          </div>
+        </section>
+
+        <section className="banner" id="work-guides">
+          <div className="section-inner">
+            <div className="section-heading">
+              <p>업무</p>
+              <h3>신규자를 위한 업무 지침</h3>
+            </div>
+
+            <div className="service-grid">
+              {workGuides.map((guide) => (
+                <button type="button" className="service-card" key={guide.title}>
+                  <span className="service-title">{guide.title}</span>
+                  <span className="service-description">
+                    {guide.description}
+                  </span>
+                  <span className="service-arrow">→</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="banner" id="anseong-life">
+          <div className="section-inner">
+            <div className="section-heading">
+              <p>생활</p>
+              <h3>신규자를 위한 안성 생활 정보</h3>
+            </div>
+
+            <div className="service-grid">
+              {anseongLife.map((item) => (
+                <button
+                  type="button"
+                  className="service-card"
+                  key={item.title}
+                  onClick={
+                    item.page === "gwansa"
+                      ? () => setPage("gwansa")
+                      : undefined
+                  }
+                >
+                  <span className="service-title">{item.title}</span>
+                  <span className="service-description">
+                    {item.description}
+                  </span>
+                  <span className="service-arrow">→</span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
