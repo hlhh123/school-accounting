@@ -1,19 +1,146 @@
 import { useState } from "react";
-import type { Guide } from "./guides";
+import type { Block, Guide } from "./guides";
+import type { CatalogItem } from "./catalog";
+
+function TermsBlock({ items }: { items: { term: string; desc: string }[] }) {
+  return (
+    <dl className="g-terms">
+      {items.map((t) => (
+        <div key={t.term} className="g-term">
+          <dt>{t.term}</dt>
+          <dd>{t.desc}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function TableBlock({
+  headers,
+  rows,
+  note,
+}: {
+  headers: string[];
+  rows: string[][];
+  note?: string;
+}) {
+  return (
+    <>
+      <div className="g-table-scroll">
+        <table className="g-table">
+          <thead>
+            <tr>
+              {headers.map((h) => (
+                <th key={h}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i}>
+                {r.map((c, j) => (
+                  <td key={j}>{c}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {note && <p className="g-note">※ {note}</p>}
+    </>
+  );
+}
+
+function StepsBlock({ items, note }: { items: string[]; note?: string }) {
+  return (
+    <>
+      <ol className="g-steps">
+        {items.map((s, i) => (
+          <li key={i}>
+            <span className="g-step-num">{i + 1}</span>
+            <span className="g-step-text">{s}</span>
+          </li>
+        ))}
+      </ol>
+      {note && <p className="g-note">※ {note}</p>}
+    </>
+  );
+}
+
+function QaBlock({ items }: { items: { q: string; a: string }[] }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <ul className="g-qa">
+      {items.map((qa, i) => {
+        const isOpen = open === i;
+        return (
+          <li key={i} className="g-qa-item">
+            <button
+              type="button"
+              className="g-q"
+              onClick={() => setOpen(isOpen ? null : i)}
+              aria-expanded={isOpen}
+            >
+              <span className="g-q-mark">Q</span>
+              <span className="g-q-text">{qa.q}</span>
+              <span className={`g-caret${isOpen ? " is-open" : ""}`} aria-hidden>
+                ›
+              </span>
+            </button>
+            {isOpen && (
+              <div className="g-a">
+                <span className="g-a-mark">A</span>
+                <p>{qa.a}</p>
+              </div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function BlockView({ block }: { block: Block }) {
+  switch (block.type) {
+    case "text":
+      return <p className="g-text">{block.text}</p>;
+    case "terms":
+      return <TermsBlock items={block.items} />;
+    case "table":
+      return (
+        <TableBlock headers={block.headers} rows={block.rows} note={block.note} />
+      );
+    case "steps":
+      return <StepsBlock items={block.items} note={block.note} />;
+    case "list":
+      return (
+        <ul className="g-list">
+          {block.items.map((it, i) => (
+            <li key={i}>{it}</li>
+          ))}
+        </ul>
+      );
+    case "qa":
+      return <QaBlock items={block.items} />;
+    case "note":
+      return (
+        <div className="g-callout">
+          {block.title && <strong>{block.title}</strong>}
+          <p>{block.text}</p>
+        </div>
+      );
+  }
+}
 
 export default function GuideView({
-  title,
+  item,
   crumb,
   guide,
 }: {
-  title: string;
+  item: CatalogItem;
   crumb: string;
   guide: Guide;
 }) {
-  const [open, setOpen] = useState<string | null>(null);
-  const toggle = (key: string) =>
-    setOpen((prev) => (prev === key ? null : key));
-
   return (
     <section className="guide">
       <div className="section-inner">
@@ -29,63 +156,43 @@ export default function GuideView({
 
         <div className="guide-heading">
           <p>{crumb}</p>
-          <h3>{title}</h3>
+          <h3>{item.title}</h3>
           {guide.intro && <p className="guide-intro">{guide.intro}</p>}
-          {guide.source && (
-            <p className="guide-source">출처: {guide.source}</p>
-          )}
+          {guide.source && <p className="guide-source">출처: {guide.source}</p>}
         </div>
-
-        {guide.terms && guide.terms.length > 0 && (
-          <div className="guide-terms">
-            <h4>용어 정리</h4>
-            <dl>
-              {guide.terms.map((t) => (
-                <div key={t.term} className="guide-term">
-                  <dt>{t.term}</dt>
-                  <dd>{t.desc}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        )}
 
         {guide.sections.map((sec) => (
           <div key={sec.title} className="guide-section">
             <h4 className="guide-section-title">{sec.title}</h4>
-            <ul className="guide-qa">
-              {sec.qas.map((qa, i) => {
-                const key = `${sec.title}-${i}`;
-                const isOpen = open === key;
-                return (
-                  <li key={key} className="guide-qa-item">
-                    <button
-                      type="button"
-                      className="guide-q"
-                      onClick={() => toggle(key)}
-                      aria-expanded={isOpen}
-                    >
-                      <span className="guide-q-mark">Q</span>
-                      <span className="guide-q-text">{qa.q}</span>
-                      <span
-                        className={`guide-caret${isOpen ? " is-open" : ""}`}
-                        aria-hidden="true"
-                      >
-                        ›
-                      </span>
-                    </button>
-                    {isOpen && (
-                      <div className="guide-a">
-                        <span className="guide-a-mark">A</span>
-                        <p>{qa.a}</p>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+            {sec.blocks.map((b, i) => (
+              <BlockView key={i} block={b} />
+            ))}
           </div>
         ))}
+
+        {item.children && item.children.length > 0 && (
+          <div className="guide-sub">
+            <h4 className="guide-section-title">세부 계약 유형</h4>
+            <div className="service-grid">
+              {item.children.map((child) => (
+                <button
+                  type="button"
+                  className="service-card"
+                  key={child.slug}
+                  onClick={() => {
+                    window.location.hash = `#/i/${child.slug}`;
+                  }}
+                >
+                  <span className="service-title">{child.title}</span>
+                  <span className="service-description">
+                    {child.description}
+                  </span>
+                  <span className="service-arrow">→</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

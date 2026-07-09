@@ -388,8 +388,8 @@ a {
 }
 
 .guide-heading {
-  margin: 26px 0 30px;
-  max-width: 760px;
+  margin: 26px 0 34px;
+  max-width: 820px;
 }
 
 .guide-heading > p:first-child {
@@ -418,66 +418,204 @@ a {
   font-size: 13px;
 }
 
-.guide-terms {
-  margin-bottom: 40px;
-  padding: 26px 28px;
+.guide-section {
+  margin-bottom: 38px;
+}
+
+.guide-section-title {
+  margin: 0 0 16px;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.guide-sub {
+  margin-top: 44px;
+  padding-top: 34px;
+  border-top: 1px solid #eeeeee;
+}
+
+.g-text {
+  margin: 0 0 12px;
+  color: #444444;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+/* 용어 정리 */
+.g-terms {
+  margin: 0;
+  padding: 22px 26px;
   background: #fafafa;
   border: 1px solid #e5e5e5;
-  border-radius: 16px;
+  border-radius: 14px;
 }
 
-.guide-terms h4 {
-  margin: 0 0 16px;
-  font-size: 17px;
-}
-
-.guide-terms dl {
-  margin: 0;
-}
-
-.guide-term {
+.g-term {
   display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 16px;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
   padding: 11px 0;
   border-top: 1px solid #ececec;
 }
 
-.guide-term dt {
+.g-term:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.g-term dt {
   font-weight: 700;
   font-size: 14px;
   color: #222222;
 }
 
-.guide-term dd {
+.g-term dd {
   margin: 0;
   color: #555555;
   font-size: 14px;
   line-height: 1.6;
 }
 
-.guide-section {
-  margin-bottom: 34px;
+/* 표 */
+.g-table-scroll {
+  overflow-x: auto;
 }
 
-.guide-section-title {
-  margin: 0 0 14px;
-  font-size: 20px;
-  letter-spacing: -0.5px;
+.g-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
 }
 
-.guide-qa {
+.g-table th,
+.g-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #ececec;
+  border-right: 1px solid #ececec;
+  line-height: 1.55;
+  vertical-align: top;
+}
+
+.g-table th:last-child,
+.g-table td:last-child {
+  border-right: 0;
+}
+
+.g-table thead th {
+  background: #f2f2f2;
+  font-weight: 700;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.g-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* 단계형 흐름 */
+.g-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: g;
+}
+
+.g-steps li {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 0 0 18px 0;
+}
+
+.g-steps li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: #e2e2e2;
+}
+
+.g-step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.g-step-text {
+  padding-top: 4px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #222222;
+}
+
+.g-note {
+  margin: 10px 0 0;
+  padding: 12px 14px;
+  background: #f6f6f6;
+  border-radius: 10px;
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* 목록 */
+.g-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-list li {
+  position: relative;
+  padding: 9px 0 9px 18px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444444;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.g-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 17px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #999999;
+}
+
+.g-list li:last-child {
+  border-bottom: 0;
+}
+
+/* Q&A 아코디언 */
+.g-qa {
   margin: 0;
   padding: 0;
   list-style: none;
   border-top: 1px solid #e6e6e6;
 }
 
-.guide-qa-item {
+.g-qa-item {
   border-bottom: 1px solid #eeeeee;
 }
 
-.guide-q {
+.g-q {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -488,28 +626,37 @@ a {
   text-align: left;
 }
 
-.guide-q-mark {
+.g-q-mark,
+.g-a-mark {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #111111;
-  color: #ffffff;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 700;
 }
 
-.guide-q-text {
+.g-q-mark {
+  background: #111111;
+  color: #ffffff;
+}
+
+.g-a-mark {
+  background: #eeeeee;
+  color: #555555;
+}
+
+.g-q-text {
   flex: 1;
   font-size: 16px;
   font-weight: 650;
   color: #1a1a1a;
 }
 
-.guide-caret {
+.g-caret {
   flex-shrink: 0;
   color: #999999;
   font-size: 20px;
@@ -517,35 +664,41 @@ a {
   transition: transform 0.2s ease;
 }
 
-.guide-caret.is-open {
+.g-caret.is-open {
   transform: rotate(-90deg);
 }
 
-.guide-a {
+.g-a {
   display: flex;
   gap: 12px;
   padding: 4px 4px 20px 4px;
 }
 
-.guide-a-mark {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #eeeeee;
-  color: #555555;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.guide-a p {
+.g-a p {
   margin: 2px 0 0;
   color: #444444;
   font-size: 15px;
   line-height: 1.85;
+}
+
+.g-callout {
+  padding: 14px 16px;
+  background: #f6f6f6;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+}
+
+.g-callout strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.g-callout p {
+  margin: 0;
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 /* 직무달력 */
