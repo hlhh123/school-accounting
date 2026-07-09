@@ -289,6 +289,166 @@ a {
   border-color: #999999;
 }
 
+/* 관사현황 상세 화면 */
+.gwansa {
+  padding: 60px 0 100px;
+}
+
+.back-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #666666;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.back-link:hover {
+  color: #000000;
+}
+
+.gwansa-heading {
+  margin: 26px 0 30px;
+}
+
+.gwansa-heading p {
+  margin: 0 0 12px;
+  color: #777777;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.gwansa-heading h3 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -1.3px;
+}
+
+.gwansa-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.gwansa-tab {
+  flex: 1;
+  max-width: 220px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.gwansa-tab:hover {
+  border-color: #999999;
+}
+
+.gwansa-tab.is-active {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+}
+
+.gwansa-panel {
+  padding: 34px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 24px;
+}
+
+.panel-head h4 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.6px;
+}
+
+.panel-base {
+  color: #888888;
+  font-size: 13px;
+}
+
+.panel-caption {
+  margin: 30px 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555555;
+}
+
+.panel-caption:first-of-type {
+  margin-top: 0;
+}
+
+.panel-hint {
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #e3e3e3;
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.panel-hint strong {
+  color: #111111;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #ececec;
+  border-right: 1px solid #ececec;
+  white-space: nowrap;
+}
+
+.data-table th:last-child,
+.data-table td:last-child {
+  border-right: 0;
+}
+
+.data-table thead th {
+  background: #f2f2f2;
+  font-weight: 700;
+  color: #333333;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table .table-footer-row td {
+  background: #f7f7f7;
+  font-weight: 700;
+  color: #111111;
+}
+
 .footer {
   border-top: 1px solid #e5e5e5;
 }

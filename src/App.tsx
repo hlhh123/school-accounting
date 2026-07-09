@@ -1,5 +1,15 @@
+import { useState } from "react";
 import "./App.css";
-import "./App.css";
+import {
+  summaryBase,
+  summaryByType,
+  summaryByDetail,
+  sharedBase,
+  sharedTable,
+  gwansaBase,
+  gwansaTable,
+  type TableData,
+} from "./gwansaData";
 
 const services = [
   {
@@ -16,7 +26,7 @@ const services = [
   },
   {
     title: "관사현황",
-    description: "유보통합 관련 계획과 자료를 확인합니다.",
+    description: "공동사택·관사 현황과 입주 현황을 확인합니다.",
   },
   {
     title: "안성맛집",
@@ -28,7 +38,152 @@ const services = [
   },
 ];
 
+function DataTable({ data }: { data: TableData }) {
+  return (
+    <div className="table-scroll">
+      <table className="data-table">
+        <thead>
+          <tr>
+            {data.headers.map((h) => (
+              <th key={h}>{h}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.rows.map((row, ri) => (
+            <tr key={ri}>
+              {row.map((cell, ci) => (
+                <td key={ci}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+          {data.footer && (
+            <tr className="table-footer-row">
+              {data.footer.map((cell, ci) => (
+                <td key={ci}>{cell}</td>
+              ))}
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+type GwansaTab = "summary" | "shared" | "gwansa";
+
+function GwansaView({ onBack }: { onBack: () => void }) {
+  const [tab, setTab] = useState<GwansaTab>("summary");
+
+  const selectTab = (next: GwansaTab) => {
+    // 활성화된 버튼을 다시 누르면 요약으로 돌아갑니다.
+    setTab((prev) => (prev === next ? "summary" : next));
+  };
+
+  return (
+    <section className="gwansa">
+      <div className="section-inner">
+        <button type="button" className="back-link" onClick={onBack}>
+          ← 업무지원으로 돌아가기
+        </button>
+
+        <div className="gwansa-heading">
+          <p>관사현황</p>
+          <h3>공동사택·관사 입주 현황</h3>
+        </div>
+
+        <div className="gwansa-tabs">
+          <button
+            type="button"
+            className={`gwansa-tab${tab === "shared" ? " is-active" : ""}`}
+            onClick={() => selectTab("shared")}
+          >
+            공동사택
+          </button>
+          <button
+            type="button"
+            className={`gwansa-tab${tab === "gwansa" ? " is-active" : ""}`}
+            onClick={() => selectTab("gwansa")}
+          >
+            관사
+          </button>
+        </div>
+
+        {tab === "summary" && (
+          <div className="gwansa-panel">
+            <div className="panel-head">
+              <h4>전체 요약</h4>
+              <span className="panel-base">{summaryBase}</span>
+            </div>
+
+            <p className="panel-caption">구분별 현황</p>
+            <DataTable data={summaryByType} />
+
+            <p className="panel-caption">세부구분 현황</p>
+            <DataTable data={summaryByDetail} />
+
+            <p className="panel-hint">
+              위 <strong>공동사택</strong> 또는 <strong>관사</strong> 버튼을
+              누르면 각 항목의 상세 현황을 확인할 수 있습니다.
+            </p>
+          </div>
+        )}
+
+        {tab === "shared" && (
+          <div className="gwansa-panel">
+            <div className="panel-head">
+              <h4>공동사택 현황</h4>
+              <span className="panel-base">{sharedBase}</span>
+            </div>
+            <DataTable data={sharedTable} />
+          </div>
+        )}
+
+        {tab === "gwansa" && (
+          <div className="gwansa-panel">
+            <div className="panel-head">
+              <h4>관사 현황</h4>
+              <span className="panel-base">{gwansaBase}</span>
+            </div>
+            <DataTable data={gwansaTable} />
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function App() {
+  const [page, setPage] = useState<"home" | "gwansa">("home");
+
+  if (page === "gwansa") {
+    return (
+      <div className="app">
+        <header className="header">
+          <div className="header-inner">
+            <h1 className="logo">안성교육지원청 행정업무지원기</h1>
+            <nav className="navigation">
+              <a href="#home" onClick={() => setPage("home")}>
+                홈
+              </a>
+            </nav>
+          </div>
+        </header>
+
+        <main>
+          <GwansaView onBack={() => setPage("home")} />
+        </main>
+
+        <footer className="footer">
+          <div className="footer-inner">
+            <strong>안성교육지원청 행정업무지원기</strong>
+            <p>본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.</p>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -90,6 +245,11 @@ function App() {
                   type="button"
                   className="service-card"
                   key={service.title}
+                  onClick={
+                    service.title === "관사현황"
+                      ? () => setPage("gwansa")
+                      : undefined
+                  }
                 >
                   <span className="service-title">{service.title}</span>
                   <span className="service-description">
