@@ -104,81 +104,52 @@ a {
   color: #000000;
 }
 
-.hero {
-  background:
-    radial-gradient(
-      120% 120% at 75% 20%,
-      #103a6b 0%,
-      #0a2547 45%,
-      #06111f 100%
-    );
-  color: #ffffff;
+/* 상단: 흰 바탕 2단 (왼쪽 제목 / 오른쪽 공지사항) */
+.hero-split {
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
 }
 
-.hero-inner {
-  display: flex;
-  flex-direction: column;
+.hero-split-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
   width: min(1200px, calc(100% - 48px));
-  min-height: 460px;
   margin: 0 auto;
-  padding: 120px 0 64px;
+  padding: 84px 0;
 }
 
-.hero-eyebrow {
-  margin: 0 0 22px;
-  color: rgba(255, 255, 255, 0.6);
+.hero-left {
+  text-align: left;
+}
+
+.hero-label {
+  margin: 0 0 18px;
+  color: #888888;
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
-.hero h2 {
+.hero-left h2 {
   margin: 0;
-  color: #ffffff;
-  font-size: clamp(38px, 5vw, 62px);
+  color: #111111;
+  font-size: clamp(36px, 4.4vw, 56px);
   font-weight: 800;
-  line-height: 1.22;
+  line-height: 1.2;
   letter-spacing: -2px;
 }
 
-.hero-desc {
-  max-width: 660px;
-  margin: 28px 0 0;
-  color: rgba(255, 255, 255, 0.74);
-  font-size: 18px;
+.hero-sub {
+  margin: 26px 0 0;
+  color: #666666;
+  font-size: 17px;
   line-height: 1.75;
 }
 
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  align-self: flex-end;
-  padding-top: 56px;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.hero-cta span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 999px;
-  font-size: 18px;
-  line-height: 1;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.hero-cta:hover span {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #ffffff;
+.hero-right {
+  min-width: 0;
 }
 
 .banner {
@@ -586,6 +557,14 @@ a {
   letter-spacing: -0.5px;
 }
 
+.notices-empty {
+  margin: 0;
+  padding: 16px 2px;
+  color: #999999;
+  font-size: 14px;
+  border-top: 1px solid #e6e6e6;
+}
+
 .notice-list {
   margin: 0;
   padding: 0;
@@ -957,9 +936,10 @@ a {
     display: none;
   }
 
-  .hero-inner {
-    min-height: 0;
-    padding: 84px 0 56px;
+  .hero-split-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 56px 0;
   }
 
   .service-grid {
@@ -973,7 +953,7 @@ a {
 
 @media (max-width: 600px) {
   .header-inner,
-  .hero-inner,
+  .hero-split-inner,
   .section-inner,
   .footer-inner {
     width: min(100% - 32px, 1200px);
@@ -987,18 +967,13 @@ a {
     height: 34px;
   }
 
-  .hero h2 {
-    font-size: 34px;
+  .hero-left h2 {
+    font-size: 32px;
     letter-spacing: -1.4px;
   }
 
-  .hero-desc {
+  .hero-sub {
     font-size: 16px;
-  }
-
-  .hero-cta {
-    align-self: flex-start;
-    padding-top: 40px;
   }
 
   .service-grid {

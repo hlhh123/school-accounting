@@ -212,7 +212,7 @@ function DetailPage({
   );
 }
 
-function NoticesSection() {
+function NoticesPanel() {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -222,17 +222,17 @@ function NoticesSection() {
       .catch(() => setNotices([]));
   }, []);
 
-  if (notices.length === 0) return null;
-
   const toggle = (id: string) => setOpenId((prev) => (prev === id ? null : id));
 
   return (
-    <section className="banner" id="notices">
-      <div className="section-inner">
-        <div className="notices-head">
-          <h3>공지사항</h3>
-        </div>
+    <div className="notices-panel" id="notices">
+      <div className="notices-head">
+        <h3>공지사항</h3>
+      </div>
 
+      {notices.length === 0 ? (
+        <p className="notices-empty">등록된 공지사항이 없습니다.</p>
+      ) : (
         <ul className="notice-list">
           {notices.map((n) => {
             const open = openId === n.id;
@@ -257,8 +257,8 @@ function NoticesSection() {
             );
           })}
         </ul>
-      </div>
-    </section>
+      )}
+    </div>
   );
 }
 
@@ -319,30 +319,27 @@ function HomePage() {
       </header>
 
       <main>
-        <section className="hero" id="home">
-          <div className="hero-inner">
-            <p className="hero-eyebrow">안성교육지원청 업무지원</p>
+        <section className="hero-split" id="home">
+          <div className="hero-split-inner">
+            <div className="hero-left">
+              <p className="hero-label">안성교육지원청</p>
+              <h2>
+                새내기를 위한
+                <br />
+                길잡이
+              </h2>
+              <p className="hero-sub">
+                처음 오신 분들도 쉽게 업무를 시작할 수 있도록,
+                <br />
+                업무 지침과 안성 생활 정보를 한곳에 정리했습니다.
+              </p>
+            </div>
 
-            <h2>
-              신규자를 위한
-              <br />
-              업무 가이드입니다
-            </h2>
-
-            <p className="hero-desc">
-              처음 오신 분들도 쉽게 업무를 시작할 수 있도록,
-              <br />
-              업무 지침과 안성 생활 정보를 한곳에 정리했습니다.
-            </p>
-
-            <a className="hero-cta" href="#notices">
-              공지사항 바로가기
-              <span aria-hidden="true">›</span>
-            </a>
+            <div className="hero-right">
+              <NoticesPanel />
+            </div>
           </div>
         </section>
-
-        <NoticesSection />
 
         {catalog.map((category) => (
           <CategorySection key={category.key} category={category} />
