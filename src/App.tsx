@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import AdminPage from "./AdminPage";
+import { fetchNotices, type Notice } from "./lib/notices";
 import {
   summaryBase,
   summaryByType,
@@ -179,8 +181,69 @@ function GwansaView({ onBack }: { onBack: () => void }) {
   );
 }
 
+function NoticesSection() {
+  const [notices, setNotices] = useState<Notice[]>([]);
+
+  useEffect(() => {
+    fetchNotices()
+      .then(setNotices)
+      .catch(() => setNotices([]));
+  }, []);
+
+  if (notices.length === 0) return null;
+
+  return (
+    <section className="banner" id="notices">
+      <div className="section-inner">
+        <div className="section-heading">
+          <p>공지사항</p>
+          <h3>새로운 소식을 확인하세요</h3>
+        </div>
+
+        <ul className="notice-list">
+          {notices.map((n) => (
+            <li key={n.id} className="notice-item">
+              <div className="notice-main">
+                <p className="notice-title">
+                  {n.pinned && <span className="notice-pin">고정</span>}
+                  {n.title}
+                </p>
+                {n.body && <p className="notice-body">{n.body}</p>}
+              </div>
+              <span className="notice-date">
+                {new Date(n.created_at).toLocaleDateString("ko-KR")}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function useHashRoute() {
+  const [hash, setHash] = useState(() => window.location.hash);
+  useEffect(() => {
+    const onChange = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", onChange);
+    return () => window.removeEventListener("hashchange", onChange);
+  }, []);
+  return hash;
+}
+
 function App() {
   const [page, setPage] = useState<"home" | "gwansa">("home");
+  const hash = useHashRoute();
+
+  if (hash.startsWith("#admin")) {
+    return (
+      <AdminPage
+        onExit={() => {
+          window.location.hash = "";
+        }}
+      />
+    );
+  }
 
   if (page === "gwansa") {
     return (
@@ -266,12 +329,14 @@ function App() {
               업무 지침과 안성 생활 정보를 한곳에 정리했습니다.
             </p>
 
-            <a className="hero-cta" href="#work-areas">
+            <a className="hero-cta" href="#notices">
               공지사항 바로가기
               <span aria-hidden="true">›</span>
             </a>
           </div>
         </section>
+
+        <NoticesSection />
 
         <section className="banner" id="work-areas">
           <div className="section-inner">
@@ -351,6 +416,9 @@ function App() {
         <div className="footer-inner">
           <strong>안성교육지원청 행정업무지원기</strong>
           <p>본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.</p>
+          <a className="admin-link" href="#admin">
+            관리자
+          </a>
         </div>
       </footer>
     </div>

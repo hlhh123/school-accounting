@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Local env files (실제 키는 Netlify 환경변수에 설정)
+.env
+.env.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
