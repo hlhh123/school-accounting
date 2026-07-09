@@ -202,33 +202,11 @@ function App() {
       <main>
         <section className="hero" id="home">
           <div className="hero-inner">
-            <p className="hero-label">교육행정 업무지원</p>
-
             <h2>
               복잡한 행정업무를
               <br />
               쉽고 빠르게 처리하세요.
             </h2>
-
-            <p className="hero-description">
-              급여 계산부터 학교회계, 사립유치원, 유보통합 관련 지침까지
-              한곳에서 확인할 수 있습니다.
-            </p>
-
-            <div className="search-box">
-              <input
-                type="text"
-                placeholder="궁금한 업무나 지침을 검색하세요."
-              />
-              <button type="button">검색</button>
-            </div>
-
-            <div className="search-examples">
-              <span>기간제교원 급여</span>
-              <span>맞춤형복지</span>
-              <span>사립유치원 결산</span>
-              <span>예산 집행률</span>
-            </div>
           </div>
         </section>
 
