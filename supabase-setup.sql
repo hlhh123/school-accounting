@@ -24,5 +24,7 @@ create policy "notices_admin_write" on public.notices
   for all to authenticated using (true) with check (true);
 
 -- 참고: 관리자 계정은 Supabase 대시보드 > Authentication > Users 에서
---   Email: ansaegil@ansaegil.kr / Password: ansaegil 로 생성하고,
+--   Email: ansaegil2026@gmail.com / Password: ansaegil 로 생성하고,
 --   "Auto Confirm User" 를 체크해 주세요.
+-- 보안 권장: Authentication > Sign In / Providers > Email 에서
+--   "Allow new users to sign up" 를 꺼두면, 관리자 외 계정 생성이 차단됩니다.
