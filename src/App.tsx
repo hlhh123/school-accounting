@@ -360,7 +360,7 @@ function CategorySection({ category }: { category: CatalogCategory }) {
           <h3>{category.heading}</h3>
         </div>
 
-        <div className="service-grid">
+        <div className={`service-grid${category.compact ? " is-compact" : ""}`}>
           {category.items.map((item) => (
             <button
               type="button"

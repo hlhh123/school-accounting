@@ -15,6 +15,7 @@ export type CatalogCategory = {
   label: string; // 작은 라벨 / 상세 페이지 분류 표시
   heading: string; // 섹션 제목
   items: CatalogItem[];
+  compact?: boolean; // 항목이 많은 섹션은 카드를 작게 표시
 };
 
 export const catalog: CatalogCategory[] = [
@@ -50,22 +51,63 @@ export const catalog: CatalogCategory[] = [
     key: "guide",
     sectionId: "work-guides",
     label: "업무 지침",
-    heading: "신규자를 위한 업무 지침",
+    heading: "행정공통분야",
+    compact: true,
     items: [
       {
+        slug: "service",
+        title: "복무",
+        description: "근무시간·휴가·출장 등 복무 기준을 안내합니다.",
+      },
+      {
+        slug: "personnel",
+        title: "인사",
+        description: "임용·전보·평정 등 인사 업무를 안내합니다.",
+      },
+      {
+        slug: "training",
+        title: "교육훈련",
+        description: "공무원 교육훈련 이수 방법을 안내합니다.",
+      },
+      {
+        slug: "security",
+        title: "보안",
+        description: "문서·정보 보안 준수 사항을 안내합니다.",
+      },
+      {
+        slug: "civil-affairs",
+        title: "전화응대, 민원, 정보공개",
+        description: "응대·민원 처리·정보공개 절차를 안내합니다.",
+      },
+      {
+        slug: "welfare",
+        title: "공무원복지",
+        description: "맞춤형복지 등 복지 제도를 안내합니다.",
+      },
+      {
+        slug: "budget-terms",
+        title: "예산 용어 설명",
+        description: "자주 쓰는 예산 용어를 정리했습니다.",
+      },
+      {
+        slug: "records",
+        title: "기록물관리",
+        description: "기록물 등록·보존 방법을 안내합니다.",
+      },
+      {
+        slug: "facility",
+        title: "시설관리",
+        description: "시설·물품 관리 기준을 안내합니다.",
+      },
+      {
         slug: "official-docs",
-        title: "공문서 작성법",
+        title: "공문서작성법",
         description: "공문서 작성 기준과 예시를 확인합니다.",
       },
       {
-        slug: "approval",
-        title: "품의방법",
-        description: "품의서 작성과 결재 절차를 안내합니다.",
-      },
-      {
-        slug: "payroll-setup",
-        title: "급여업무 세팅방법",
-        description: "급여업무 초기 설정 방법을 안내합니다.",
+        slug: "committee",
+        title: "위원회 운영 기본 방법",
+        description: "각종 위원회 구성·운영 방법을 안내합니다.",
       },
     ],
   },
