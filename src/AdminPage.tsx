@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { isSupabaseConfigured } from "./lib/supabase";
 import { useAdminAuth } from "./lib/useAdminAuth";
 import GwansaAdmin from "./GwansaAdmin";
+import MatjibAdmin from "./MatjibAdmin";
 import { catalog, findItem } from "./catalog";
 import {
   fetchNotices,
@@ -301,6 +302,8 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             <NoticeManager />
           ) : selected === "gwansa" ? (
             <GwansaAdmin />
+          ) : selected === "food" ? (
+            <MatjibAdmin />
           ) : (
             <AdminPlaceholder slug={selected} />
           )}

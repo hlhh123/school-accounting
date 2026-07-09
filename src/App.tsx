@@ -4,7 +4,8 @@ import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
 import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
-import { matjibRegions } from "./matjibData";
+import { matjibRegions, type MatjibRegion } from "./matjibData";
+import { fetchMatjibRegions } from "./lib/matjib";
 import {
   catalog,
   findItem,
@@ -215,11 +216,15 @@ function DetailPage({
 
 function MatjibView() {
   const [region, setRegion] = useState<string>("전체");
-  const total = matjibRegions.reduce((acc, r) => acc + r.items.length, 0);
+  const [regions, setRegions] = useState<MatjibRegion[]>(matjibRegions);
+
+  useEffect(() => {
+    fetchMatjibRegions().then(setRegions);
+  }, []);
+
+  const total = regions.reduce((acc, r) => acc + r.items.length, 0);
   const shown =
-    region === "전체"
-      ? matjibRegions
-      : matjibRegions.filter((r) => r.region === region);
+    region === "전체" ? regions : regions.filter((r) => r.region === region);
 
   return (
     <section className="matjib">
@@ -232,7 +237,7 @@ function MatjibView() {
           <p>생활 정보</p>
           <h3>안성 맛집</h3>
           <p className="matjib-count">
-            총 {total}곳 · {matjibRegions.length}개 지역
+            총 {total}곳 · {regions.length}개 지역
           </p>
         </div>
 
@@ -244,7 +249,7 @@ function MatjibView() {
           >
             전체
           </button>
-          {matjibRegions.map((r) => (
+          {regions.map((r) => (
             <button
               type="button"
               key={r.region}
