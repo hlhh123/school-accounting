@@ -267,7 +267,7 @@ function App() {
             </p>
 
             <a className="hero-cta" href="#work-areas">
-              업무 가이드 바로가기
+              공지사항 바로가기
               <span aria-hidden="true">›</span>
             </a>
           </div>
