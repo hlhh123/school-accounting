@@ -11,6 +11,26 @@ import {
   type TableData,
 } from "./gwansaData";
 
+// 업무 (회계, 예산, 공무원급여, 공무직급여 외 추후 2개 추가 예정)
+const workAreas = [
+  {
+    title: "회계",
+    description: "학교회계 예산·지출·결산 업무를 확인합니다.",
+  },
+  {
+    title: "예산",
+    description: "예산 편성과 집행 업무를 확인합니다.",
+  },
+  {
+    title: "공무원급여",
+    description: "공무원 급여·수당 업무를 확인합니다.",
+  },
+  {
+    title: "공무직급여",
+    description: "공무직 급여·수당 업무를 확인합니다.",
+  },
+];
+
 // 신규자를 위한 업무 지침 (공문서 작성법, 품의방법, 급여업무 세팅방법 외 추후 추가 예정)
 const workGuides = [
   {
@@ -198,6 +218,7 @@ function App() {
 
           <nav className="navigation">
             <a href="#home">홈</a>
+            <a href="#work-areas">업무</a>
             <a href="#work-guides">업무 지침</a>
             <a href="#anseong-life">생활 정보</a>
           </nav>
@@ -212,6 +233,27 @@ function App() {
               <br />
               쉽고 빠르게 처리하세요.
             </h2>
+          </div>
+        </section>
+
+        <section className="banner" id="work-areas">
+          <div className="section-inner">
+            <div className="section-heading">
+              <p>업무</p>
+              <h3>회계·예산·급여 업무</h3>
+            </div>
+
+            <div className="service-grid">
+              {workAreas.map((area) => (
+                <button type="button" className="service-card" key={area.title}>
+                  <span className="service-title">{area.title}</span>
+                  <span className="service-description">
+                    {area.description}
+                  </span>
+                  <span className="service-arrow">→</span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
