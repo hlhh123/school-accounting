@@ -112,7 +112,7 @@ a {
 
 .hero-split-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   align-items: center;
   gap: 60px;
   width: min(1200px, calc(100% - 48px));
