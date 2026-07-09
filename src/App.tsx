@@ -7,6 +7,8 @@ import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
 import { matjibRegions, type MatjibRegion } from "./matjibData";
 import { fetchMatjibRegions } from "./lib/matjib";
 import { DutyCalendarPanel, DutyCalendarView } from "./DutyCalendarUI";
+import GuideView from "./GuideView";
+import { guides } from "./guides";
 import {
   catalog,
   findItem,
@@ -514,6 +516,12 @@ function App() {
             <GwansaView />
           ) : found.item.special === "food" ? (
             <MatjibView />
+          ) : guides[slug] ? (
+            <GuideView
+              title={found.item.title}
+              crumb={found.crumb}
+              guide={guides[slug]}
+            />
           ) : found.item.children?.length ? (
             <SubCategoryPage item={found.item} crumb={found.crumb} />
           ) : (

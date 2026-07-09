@@ -381,6 +381,173 @@ a {
   color: #555555;
 }
 
+/* 업무 가이드(성장입문서) 페이지 */
+.guide {
+  padding: 60px 0 100px;
+  text-align: left;
+}
+
+.guide-heading {
+  margin: 26px 0 30px;
+  max-width: 760px;
+}
+
+.guide-heading > p:first-child {
+  margin: 0 0 12px;
+  color: #777777;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.guide-heading h3 {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: -1.4px;
+}
+
+.guide-intro {
+  margin: 18px 0 0;
+  color: #555555;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.guide-source {
+  margin: 12px 0 0;
+  color: #aaaaaa;
+  font-size: 13px;
+}
+
+.guide-terms {
+  margin-bottom: 40px;
+  padding: 26px 28px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+}
+
+.guide-terms h4 {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+
+.guide-terms dl {
+  margin: 0;
+}
+
+.guide-term {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding: 11px 0;
+  border-top: 1px solid #ececec;
+}
+
+.guide-term dt {
+  font-weight: 700;
+  font-size: 14px;
+  color: #222222;
+}
+
+.guide-term dd {
+  margin: 0;
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.guide-section {
+  margin-bottom: 34px;
+}
+
+.guide-section-title {
+  margin: 0 0 14px;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.guide-qa {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #e6e6e6;
+}
+
+.guide-qa-item {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.guide-q {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 4px;
+  background: transparent;
+  border: 0;
+  text-align: left;
+}
+
+.guide-q-mark {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.guide-q-text {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 650;
+  color: #1a1a1a;
+}
+
+.guide-caret {
+  flex-shrink: 0;
+  color: #999999;
+  font-size: 20px;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease;
+}
+
+.guide-caret.is-open {
+  transform: rotate(-90deg);
+}
+
+.guide-a {
+  display: flex;
+  gap: 12px;
+  padding: 4px 4px 20px 4px;
+}
+
+.guide-a-mark {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeeee;
+  color: #555555;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.guide-a p {
+  margin: 2px 0 0;
+  color: #444444;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
 /* 직무달력 */
 .cal-grid {
   display: grid;
