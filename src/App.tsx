@@ -4,6 +4,7 @@ import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
 import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
+import { matjibRegions } from "./matjibData";
 import {
   catalog,
   findItem,
@@ -212,6 +213,88 @@ function DetailPage({
   );
 }
 
+function MatjibView() {
+  const [region, setRegion] = useState<string>("전체");
+  const total = matjibRegions.reduce((acc, r) => acc + r.items.length, 0);
+  const shown =
+    region === "전체"
+      ? matjibRegions
+      : matjibRegions.filter((r) => r.region === region);
+
+  return (
+    <section className="matjib">
+      <div className="section-inner">
+        <button type="button" className="back-link" onClick={goHome}>
+          ← 홈으로 돌아가기
+        </button>
+
+        <div className="matjib-heading">
+          <p>생활 정보</p>
+          <h3>안성 맛집</h3>
+          <p className="matjib-count">
+            총 {total}곳 · {matjibRegions.length}개 지역
+          </p>
+        </div>
+
+        <div className="matjib-filter">
+          <button
+            type="button"
+            className={`matjib-chip${region === "전체" ? " is-active" : ""}`}
+            onClick={() => setRegion("전체")}
+          >
+            전체
+          </button>
+          {matjibRegions.map((r) => (
+            <button
+              type="button"
+              key={r.region}
+              className={`matjib-chip${region === r.region ? " is-active" : ""}`}
+              onClick={() => setRegion(r.region)}
+            >
+              {r.region}
+            </button>
+          ))}
+        </div>
+
+        {shown.map((r) => (
+          <div className="matjib-region" key={r.region}>
+            <h4 className="matjib-region-title">
+              {r.region}
+              <span>{r.items.length}곳</span>
+            </h4>
+            <div className="matjib-grid">
+              {r.items.map((it, i) => (
+                <div className="matjib-card" key={i}>
+                  <div className="matjib-card-head">
+                    <span className="matjib-name">{it.name}</span>
+                    {it.category && (
+                      <span className="matjib-cat">{it.category}</span>
+                    )}
+                  </div>
+                  {it.address && <p className="matjib-addr">{it.address}</p>}
+                  <div className="matjib-meta">
+                    {it.phone && (
+                      <a
+                        className="matjib-phone"
+                        href={`tel:${it.phone.replace(/[^0-9]/g, "")}`}
+                      >
+                        {it.phone}
+                      </a>
+                    )}
+                    {it.hours && (
+                      <span className="matjib-hours">{it.hours}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function NoticesPanel() {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -382,6 +465,8 @@ function App() {
         <DetailShell>
           {found.item.special === "gwansa" ? (
             <GwansaView />
+          ) : found.item.special === "food" ? (
+            <MatjibView />
           ) : (
             <DetailPage item={found.item} category={found.category} />
           )}

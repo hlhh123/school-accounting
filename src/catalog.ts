@@ -6,7 +6,7 @@ export type CatalogItem = {
   slug: string;
   title: string;
   description: string;
-  special?: "gwansa"; // 전용 화면이 있는 항목
+  special?: "gwansa" | "food"; // 전용 화면이 있는 항목
 };
 
 export type CatalogCategory = {
@@ -85,6 +85,7 @@ export const catalog: CatalogCategory[] = [
         slug: "food",
         title: "맛집",
         description: "안성 지역 추천 맛집을 확인합니다.",
+        special: "food",
       },
       {
         slug: "board",
