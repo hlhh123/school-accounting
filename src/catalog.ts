@@ -50,7 +50,7 @@ export const catalog: CatalogCategory[] = [
   {
     key: "guide",
     sectionId: "work-guides",
-    label: "업무 지침",
+    label: "행정공통분야",
     heading: "행정공통분야",
     compact: true,
     items: [
