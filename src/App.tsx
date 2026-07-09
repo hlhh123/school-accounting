@@ -187,7 +187,21 @@ function App() {
       <div className="app">
         <header className="header">
           <div className="header-inner">
-            <h1 className="logo">안성교육지원청 행정업무지원기</h1>
+            <button
+              type="button"
+              className="logo-area"
+              onClick={() => setPage("home")}
+            >
+              <img
+                className="logo-mark"
+                src="/logo.png"
+                alt="안성교육지원청"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+              <span className="logo">안성교육지원청 행정업무지원기</span>
+            </button>
             <nav className="navigation">
               <a href="#home" onClick={() => setPage("home")}>
                 홈
@@ -214,7 +228,17 @@ function App() {
     <div className="app">
       <header className="header">
         <div className="header-inner">
-          <h1 className="logo">안성교육지원청 행정업무지원기</h1>
+          <a className="logo-area" href="#home">
+            <img
+              className="logo-mark"
+              src="/logo.png"
+              alt="안성교육지원청"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+            <span className="logo">안성교육지원청 행정업무지원기</span>
+          </a>
 
           <nav className="navigation">
             <a href="#home">홈</a>
@@ -228,11 +252,24 @@ function App() {
       <main>
         <section className="hero" id="home">
           <div className="hero-inner">
+            <p className="hero-eyebrow">안성교육지원청 업무지원</p>
+
             <h2>
-              복잡한 행정업무를
+              신규자를 위한
               <br />
-              쉽고 빠르게 처리하세요.
+              업무 가이드입니다
             </h2>
+
+            <p className="hero-desc">
+              처음 오신 분들도 쉽게 업무를 시작할 수 있도록,
+              <br />
+              업무 지침과 안성 생활 정보를 한곳에 정리했습니다.
+            </p>
+
+            <a className="hero-cta" href="#work-areas">
+              업무 가이드 바로가기
+              <span aria-hidden="true">›</span>
+            </a>
           </div>
         </section>
 
