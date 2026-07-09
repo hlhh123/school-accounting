@@ -1,62 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import "./App.css";
 import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
 import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
+import {
+  catalog,
+  findItem,
+  type CatalogCategory,
+  type CatalogItem,
+} from "./catalog";
 
-// 업무 (회계, 예산, 공무원급여, 공무직급여 외 추후 2개 추가 예정)
-const workAreas = [
-  {
-    title: "회계",
-    description: "학교회계 예산·지출·결산 업무를 확인합니다.",
-  },
-  {
-    title: "예산",
-    description: "예산 편성과 집행 업무를 확인합니다.",
-  },
-  {
-    title: "공무원급여",
-    description: "공무원 급여·수당 업무를 확인합니다.",
-  },
-  {
-    title: "공무직급여",
-    description: "공무직 급여·수당 업무를 확인합니다.",
-  },
-];
+function goHome() {
+  window.location.hash = "";
+}
 
-// 신규자를 위한 업무 지침 (공문서 작성법, 품의방법, 급여업무 세팅방법 외 추후 추가 예정)
-const workGuides = [
-  {
-    title: "공문서 작성법",
-    description: "공문서 작성 기준과 예시를 확인합니다.",
-  },
-  {
-    title: "품의방법",
-    description: "품의서 작성과 결재 절차를 안내합니다.",
-  },
-  {
-    title: "급여업무 세팅방법",
-    description: "급여업무 초기 설정 방법을 안내합니다.",
-  },
-];
-
-// 신규자를 위한 안성 생활 정보 (관사, 맛집, 자유게시판)
-const anseongLife = [
-  {
-    title: "관사",
-    description: "공동사택·관사 입주 현황을 확인합니다.",
-    page: "gwansa" as const,
-  },
-  {
-    title: "맛집",
-    description: "안성 지역 추천 맛집을 확인합니다.",
-  },
-  {
-    title: "자유게시판",
-    description: "자유롭게 정보를 나누는 공간입니다.",
-  },
-];
+function openItem(slug: string) {
+  window.location.hash = `#/i/${slug}`;
+}
 
 function DataTable({ data }: { data: TableData }) {
   return (
@@ -90,9 +51,44 @@ function DataTable({ data }: { data: TableData }) {
   );
 }
 
+// 상세 페이지 공통 레이아웃(헤더 + 푸터)
+function DetailShell({ children }: { children: ReactNode }) {
+  return (
+    <div className="app">
+      <header className="header">
+        <div className="header-inner">
+          <button type="button" className="logo-area" onClick={goHome}>
+            <img
+              className="logo-mark"
+              src="/logo.png"
+              alt="안성교육지원청"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+            <span className="logo">안성교육지원청 행정업무지원기</span>
+          </button>
+          <nav className="navigation">
+            <button type="button" className="nav-link" onClick={goHome}>
+              홈
+            </button>
+          </nav>
+        </div>
+      </header>
+      <main>{children}</main>
+      <footer className="footer">
+        <div className="footer-inner">
+          <strong>안성교육지원청 행정업무지원기</strong>
+          <p>본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
 type GwansaTab = "summary" | "shared" | "gwansa";
 
-function GwansaView({ onBack }: { onBack: () => void }) {
+function GwansaView() {
   const [tab, setTab] = useState<GwansaTab>("summary");
   const [bundle, setBundle] = useState<GwansaBundle | null>(null);
 
@@ -105,87 +101,112 @@ function GwansaView({ onBack }: { onBack: () => void }) {
     setTab((prev) => (prev === next ? "summary" : next));
   };
 
-  if (!bundle) {
-    return (
-      <section className="gwansa">
-        <div className="section-inner">
-          <button type="button" className="back-link" onClick={onBack}>
-            ← 업무지원으로 돌아가기
-          </button>
-          <p className="gwansa-loading">불러오는 중…</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className="gwansa">
       <div className="section-inner">
-        <button type="button" className="back-link" onClick={onBack}>
-          ← 업무지원으로 돌아가기
+        <button type="button" className="back-link" onClick={goHome}>
+          ← 홈으로 돌아가기
         </button>
 
         <div className="gwansa-heading">
-          <p>관사현황</p>
+          <p>생활 정보</p>
           <h3>공동사택·관사 입주 현황</h3>
         </div>
 
-        <div className="gwansa-tabs">
-          <button
-            type="button"
-            className={`gwansa-tab${tab === "shared" ? " is-active" : ""}`}
-            onClick={() => selectTab("shared")}
-          >
-            공동사택
-          </button>
-          <button
-            type="button"
-            className={`gwansa-tab${tab === "gwansa" ? " is-active" : ""}`}
-            onClick={() => selectTab("gwansa")}
-          >
-            관사
-          </button>
+        {!bundle ? (
+          <p className="gwansa-loading">불러오는 중…</p>
+        ) : (
+          <>
+            <div className="gwansa-tabs">
+              <button
+                type="button"
+                className={`gwansa-tab${tab === "shared" ? " is-active" : ""}`}
+                onClick={() => selectTab("shared")}
+              >
+                공동사택
+              </button>
+              <button
+                type="button"
+                className={`gwansa-tab${tab === "gwansa" ? " is-active" : ""}`}
+                onClick={() => selectTab("gwansa")}
+              >
+                관사
+              </button>
+            </div>
+
+            {tab === "summary" && (
+              <div className="gwansa-panel">
+                <div className="panel-head">
+                  <h4>전체 요약</h4>
+                  <span className="panel-base">{summaryBase}</span>
+                </div>
+
+                <p className="panel-caption">구분별 현황</p>
+                <DataTable data={bundle.summaryType} />
+
+                <p className="panel-caption">세부구분 현황</p>
+                <DataTable data={bundle.summaryDetail} />
+
+                <p className="panel-hint">
+                  위 <strong>공동사택</strong> 또는 <strong>관사</strong> 버튼을
+                  누르면 각 항목의 상세 현황을 확인할 수 있습니다.
+                </p>
+              </div>
+            )}
+
+            {tab === "shared" && (
+              <div className="gwansa-panel">
+                <div className="panel-head">
+                  <h4>공동사택 현황</h4>
+                  <span className="panel-base">{sharedBase}</span>
+                </div>
+                <DataTable data={bundle.shared} />
+              </div>
+            )}
+
+            {tab === "gwansa" && (
+              <div className="gwansa-panel">
+                <div className="panel-head">
+                  <h4>관사 현황</h4>
+                  <span className="panel-base">{gwansaBase}</span>
+                </div>
+                <DataTable data={bundle.gwansa} />
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// 일반 항목의 상세 페이지(추후 백엔드/콘텐츠 연결 지점)
+function DetailPage({
+  item,
+  category,
+}: {
+  item: CatalogItem;
+  category: CatalogCategory;
+}) {
+  return (
+    <section className="detail">
+      <div className="section-inner">
+        <button type="button" className="back-link" onClick={goHome}>
+          ← 홈으로 돌아가기
+        </button>
+
+        <div className="detail-heading">
+          <p>{category.label}</p>
+          <h3>{item.title}</h3>
+          <p className="detail-desc">{item.description}</p>
         </div>
 
-        {tab === "summary" && (
-          <div className="gwansa-panel">
-            <div className="panel-head">
-              <h4>전체 요약</h4>
-              <span className="panel-base">{summaryBase}</span>
-            </div>
-
-            <p className="panel-caption">구분별 현황</p>
-            <DataTable data={bundle.summaryType} />
-
-            <p className="panel-caption">세부구분 현황</p>
-            <DataTable data={bundle.summaryDetail} />
-
-            <p className="panel-hint">
-              위 <strong>공동사택</strong> 또는 <strong>관사</strong> 버튼을
-              누르면 각 항목의 상세 현황을 확인할 수 있습니다.
-            </p>
-          </div>
-        )}
-
-        {tab === "shared" && (
-          <div className="gwansa-panel">
-            <div className="panel-head">
-              <h4>공동사택 현황</h4>
-              <span className="panel-base">{sharedBase}</span>
-            </div>
-            <DataTable data={bundle.shared} />
-          </div>
-        )}
-
-        {tab === "gwansa" && (
-          <div className="gwansa-panel">
-            <div className="panel-head">
-              <h4>관사 현황</h4>
-              <span className="panel-base">{gwansaBase}</span>
-            </div>
-            <DataTable data={bundle.gwansa} />
-          </div>
-        )}
+        <div className="detail-placeholder">
+          <p className="detail-placeholder-title">준비 중입니다</p>
+          <p>
+            «{item.title}» 관련 자료와 기능이 이곳에 추가될 예정입니다.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -250,72 +271,35 @@ function NoticesSection() {
   );
 }
 
-function useHashRoute() {
-  const [hash, setHash] = useState(() => window.location.hash);
-  useEffect(() => {
-    const onChange = () => setHash(window.location.hash);
-    window.addEventListener("hashchange", onChange);
-    return () => window.removeEventListener("hashchange", onChange);
-  }, []);
-  return hash;
-}
+function CategorySection({ category }: { category: CatalogCategory }) {
+  return (
+    <section className="banner" id={category.sectionId}>
+      <div className="section-inner">
+        <div className="section-heading">
+          <p>{category.label}</p>
+          <h3>{category.heading}</h3>
+        </div>
 
-function App() {
-  const [page, setPage] = useState<"home" | "gwansa">("home");
-  const hash = useHashRoute();
-
-  if (hash.startsWith("#admin")) {
-    return (
-      <AdminPage
-        onExit={() => {
-          window.location.hash = "";
-        }}
-      />
-    );
-  }
-
-  if (page === "gwansa") {
-    return (
-      <div className="app">
-        <header className="header">
-          <div className="header-inner">
+        <div className="service-grid">
+          {category.items.map((item) => (
             <button
               type="button"
-              className="logo-area"
-              onClick={() => setPage("home")}
+              className="service-card"
+              key={item.slug}
+              onClick={() => openItem(item.slug)}
             >
-              <img
-                className="logo-mark"
-                src="/logo.png"
-                alt="안성교육지원청"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                }}
-              />
-              <span className="logo">안성교육지원청 행정업무지원기</span>
+              <span className="service-title">{item.title}</span>
+              <span className="service-description">{item.description}</span>
+              <span className="service-arrow">→</span>
             </button>
-            <nav className="navigation">
-              <a href="#home" onClick={() => setPage("home")}>
-                홈
-              </a>
-            </nav>
-          </div>
-        </header>
-
-        <main>
-          <GwansaView onBack={() => setPage("home")} />
-        </main>
-
-        <footer className="footer">
-          <div className="footer-inner">
-            <strong>안성교육지원청 행정업무지원기</strong>
-            <p>본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.</p>
-          </div>
-        </footer>
+          ))}
+        </div>
       </div>
-    );
-  }
+    </section>
+  );
+}
 
+function HomePage() {
   return (
     <div className="app">
       <header className="header">
@@ -334,9 +318,11 @@ function App() {
 
           <nav className="navigation">
             <a href="#home">홈</a>
-            <a href="#work-areas">업무</a>
-            <a href="#work-guides">업무 지침</a>
-            <a href="#anseong-life">생활 정보</a>
+            {catalog.map((c) => (
+              <a key={c.key} href={`#${c.sectionId}`}>
+                {c.label}
+              </a>
+            ))}
           </nav>
         </div>
       </header>
@@ -367,91 +353,60 @@ function App() {
 
         <NoticesSection />
 
-        <section className="banner" id="work-areas">
-          <div className="section-inner">
-            <div className="section-heading">
-              <p>업무</p>
-              <h3>회계·예산·급여 업무</h3>
-            </div>
-
-            <div className="service-grid">
-              {workAreas.map((area) => (
-                <button type="button" className="service-card" key={area.title}>
-                  <span className="service-title">{area.title}</span>
-                  <span className="service-description">
-                    {area.description}
-                  </span>
-                  <span className="service-arrow">→</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="banner" id="work-guides">
-          <div className="section-inner">
-            <div className="section-heading">
-              <p>업무</p>
-              <h3>신규자를 위한 업무 지침</h3>
-            </div>
-
-            <div className="service-grid">
-              {workGuides.map((guide) => (
-                <button type="button" className="service-card" key={guide.title}>
-                  <span className="service-title">{guide.title}</span>
-                  <span className="service-description">
-                    {guide.description}
-                  </span>
-                  <span className="service-arrow">→</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="banner" id="anseong-life">
-          <div className="section-inner">
-            <div className="section-heading">
-              <p>생활</p>
-              <h3>신규자를 위한 안성 생활 정보</h3>
-            </div>
-
-            <div className="service-grid">
-              {anseongLife.map((item) => (
-                <button
-                  type="button"
-                  className="service-card"
-                  key={item.title}
-                  onClick={
-                    item.page === "gwansa"
-                      ? () => setPage("gwansa")
-                      : undefined
-                  }
-                >
-                  <span className="service-title">{item.title}</span>
-                  <span className="service-description">
-                    {item.description}
-                  </span>
-                  <span className="service-arrow">→</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        {catalog.map((category) => (
+          <CategorySection key={category.key} category={category} />
+        ))}
       </main>
 
       <footer className="footer">
         <div className="footer-inner">
           <strong>안성교육지원청 행정업무지원기</strong>
           <p>본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.</p>
-          <a className="admin-link" href="#admin">
+          <a className="admin-link" href="#/admin">
             관리자
           </a>
         </div>
       </footer>
     </div>
   );
+}
+
+function useHashRoute() {
+  const [hash, setHash] = useState(() => window.location.hash);
+  useEffect(() => {
+    const onChange = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", onChange);
+    return () => window.removeEventListener("hashchange", onChange);
+  }, []);
+  return hash;
+}
+
+function App() {
+  const hash = useHashRoute();
+
+  // 관리자 (#/admin 또는 이전 #admin 호환)
+  if (hash.startsWith("#/admin") || hash.startsWith("#admin")) {
+    return <AdminPage onExit={goHome} />;
+  }
+
+  // 상세 페이지 (#/i/{slug})
+  if (hash.startsWith("#/i/")) {
+    const slug = decodeURIComponent(hash.slice("#/i/".length));
+    const found = findItem(slug);
+    if (found) {
+      return (
+        <DetailShell>
+          {found.item.special === "gwansa" ? (
+            <GwansaView />
+          ) : (
+            <DetailPage item={found.item} category={found.category} />
+          )}
+        </DetailShell>
+      );
+    }
+  }
+
+  return <HomePage />;
 }
 
 export default App;

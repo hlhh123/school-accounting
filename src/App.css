@@ -92,6 +92,18 @@ a {
   color: #000000;
 }
 
+.nav-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #444444;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: #000000;
+}
+
 .hero {
   background:
     radial-gradient(
@@ -322,6 +334,52 @@ a {
 
 .quick-links button:hover {
   border-color: #999999;
+}
+
+/* 상세 페이지(일반 항목) */
+.detail {
+  padding: 60px 0 120px;
+}
+
+.detail-heading {
+  margin: 26px 0 40px;
+}
+
+.detail-heading p {
+  margin: 0 0 12px;
+  color: #777777;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.detail-heading h3 {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: -1.4px;
+}
+
+.detail-desc {
+  margin: 16px 0 0 !important;
+  color: #666666 !important;
+  font-size: 17px;
+  font-weight: 400 !important;
+}
+
+.detail-placeholder {
+  padding: 60px 34px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  text-align: center;
+  color: #888888;
+  line-height: 1.7;
+}
+
+.detail-placeholder-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #555555;
 }
 
 /* 관사현황 상세 화면 */

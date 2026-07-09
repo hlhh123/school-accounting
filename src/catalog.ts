@@ -1,0 +1,106 @@
+// 메인화면 분류(카테고리 → 항목) 구조.
+// 이 구조가 홈 화면 섹션과 상세 페이지 라우팅의 기준이 됩니다.
+// 앞으로 백엔드/콘텐츠는 각 항목(slug) 단위로 붙이면 됩니다.
+
+export type CatalogItem = {
+  slug: string;
+  title: string;
+  description: string;
+  special?: "gwansa"; // 전용 화면이 있는 항목
+};
+
+export type CatalogCategory = {
+  key: string;
+  sectionId: string; // 홈 화면 앵커(스크롤) id
+  label: string; // 작은 라벨 / 상세 페이지 분류 표시
+  heading: string; // 섹션 제목
+  items: CatalogItem[];
+};
+
+export const catalog: CatalogCategory[] = [
+  {
+    key: "work",
+    sectionId: "work-areas",
+    label: "업무",
+    heading: "회계·예산·급여 업무",
+    items: [
+      {
+        slug: "accounting",
+        title: "회계",
+        description: "학교회계 예산·지출·결산 업무를 확인합니다.",
+      },
+      {
+        slug: "budget",
+        title: "예산",
+        description: "예산 편성과 집행 업무를 확인합니다.",
+      },
+      {
+        slug: "salary-official",
+        title: "공무원급여",
+        description: "공무원 급여·수당 업무를 확인합니다.",
+      },
+      {
+        slug: "salary-worker",
+        title: "공무직급여",
+        description: "공무직 급여·수당 업무를 확인합니다.",
+      },
+    ],
+  },
+  {
+    key: "guide",
+    sectionId: "work-guides",
+    label: "업무 지침",
+    heading: "신규자를 위한 업무 지침",
+    items: [
+      {
+        slug: "official-docs",
+        title: "공문서 작성법",
+        description: "공문서 작성 기준과 예시를 확인합니다.",
+      },
+      {
+        slug: "approval",
+        title: "품의방법",
+        description: "품의서 작성과 결재 절차를 안내합니다.",
+      },
+      {
+        slug: "payroll-setup",
+        title: "급여업무 세팅방법",
+        description: "급여업무 초기 설정 방법을 안내합니다.",
+      },
+    ],
+  },
+  {
+    key: "life",
+    sectionId: "anseong-life",
+    label: "생활 정보",
+    heading: "신규자를 위한 안성 생활 정보",
+    items: [
+      {
+        slug: "gwansa",
+        title: "관사",
+        description: "공동사택·관사 입주 현황을 확인합니다.",
+        special: "gwansa",
+      },
+      {
+        slug: "food",
+        title: "맛집",
+        description: "안성 지역 추천 맛집을 확인합니다.",
+      },
+      {
+        slug: "board",
+        title: "자유게시판",
+        description: "자유롭게 정보를 나누는 공간입니다.",
+      },
+    ],
+  },
+];
+
+export function findItem(
+  slug: string,
+): { item: CatalogItem; category: CatalogCategory } | null {
+  for (const category of catalog) {
+    const item = category.items.find((i) => i.slug === slug);
+    if (item) return { item, category };
+  }
+  return null;
+}
