@@ -323,11 +323,7 @@ function HomePage() {
           <div className="hero-split-inner">
             <div className="hero-left">
               <p className="hero-label">안성교육지원청</p>
-              <h2>
-                새내기를 위한
-                <br />
-                길잡이
-              </h2>
+              <h2>새내기를 위한 길잡이</h2>
               <p className="hero-sub">
                 처음 오신 분들도 쉽게 업무를 시작할 수 있도록,
                 <br />
