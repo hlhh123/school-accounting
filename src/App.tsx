@@ -6,6 +6,7 @@ import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaDat
 import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
 import { matjibRegions, type MatjibRegion } from "./matjibData";
 import { fetchMatjibRegions } from "./lib/matjib";
+import { DutyCalendarPanel, DutyCalendarView } from "./DutyCalendarUI";
 import {
   catalog,
   findItem,
@@ -420,7 +421,7 @@ function HomePage() {
             </div>
 
             <div className="hero-right">
-              <NoticesPanel />
+              <DutyCalendarPanel />
             </div>
           </div>
         </section>
@@ -428,6 +429,12 @@ function HomePage() {
         {catalog.map((category) => (
           <CategorySection key={category.key} category={category} />
         ))}
+
+        <section className="banner">
+          <div className="section-inner">
+            <NoticesPanel />
+          </div>
+        </section>
       </main>
 
       <footer className="footer">
@@ -459,6 +466,15 @@ function App() {
   // 관리자 (#/admin 또는 이전 #admin 호환)
   if (hash.startsWith("#/admin") || hash.startsWith("#admin")) {
     return <AdminPage onExit={goHome} />;
+  }
+
+  // 직무달력 (#/calendar)
+  if (hash.startsWith("#/calendar")) {
+    return (
+      <DetailShell>
+        <DutyCalendarView />
+      </DetailShell>
+    );
   }
 
   // 상세 페이지 (#/i/{slug})
