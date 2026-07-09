@@ -241,7 +241,7 @@ function NoticeManager() {
 function AdminPlaceholder({ slug }: { slug: string }) {
   const found = findItem(slug);
   const title = found?.item.title ?? slug;
-  const label = found?.category.label ?? "";
+  const label = found?.crumb ?? "";
   return (
     <div className="admin-panel">
       <div className="admin-panel-head">

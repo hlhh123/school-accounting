@@ -184,13 +184,7 @@ function GwansaView() {
 }
 
 // 일반 항목의 상세 페이지(추후 백엔드/콘텐츠 연결 지점)
-function DetailPage({
-  item,
-  category,
-}: {
-  item: CatalogItem;
-  category: CatalogCategory;
-}) {
+function DetailPage({ item, crumb }: { item: CatalogItem; crumb: string }) {
   return (
     <section className="detail">
       <div className="section-inner">
@@ -199,16 +193,48 @@ function DetailPage({
         </button>
 
         <div className="detail-heading">
-          <p>{category.label}</p>
+          <p>{crumb}</p>
           <h3>{item.title}</h3>
           <p className="detail-desc">{item.description}</p>
         </div>
 
         <div className="detail-placeholder">
           <p className="detail-placeholder-title">준비 중입니다</p>
-          <p>
-            «{item.title}» 관련 자료와 기능이 이곳에 추가될 예정입니다.
-          </p>
+          <p>«{item.title}» 관련 자료와 기능이 이곳에 추가될 예정입니다.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// 하위 카테고리가 있는 항목(예: 계약)의 목록 페이지
+function SubCategoryPage({ item, crumb }: { item: CatalogItem; crumb: string }) {
+  return (
+    <section className="detail">
+      <div className="section-inner">
+        <button type="button" className="back-link" onClick={goHome}>
+          ← 홈으로 돌아가기
+        </button>
+
+        <div className="detail-heading">
+          <p>{crumb}</p>
+          <h3>{item.title}</h3>
+          <p className="detail-desc">{item.description}</p>
+        </div>
+
+        <div className="service-grid">
+          {item.children?.map((child) => (
+            <button
+              type="button"
+              className="service-card"
+              key={child.slug}
+              onClick={() => openItem(child.slug)}
+            >
+              <span className="service-title">{child.title}</span>
+              <span className="service-description">{child.description}</span>
+              <span className="service-arrow">→</span>
+            </button>
+          ))}
         </div>
       </div>
     </section>
@@ -488,8 +514,10 @@ function App() {
             <GwansaView />
           ) : found.item.special === "food" ? (
             <MatjibView />
+          ) : found.item.children?.length ? (
+            <SubCategoryPage item={found.item} crumb={found.crumb} />
           ) : (
-            <DetailPage item={found.item} category={found.category} />
+            <DetailPage item={found.item} crumb={found.crumb} />
           )}
         </DetailShell>
       );

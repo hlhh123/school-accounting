@@ -7,6 +7,7 @@ export type CatalogItem = {
   title: string;
   description: string;
   special?: "gwansa" | "food"; // 전용 화면이 있는 항목
+  children?: CatalogItem[]; // 하위 카테고리가 있는 항목 (예: 계약 → 공사/물품/용역/급식)
 };
 
 export type CatalogCategory = {
@@ -23,17 +24,44 @@ export const catalog: CatalogCategory[] = [
     key: "work",
     sectionId: "work-areas",
     label: "업무",
-    heading: "회계·예산·급여 업무",
+    heading: "지출·계약·급여 업무",
     items: [
       {
-        slug: "accounting",
-        title: "회계",
-        description: "학교회계 예산·지출·결산 업무를 확인합니다.",
+        slug: "expense",
+        title: "지출",
+        description: "지출 원인행위·품의·정산 등 지출 업무를 안내합니다.",
       },
       {
-        slug: "budget",
-        title: "예산",
-        description: "예산 편성과 집행 업무를 확인합니다.",
+        slug: "contract",
+        title: "계약",
+        description: "공사·물품·용역·급식 계약 업무를 안내합니다.",
+        children: [
+          {
+            slug: "contract-construction",
+            title: "공사",
+            description: "공사 계약 절차와 기준을 안내합니다.",
+          },
+          {
+            slug: "contract-goods",
+            title: "물품",
+            description: "물품 구매 계약 절차를 안내합니다.",
+          },
+          {
+            slug: "contract-service",
+            title: "용역",
+            description: "용역 계약 절차를 안내합니다.",
+          },
+          {
+            slug: "contract-meal",
+            title: "급식",
+            description: "급식 관련 계약 절차를 안내합니다.",
+          },
+        ],
+      },
+      {
+        slug: "property",
+        title: "물품재산",
+        description: "물품·재산의 취득·관리·처분을 안내합니다.",
       },
       {
         slug: "salary-official",
@@ -138,12 +166,18 @@ export const catalog: CatalogCategory[] = [
   },
 ];
 
+// 항목(및 하위 카테고리)을 찾아 반환. crumb 은 상세 페이지에 표시할 분류명.
 export function findItem(
   slug: string,
-): { item: CatalogItem; category: CatalogCategory } | null {
+): { item: CatalogItem; crumb: string } | null {
   for (const category of catalog) {
-    const item = category.items.find((i) => i.slug === slug);
-    if (item) return { item, category };
+    for (const item of category.items) {
+      if (item.slug === slug) return { item, crumb: category.label };
+      if (item.children) {
+        const child = item.children.find((c) => c.slug === slug);
+        if (child) return { item: child, crumb: item.title };
+      }
+    }
   }
   return null;
 }
