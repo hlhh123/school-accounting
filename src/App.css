@@ -524,12 +524,19 @@ a {
 }
 
 .notice-item {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.notice-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
+  width: 100%;
   padding: 22px 0;
-  border-bottom: 1px solid #e5e5e5;
+  background: transparent;
+  border: 0;
+  text-align: left;
 }
 
 .notice-title {
@@ -537,6 +544,30 @@ a {
   font-size: 18px;
   font-weight: 700;
   color: #111111;
+}
+
+.notice-header:hover .notice-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.notice-meta {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 14px;
+}
+
+.notice-caret {
+  color: #999999;
+  font-size: 20px;
+  line-height: 1;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease;
+}
+
+.notice-caret.is-open {
+  transform: rotate(-90deg);
 }
 
 .notice-pin {
@@ -552,15 +583,15 @@ a {
 }
 
 .notice-body {
-  margin: 8px 0 0;
+  margin: 0 0 4px;
+  padding: 4px 0 22px;
   color: #666666;
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.75;
   white-space: pre-wrap;
 }
 
 .notice-date {
-  flex-shrink: 0;
   color: #999999;
   font-size: 13px;
 }

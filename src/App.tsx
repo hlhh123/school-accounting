@@ -183,6 +183,7 @@ function GwansaView({ onBack }: { onBack: () => void }) {
 
 function NoticesSection() {
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [openId, setOpenId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchNotices()
@@ -191,6 +192,8 @@ function NoticesSection() {
   }, []);
 
   if (notices.length === 0) return null;
+
+  const toggle = (id: string) => setOpenId((prev) => (prev === id ? null : id));
 
   return (
     <section className="banner" id="notices">
@@ -201,20 +204,36 @@ function NoticesSection() {
         </div>
 
         <ul className="notice-list">
-          {notices.map((n) => (
-            <li key={n.id} className="notice-item">
-              <div className="notice-main">
-                <p className="notice-title">
-                  {n.pinned && <span className="notice-pin">고정</span>}
-                  {n.title}
-                </p>
-                {n.body && <p className="notice-body">{n.body}</p>}
-              </div>
-              <span className="notice-date">
-                {new Date(n.created_at).toLocaleDateString("ko-KR")}
-              </span>
-            </li>
-          ))}
+          {notices.map((n) => {
+            const open = openId === n.id;
+            return (
+              <li key={n.id} className="notice-item">
+                <button
+                  type="button"
+                  className="notice-header"
+                  onClick={() => toggle(n.id)}
+                  aria-expanded={open}
+                >
+                  <span className="notice-title">
+                    {n.pinned && <span className="notice-pin">고정</span>}
+                    {n.title}
+                  </span>
+                  <span className="notice-meta">
+                    <span className="notice-date">
+                      {new Date(n.created_at).toLocaleDateString("ko-KR")}
+                    </span>
+                    <span
+                      className={`notice-caret${open ? " is-open" : ""}`}
+                      aria-hidden="true"
+                    >
+                      ›
+                    </span>
+                  </span>
+                </button>
+                {open && n.body && <p className="notice-body">{n.body}</p>}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
