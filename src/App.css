@@ -769,6 +769,10 @@ a {
   background: #ffffff;
 }
 
+.cal-day:not(.is-today):hover {
+  box-shadow: inset 0 0 0 1.5px #111111;
+}
+
 /* 홈 우측 직무달력 패널 */
 .duty-panel {
   padding: 22px 24px;
