@@ -770,7 +770,7 @@ a {
 }
 
 .cal-day:not(.is-today):hover {
-  box-shadow: inset 0 0 0 1.5px #111111;
+  box-shadow: inset 0 0 0 1.5px #a8c5e0;
 }
 
 /* 홈 우측 직무달력 패널 */
