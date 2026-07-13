@@ -12,6 +12,13 @@ import {
   deleteNotice,
   type Notice,
 } from "./lib/notices";
+import {
+  fetchAllDocs,
+  uploadDocument,
+  deleteDocument,
+  EXPENSE_CATEGORIES,
+  type Doc,
+} from "./lib/documents";
 
 function AdminHeader({ onExit }: { onExit: () => void }) {
   return (
@@ -238,6 +245,159 @@ function NoticeManager() {
   );
 }
 
+function DocumentManager() {
+  const [docs, setDocs] = useState<Doc[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [category, setCategory] = useState<string>(EXPENSE_CATEGORIES[0]);
+  const [name, setName] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [fileKey, setFileKey] = useState(0); // input 초기화용
+
+  const reload = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      setDocs(await fetchAllDocs("expense"));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "불러오기 실패");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    reload();
+  }, []);
+
+  const onPickFile = (f: File | null) => {
+    setFile(f);
+    // 제목을 비워뒀다면 파일명(확장자 제외)으로 기본값 채우기
+    if (f && !name.trim()) {
+      setName(f.name.replace(/\.[^.]+$/, ""));
+    }
+  };
+
+  const upload = async () => {
+    if (!file) {
+      setError("업로드할 파일을 선택해 주세요.");
+      return;
+    }
+    if (!name.trim()) {
+      setError("제목을 입력해 주세요.");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      await uploadDocument({ guide: "expense", category, name, file });
+      setName("");
+      setFile(null);
+      setFileKey((k) => k + 1);
+      await reload();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "업로드 실패");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const remove = async (doc: Doc) => {
+    if (!window.confirm(`'${doc.name}' 파일을 삭제할까요?`)) return;
+    setError("");
+    try {
+      await deleteDocument(doc);
+      await reload();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "삭제 실패");
+    }
+  };
+
+  return (
+    <div className="admin-panel">
+      <div className="admin-panel-head">
+        <h3>지출 자료실</h3>
+      </div>
+
+      <p className="admin-empty" style={{ marginTop: 0 }}>
+        업로드한 파일은 지출 페이지의 선택한 분류 아래에 표시됩니다.
+      </p>
+
+      {error && <p className="admin-error">{error}</p>}
+
+      <div className="admin-editor">
+        <label>
+          분류
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {EXPENSE_CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          제목
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="화면에 표시할 제목"
+          />
+        </label>
+        <label>
+          파일
+          <input
+            key={fileKey}
+            type="file"
+            accept=".pdf,.hwp,.hwpx"
+            onChange={(e) => onPickFile(e.target.files?.[0] ?? null)}
+          />
+        </label>
+        <div className="admin-editor-actions">
+          <button
+            type="button"
+            className="admin-primary"
+            onClick={upload}
+            disabled={busy}
+          >
+            {busy ? "업로드 중…" : "업로드"}
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <p>불러오는 중…</p>
+      ) : docs.length === 0 ? (
+        <p className="admin-empty">업로드된 파일이 없습니다.</p>
+      ) : (
+        <ul className="admin-list">
+          {docs.map((d) => (
+            <li key={d.id}>
+              <div>
+                <strong>
+                  <span className="admin-pin">{d.category}</span>
+                  {d.name}
+                </strong>
+                <p>{d.kind.toUpperCase()}</p>
+              </div>
+              <div className="admin-list-actions">
+                <button type="button" onClick={() => remove(d)}>
+                  삭제
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 function AdminPlaceholder({ slug }: { slug: string }) {
   const found = findItem(slug);
   const title = found?.item.title ?? slug;
@@ -285,6 +445,13 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           >
             직무달력
           </button>
+          <button
+            type="button"
+            className={`admin-nav-item${selected === "expense-docs" ? " is-active" : ""}`}
+            onClick={() => setSelected("expense-docs")}
+          >
+            지출 자료실
+          </button>
 
           {catalog.map((cat) => (
             <div className="admin-nav-group" key={cat.key}>
@@ -310,6 +477,8 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             <NoticeManager />
           ) : selected === "calendar" ? (
             <DutyAdmin />
+          ) : selected === "expense-docs" ? (
+            <DocumentManager />
           ) : selected === "gwansa" ? (
             <GwansaAdmin />
           ) : selected === "food" ? (

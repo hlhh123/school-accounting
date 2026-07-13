@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Block, Guide } from "./guides";
 import type { CatalogItem } from "./catalog";
+import {
+  fetchDocsByCategory,
+  publicUrl,
+  downloadName,
+  type Doc,
+} from "./lib/documents";
 
 function TermsBlock({ items }: { items: { term: string; desc: string }[] }) {
   return (
@@ -100,6 +106,38 @@ function QaBlock({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
+function FileLink({
+  href,
+  download,
+  name,
+  kind,
+}: {
+  href: string;
+  download: string;
+  name: string;
+  kind: "pdf" | "hwp";
+}) {
+  return (
+    <li>
+      <a
+        className="g-file"
+        href={href}
+        download={download}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span className={`g-file-kind g-file-${kind}`}>
+          {kind.toUpperCase()}
+        </span>
+        <span className="g-file-name">{name}</span>
+        <span className="g-file-open" aria-hidden>
+          ↗
+        </span>
+      </a>
+    </li>
+  );
+}
+
 function FilesBlock({
   items,
 }: {
@@ -113,23 +151,13 @@ function FilesBlock({
   return (
     <ul className="g-files">
       {items.map((f, i) => (
-        <li key={i}>
-          <a
-            className="g-file"
-            href={`${import.meta.env.BASE_URL}docs/expense/${f.file}`}
-            download={f.download}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className={`g-file-kind g-file-${f.kind}`}>
-              {f.kind.toUpperCase()}
-            </span>
-            <span className="g-file-name">{f.name}</span>
-            <span className="g-file-open" aria-hidden>
-              ↗
-            </span>
-          </a>
-        </li>
+        <FileLink
+          key={i}
+          href={`${import.meta.env.BASE_URL}docs/expense/${f.file}`}
+          download={f.download}
+          name={f.name}
+          kind={f.kind}
+        />
       ))}
     </ul>
   );
@@ -173,11 +201,31 @@ export default function GuideView({
   item,
   crumb,
   guide,
+  docGuideKey,
 }: {
   item: CatalogItem;
   crumb: string;
   guide: Guide;
+  // 값이 있으면 해당 slug 로 업로드된 자료(Supabase)를 분류별로 병합 표시
+  docGuideKey?: string;
 }) {
+  const [docs, setDocs] = useState<Record<string, Doc[]>>({});
+
+  useEffect(() => {
+    if (!docGuideKey) return;
+    let alive = true;
+    fetchDocsByCategory(docGuideKey)
+      .then((grouped) => {
+        if (alive) setDocs(grouped);
+      })
+      .catch(() => {
+        /* 자료실 미설정/오류 시 정적 목록만 표시 */
+      });
+    return () => {
+      alive = false;
+    };
+  }, [docGuideKey]);
+
   return (
     <section className="guide">
       <div className="section-inner">
@@ -198,14 +246,30 @@ export default function GuideView({
           {guide.source && <p className="guide-source">출처: {guide.source}</p>}
         </div>
 
-        {guide.sections.map((sec) => (
-          <div key={sec.title} className="guide-section">
-            <h4 className="guide-section-title">{sec.title}</h4>
-            {sec.blocks.map((b, i) => (
-              <BlockView key={i} block={b} />
-            ))}
-          </div>
-        ))}
+        {guide.sections.map((sec) => {
+          const extra = docs[sec.title] ?? [];
+          return (
+            <div key={sec.title} className="guide-section">
+              <h4 className="guide-section-title">{sec.title}</h4>
+              {sec.blocks.map((b, i) => (
+                <BlockView key={i} block={b} />
+              ))}
+              {extra.length > 0 && (
+                <ul className="g-files">
+                  {extra.map((d) => (
+                    <FileLink
+                      key={d.id}
+                      href={publicUrl(d.file_path)}
+                      download={downloadName(d)}
+                      name={d.name}
+                      kind={d.kind}
+                    />
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        })}
 
         {item.children && item.children.length > 0 && (
           <div className="guide-sub">
