@@ -860,14 +860,20 @@ a {
   border-top: 1px solid #e5e5e5;
 }
 
+.board-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eeeeee;
+}
+
 .board-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   padding: 15px 4px;
   border: 0;
-  border-bottom: 1px solid #eeeeee;
   background: none;
   text-align: left;
   cursor: pointer;
@@ -876,6 +882,26 @@ a {
 
 .board-item:hover {
   background: #fafafa;
+}
+
+.board-del {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  margin-left: 8px;
+  border: 1px solid #eecccc;
+  border-radius: 8px;
+  background: #fff5f5;
+  color: #d64541;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.board-del:hover {
+  background: #d64541;
+  color: #ffffff;
+  border-color: #d64541;
 }
 
 .board-seq {

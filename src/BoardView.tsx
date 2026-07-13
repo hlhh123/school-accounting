@@ -3,14 +3,17 @@ import {
   fetchPosts,
   createPost,
   updatePost,
+  deletePost,
   type BoardPost,
 } from "./lib/board";
+import { useAdminAuth } from "./lib/useAdminAuth";
 
 function goHome() {
   window.location.hash = "";
 }
 
 export default function BoardView() {
+  const { isLoggedIn } = useAdminAuth(); // 관리자 로그인 시 삭제 버튼 노출
   const [posts, setPosts] = useState<BoardPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -40,6 +43,18 @@ export default function BoardView() {
   useEffect(() => {
     reload();
   }, []);
+
+  const remove = async (p: BoardPost) => {
+    if (!window.confirm(`#${p.seq} 게시글을 삭제할까요?`)) return;
+    setError("");
+    try {
+      await deletePost(p.id);
+      if (selected?.id === p.id) setSelected(null);
+      await reload();
+    } catch {
+      setError("삭제할 수 없습니다. (관리자 로그인이 필요합니다)");
+    }
+  };
 
   const startWrite = () => {
     setTitle("");
@@ -257,7 +272,7 @@ export default function BoardView() {
             ) : (
               <ul className="board-list">
                 {posts.map((p) => (
-                  <li key={p.id}>
+                  <li key={p.id} className="board-row">
                     <button
                       type="button"
                       className="board-item"
@@ -266,10 +281,23 @@ export default function BoardView() {
                       <span className="board-seq">#{p.seq}</span>
                       <span className="board-badge">{p.category}</span>
                       <span className="board-title">{p.title}</span>
-                      <span className="board-arrow" aria-hidden>
-                        ›
-                      </span>
+                      {!isLoggedIn && (
+                        <span className="board-arrow" aria-hidden>
+                          ›
+                        </span>
+                      )}
                     </button>
+                    {isLoggedIn && (
+                      <button
+                        type="button"
+                        className="board-del"
+                        onClick={() => remove(p)}
+                        aria-label="게시글 삭제"
+                        title="삭제"
+                      >
+                        ✕
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
