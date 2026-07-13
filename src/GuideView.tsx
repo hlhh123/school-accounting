@@ -139,8 +139,10 @@ function FileLink({
 }
 
 function FilesBlock({
+  dir,
   items,
 }: {
+  dir?: string;
   items: {
     name: string;
     file: string;
@@ -148,12 +150,13 @@ function FilesBlock({
     kind: "pdf" | "hwp";
   }[];
 }) {
+  const base = `${import.meta.env.BASE_URL}docs/${dir ?? "expense"}/`;
   return (
     <ul className="g-files">
       {items.map((f, i) => (
         <FileLink
           key={i}
-          href={`${import.meta.env.BASE_URL}docs/expense/${f.file}`}
+          href={base + f.file}
           download={f.download}
           name={f.name}
           kind={f.kind}
@@ -186,7 +189,7 @@ function BlockView({ block }: { block: Block }) {
     case "qa":
       return <QaBlock items={block.items} />;
     case "files":
-      return <FilesBlock items={block.items} />;
+      return <FilesBlock dir={block.dir} items={block.items} />;
     case "note":
       return (
         <div className="g-callout">

@@ -11,8 +11,9 @@ export type Block =
   | { type: "note"; title?: string; text: string }
   | {
       type: "files";
-      // file: public/docs/expense/ 안의 실제 파일명(ASCII), name: 화면 표시용 제목,
-      // download: 내려받을 때 저장되는 원본 파일명(한글)
+      // dir: public/docs/ 하위 폴더명(기본 "expense"). file: 그 폴더 안의 실제 파일명(ASCII),
+      // name: 화면 표시용 제목, download: 내려받을 때 저장되는 원본 파일명(한글)
+      dir?: string;
       items: {
         name: string;
         file: string;
@@ -396,4 +397,151 @@ export const guides: Record<string, Guide> = {
 
   // 물품재산
   property: { sections: [] },
+
+  // ── 행정공통분야 ──────────────────────────────────────────────
+
+  // 복무
+  service: {
+    intro: "복무 관련 자료입니다.",
+    sections: [
+      {
+        title: "복무 자료",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "나이스 복무 연가저축 사용자 설명서",
+                file: "nice-leave-savings.pdf",
+                download: "나이스 복무 연가저축 사용자 설명서(2025.12.).pdf",
+                kind: "pdf",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 보안
+  security: {
+    intro: "정보보안·개인정보보호 관련 자료입니다.",
+    sections: [
+      {
+        title: "정보보안",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "정보보안 및 개인정보보호 교육자료",
+                file: "security-privacy-edu.hwp",
+                download: "[정보보안] 정보보안 및 개인정보보호 교육자료.hwp",
+                kind: "hwp",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 전화응대, 민원, 정보공개
+  "civil-affairs": {
+    intro: "민원(국민신문고)·정보공개 관련 자료입니다.",
+    sections: [
+      {
+        title: "국민신문고·민원",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "국민신문고 민원 처리 매뉴얼",
+                file: "sinmungo-manual.hwpx",
+                download: "[신문고] 국민신문고 민원 처리 매뉴얼(25.6.).hwpx",
+                kind: "hwp",
+              },
+              {
+                name: "국민신문고 모범 답변 표준안",
+                file: "sinmungo-answer.hwpx",
+                download: "[신문고] 국민신문고 모범 답변 표준안(26. 4.).hwpx",
+                kind: "hwp",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "정보공개",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "정보공개 결정통지 표준안",
+                file: "infodisclosure-notice.hwpx",
+                download: "[정보공개] 정보공개 결정통지 표준안(2026).hwpx",
+                kind: "hwp",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 공무원복지
+  welfare: {
+    intro: "공무원 복지제도 관련 자료입니다.",
+    sections: [
+      {
+        title: "맞춤형 복지",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "2026년 맞춤형 복지제도 업무처리 기준",
+                file: "welfare-2026.hwp",
+                download:
+                  "경기도교육복지종합센터 기획운영부_붙임1. 2026년 맞춤형 복지제도 업무처리 기준.hwp",
+                kind: "hwp",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 위원회 운영 기본 방법
+  committee: {
+    intro: "각종 위원회 설치·운영 관련 자료입니다.",
+    sections: [
+      {
+        title: "위원회 운영",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "각종 위원회 설치 및 운영 업무처리 지침(2026)",
+                file: "committee-guide-2026.hwpx",
+                download:
+                  "[지원청 위원회] 안성교육지원청 각종 위원회 설치 및 운영 업무처리 지침(2026년).hwpx",
+                kind: "hwp",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 };
