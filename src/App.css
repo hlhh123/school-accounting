@@ -419,6 +419,41 @@ a {
   font-size: 13px;
 }
 
+/* 가이드 탭 (예: 지출 → 지출서식 / 매뉴얼) */
+.guide-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.guide-tab {
+  padding: 11px 18px;
+  border: 0;
+  background: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #888888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.guide-tab:hover {
+  color: #333333;
+}
+
+.guide-tab.is-active {
+  color: #111111;
+  border-bottom-color: #111111;
+}
+
+.guide-empty {
+  margin: 8px 0 0;
+  color: #999999;
+  font-size: 15px;
+}
+
 .guide-section {
   margin-bottom: 38px;
 }

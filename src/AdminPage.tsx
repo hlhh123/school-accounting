@@ -21,18 +21,28 @@ import {
   type Doc,
 } from "./lib/documents";
 
-// 자료실 업로드를 지원하는 페이지 목록(가이드가 있는 catalog 항목 + 하위 항목)
+// 자료실 업로드를 지원하는 페이지 목록(가이드가 있는 catalog 항목 + 하위 항목).
+// 탭이 있는 가이드(예: 지출)는 탭별로 별도 업로드 대상이 됩니다.
 type DocPage = { slug: string; label: string };
+function addGuidePages(pages: DocPage[], slug: string, label: string) {
+  const g = guides[slug];
+  if (!g) return;
+  if (g.tabs && g.tabs.length > 0) {
+    g.tabs.forEach((t) =>
+      pages.push({ slug: t.docKey, label: `${label} · ${t.label}` }),
+    );
+  } else {
+    pages.push({ slug, label });
+  }
+}
 function buildDocPages(): DocPage[] {
   const pages: DocPage[] = [];
   for (const cat of catalog) {
     for (const item of cat.items) {
-      if (guides[item.slug]) pages.push({ slug: item.slug, label: item.title });
-      item.children?.forEach((ch) => {
-        if (guides[ch.slug]) {
-          pages.push({ slug: ch.slug, label: `${item.title} · ${ch.title}` });
-        }
-      });
+      addGuidePages(pages, item.slug, item.title);
+      item.children?.forEach((ch) =>
+        addGuidePages(pages, ch.slug, `${item.title} · ${ch.title}`),
+      );
     }
   }
   return pages;

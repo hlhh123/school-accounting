@@ -22,14 +22,34 @@ export type Block =
     };
 
 export type GuideSection = { title: string; blocks: Block[] };
-export type Guide = { source?: string; intro?: string; sections: GuideSection[] };
+export type GuideTab = {
+  key: string;
+  label: string;
+  // 업로드(Supabase) 네임스페이스 — 이 탭에 올린 자료는 guide=docKey 로 저장됩니다.
+  docKey: string;
+  sections: GuideSection[];
+};
+export type Guide = {
+  source?: string;
+  intro?: string;
+  sections: GuideSection[];
+  // tabs 가 있으면 GuideView 가 탭 UI 로 표시하고 각 탭의 sections 를 사용합니다.
+  tabs?: GuideTab[];
+};
 
 export const guides: Record<string, Guide> = {
   // 지출
   expense: {
     intro:
       "지출 업무에 필요한 매뉴얼·지침·서식을 분류별로 모았습니다. 항목을 클릭하면 문서를 열거나 내려받을 수 있습니다.",
-    sections: [
+    sections: [],
+    tabs: [
+      { key: "forms", label: "지출서식", docKey: "expense-forms", sections: [] },
+      {
+        key: "manual",
+        label: "매뉴얼",
+        docKey: "expense",
+        sections: [
       {
         title: "신규자 필수자료",
         blocks: [
@@ -156,6 +176,8 @@ export const guides: Record<string, Guide> = {
               },
             ],
           },
+        ],
+      },
         ],
       },
     ],

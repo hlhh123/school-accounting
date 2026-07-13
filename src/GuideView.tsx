@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Block, Guide } from "./guides";
+import type { Block, Guide, GuideSection } from "./guides";
 import type { CatalogItem } from "./catalog";
 import {
   fetchDocsByCategory,
@@ -197,6 +197,88 @@ function BlockView({ block }: { block: Block }) {
   }
 }
 
+// 정적 섹션 + 업로드 자료(docKey)를 함께 렌더합니다.
+function GuideSections({
+  sections,
+  docKey,
+}: {
+  sections: GuideSection[];
+  docKey?: string;
+}) {
+  const [docs, setDocs] = useState<Record<string, Doc[]>>({});
+
+  useEffect(() => {
+    if (!docKey) return;
+    let alive = true;
+    fetchDocsByCategory(docKey)
+      .then((grouped) => {
+        if (alive) setDocs(grouped);
+      })
+      .catch(() => {
+        /* 자료실 미설정/오류 시 정적 목록만 표시 */
+      });
+    return () => {
+      alive = false;
+    };
+  }, [docKey]);
+
+  const leftover = Object.entries(docs).filter(
+    ([cat]) => !sections.some((sec) => sec.title === cat),
+  );
+  const isEmpty = sections.length === 0 && leftover.length === 0;
+
+  return (
+    <>
+      {sections.map((sec) => {
+        const extra = docs[sec.title] ?? [];
+        return (
+          <div key={sec.title} className="guide-section">
+            <h4 className="guide-section-title">{sec.title}</h4>
+            {sec.blocks.map((b, i) => (
+              <BlockView key={i} block={b} />
+            ))}
+            {extra.length > 0 && (
+              <ul className="g-files">
+                {extra.map((d) => (
+                  <FileLink
+                    key={d.id}
+                    href={publicUrl(d.file_path)}
+                    download={downloadName(d)}
+                    name={d.name}
+                    kind={d.kind}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+        );
+      })}
+
+      {/* 정적 섹션에 없는 분류(업로드로만 만들어진 분류)를 추가 섹션으로 표시 */}
+      {leftover.map(([cat, list]) => (
+        <div key={cat} className="guide-section">
+          <h4 className="guide-section-title">{cat}</h4>
+          <ul className="g-files">
+            {list.map((d) => (
+              <FileLink
+                key={d.id}
+                href={publicUrl(d.file_path)}
+                download={downloadName(d)}
+                name={d.name}
+                kind={d.kind}
+              />
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      {isEmpty && (
+        <p className="guide-empty">아직 등록된 자료가 없습니다.</p>
+      )}
+    </>
+  );
+}
+
 export default function GuideView({
   item,
   crumb,
@@ -209,22 +291,14 @@ export default function GuideView({
   // 값이 있으면 해당 slug 로 업로드된 자료(Supabase)를 분류별로 병합 표시
   docGuideKey?: string;
 }) {
-  const [docs, setDocs] = useState<Record<string, Doc[]>>({});
-
-  useEffect(() => {
-    if (!docGuideKey) return;
-    let alive = true;
-    fetchDocsByCategory(docGuideKey)
-      .then((grouped) => {
-        if (alive) setDocs(grouped);
-      })
-      .catch(() => {
-        /* 자료실 미설정/오류 시 정적 목록만 표시 */
-      });
-    return () => {
-      alive = false;
-    };
-  }, [docGuideKey]);
+  const tabs = guide.tabs;
+  // 기본 활성 탭: 정적 콘텐츠가 있는 첫 탭(없으면 첫 탭)
+  const [activeKey, setActiveKey] = useState(() => {
+    if (!tabs || tabs.length === 0) return "";
+    const withContent = tabs.find((t) => t.sections.length > 0);
+    return (withContent ?? tabs[0]).key;
+  });
+  const activeTab = tabs?.find((t) => t.key === activeKey) ?? tabs?.[0];
 
   return (
     <section className="guide">
@@ -246,52 +320,35 @@ export default function GuideView({
           {guide.source && <p className="guide-source">출처: {guide.source}</p>}
         </div>
 
-        {guide.sections.map((sec) => {
-          const extra = docs[sec.title] ?? [];
-          return (
-            <div key={sec.title} className="guide-section">
-              <h4 className="guide-section-title">{sec.title}</h4>
-              {sec.blocks.map((b, i) => (
-                <BlockView key={i} block={b} />
+        {tabs && tabs.length > 0 ? (
+          <>
+            <div className="guide-tabs" role="tablist">
+              {tabs.map((t) => (
+                <button
+                  key={t.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={t.key === activeTab?.key}
+                  className={`guide-tab${
+                    t.key === activeTab?.key ? " is-active" : ""
+                  }`}
+                  onClick={() => setActiveKey(t.key)}
+                >
+                  {t.label}
+                </button>
               ))}
-              {extra.length > 0 && (
-                <ul className="g-files">
-                  {extra.map((d) => (
-                    <FileLink
-                      key={d.id}
-                      href={publicUrl(d.file_path)}
-                      download={downloadName(d)}
-                      name={d.name}
-                      kind={d.kind}
-                    />
-                  ))}
-                </ul>
-              )}
             </div>
-          );
-        })}
-
-        {/* 정적 섹션에 없는 분류(업로드로만 만들어진 분류)를 추가 섹션으로 표시 */}
-        {Object.entries(docs)
-          .filter(
-            ([cat]) => !guide.sections.some((sec) => sec.title === cat),
-          )
-          .map(([cat, list]) => (
-            <div key={cat} className="guide-section">
-              <h4 className="guide-section-title">{cat}</h4>
-              <ul className="g-files">
-                {list.map((d) => (
-                  <FileLink
-                    key={d.id}
-                    href={publicUrl(d.file_path)}
-                    download={downloadName(d)}
-                    name={d.name}
-                    kind={d.kind}
-                  />
-                ))}
-              </ul>
-            </div>
-          ))}
+            {activeTab && (
+              <GuideSections
+                key={activeTab.key}
+                sections={activeTab.sections}
+                docKey={activeTab.docKey}
+              />
+            )}
+          </>
+        ) : (
+          <GuideSections sections={guide.sections} docKey={docGuideKey} />
+        )}
 
         {item.children && item.children.length > 0 && (
           <div className="guide-sub">
