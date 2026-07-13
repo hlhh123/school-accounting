@@ -8,6 +8,7 @@ import { matjibRegions, type MatjibRegion } from "./matjibData";
 import { fetchMatjibRegions } from "./lib/matjib";
 import { DutyCalendarPanel, DutyCalendarView } from "./DutyCalendarUI";
 import GuideView from "./GuideView";
+import BoardView from "./BoardView";
 import { guides } from "./guides";
 import {
   catalog,
@@ -514,6 +515,8 @@ function App() {
         <DetailShell>
           {found.item.special === "gwansa" ? (
             <GwansaView />
+          ) : found.item.special === "board" ? (
+            <BoardView />
           ) : found.item.special === "food" ? (
             <MatjibView />
           ) : guides[slug] ? (

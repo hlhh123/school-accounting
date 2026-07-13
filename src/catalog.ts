@@ -6,7 +6,7 @@ export type CatalogItem = {
   slug: string;
   title: string;
   description: string;
-  special?: "gwansa" | "food"; // 전용 화면이 있는 항목
+  special?: "gwansa" | "food" | "board"; // 전용 화면이 있는 항목
   children?: CatalogItem[]; // 하위 카테고리가 있는 항목 (예: 계약 → 공사/물품/용역/급식)
 };
 
@@ -171,6 +171,7 @@ export const catalog: CatalogCategory[] = [
         slug: "board",
         title: "자유게시판",
         description: "자유롭게 정보를 나누는 공간입니다.",
+        special: "board",
       },
     ],
   },
