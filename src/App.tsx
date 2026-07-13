@@ -521,7 +521,7 @@ function App() {
               item={found.item}
               crumb={found.crumb}
               guide={guides[slug]}
-              docGuideKey={slug === "expense" ? "expense" : undefined}
+              docGuideKey={slug}
             />
           ) : found.item.children?.length ? (
             <SubCategoryPage item={found.item} crumb={found.crumb} />

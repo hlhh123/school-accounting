@@ -5,6 +5,7 @@ import GwansaAdmin from "./GwansaAdmin";
 import MatjibAdmin from "./MatjibAdmin";
 import DutyAdmin from "./DutyAdmin";
 import { catalog, findItem } from "./catalog";
+import { guides } from "./guides";
 import {
   fetchNotices,
   createNotice,
@@ -16,9 +17,26 @@ import {
   fetchAllDocs,
   uploadDocument,
   deleteDocument,
-  EXPENSE_CATEGORIES,
+  suggestedCategories,
   type Doc,
 } from "./lib/documents";
+
+// 자료실 업로드를 지원하는 페이지 목록(가이드가 있는 catalog 항목 + 하위 항목)
+type DocPage = { slug: string; label: string };
+function buildDocPages(): DocPage[] {
+  const pages: DocPage[] = [];
+  for (const cat of catalog) {
+    for (const item of cat.items) {
+      if (guides[item.slug]) pages.push({ slug: item.slug, label: item.title });
+      item.children?.forEach((ch) => {
+        if (guides[ch.slug]) {
+          pages.push({ slug: ch.slug, label: `${item.title} · ${ch.title}` });
+        }
+      });
+    }
+  }
+  return pages;
+}
 
 function AdminHeader({ onExit }: { onExit: () => void }) {
   return (
@@ -245,21 +263,27 @@ function NoticeManager() {
   );
 }
 
+const DOC_PAGES = buildDocPages();
+
 function DocumentManager() {
+  const [page, setPage] = useState<string>(DOC_PAGES[0]?.slug ?? "expense");
   const [docs, setDocs] = useState<Doc[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [category, setCategory] = useState<string>(EXPENSE_CATEGORIES[0]);
+  const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [fileKey, setFileKey] = useState(0); // input 초기화용
 
-  const reload = async () => {
+  const pageLabel =
+    DOC_PAGES.find((p) => p.slug === page)?.label ?? page;
+
+  const reload = async (slug: string) => {
     setLoading(true);
     setError("");
     try {
-      setDocs(await fetchAllDocs("expense"));
+      setDocs(await fetchAllDocs(slug));
     } catch (err) {
       setError(err instanceof Error ? err.message : "불러오기 실패");
     } finally {
@@ -268,8 +292,14 @@ function DocumentManager() {
   };
 
   useEffect(() => {
-    reload();
-  }, []);
+    reload(page);
+    setCategory("");
+  }, [page]);
+
+  // 분류 입력칸 제안: 기본 제안 + 이미 업로드된 분류
+  const categoryOptions = Array.from(
+    new Set([...suggestedCategories(page), ...docs.map((d) => d.category)]),
+  ).filter(Boolean);
 
   const onPickFile = (f: File | null) => {
     setFile(f);
@@ -288,14 +318,18 @@ function DocumentManager() {
       setError("제목을 입력해 주세요.");
       return;
     }
+    if (!category.trim()) {
+      setError("분류를 입력해 주세요.");
+      return;
+    }
     setBusy(true);
     setError("");
     try {
-      await uploadDocument({ guide: "expense", category, name, file });
+      await uploadDocument({ guide: page, category: category.trim(), name, file });
       setName("");
       setFile(null);
       setFileKey((k) => k + 1);
-      await reload();
+      await reload(page);
     } catch (err) {
       setError(err instanceof Error ? err.message : "업로드 실패");
     } finally {
@@ -308,7 +342,7 @@ function DocumentManager() {
     setError("");
     try {
       await deleteDocument(doc);
-      await reload();
+      await reload(page);
     } catch (err) {
       setError(err instanceof Error ? err.message : "삭제 실패");
     }
@@ -317,28 +351,42 @@ function DocumentManager() {
   return (
     <div className="admin-panel">
       <div className="admin-panel-head">
-        <h3>지출 자료실</h3>
+        <h3>자료실 (파일 업로드)</h3>
       </div>
 
       <p className="admin-empty" style={{ marginTop: 0 }}>
-        업로드한 파일은 지출 페이지의 선택한 분류 아래에 표시됩니다.
+        업로드한 파일은 <strong>{pageLabel}</strong> 페이지의 선택한 분류 아래에
+        표시됩니다.
       </p>
 
       {error && <p className="admin-error">{error}</p>}
 
+      <datalist id="doc-category-options">
+        {categoryOptions.map((c) => (
+          <option key={c} value={c} />
+        ))}
+      </datalist>
+
       <div className="admin-editor">
         <label>
-          분류
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {EXPENSE_CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
+          페이지
+          <select value={page} onChange={(e) => setPage(e.target.value)}>
+            {DOC_PAGES.map((p) => (
+              <option key={p.slug} value={p.slug}>
+                {p.label}
               </option>
             ))}
           </select>
+        </label>
+        <label>
+          분류
+          <input
+            type="text"
+            list="doc-category-options"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="예: 매뉴얼·지침 (직접 입력 가능)"
+          />
         </label>
         <label>
           제목
@@ -373,7 +421,7 @@ function DocumentManager() {
       {loading ? (
         <p>불러오는 중…</p>
       ) : docs.length === 0 ? (
-        <p className="admin-empty">업로드된 파일이 없습니다.</p>
+        <p className="admin-empty">이 페이지에 업로드된 파일이 없습니다.</p>
       ) : (
         <ul className="admin-list">
           {docs.map((d) => (
@@ -450,7 +498,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             className={`admin-nav-item${selected === "expense-docs" ? " is-active" : ""}`}
             onClick={() => setSelected("expense-docs")}
           >
-            지출 자료실
+            자료실
           </button>
 
           {catalog.map((cat) => (

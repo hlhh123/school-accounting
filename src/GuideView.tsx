@@ -271,6 +271,28 @@ export default function GuideView({
           );
         })}
 
+        {/* 정적 섹션에 없는 분류(업로드로만 만들어진 분류)를 추가 섹션으로 표시 */}
+        {Object.entries(docs)
+          .filter(
+            ([cat]) => !guide.sections.some((sec) => sec.title === cat),
+          )
+          .map(([cat, list]) => (
+            <div key={cat} className="guide-section">
+              <h4 className="guide-section-title">{cat}</h4>
+              <ul className="g-files">
+                {list.map((d) => (
+                  <FileLink
+                    key={d.id}
+                    href={publicUrl(d.file_path)}
+                    download={downloadName(d)}
+                    name={d.name}
+                    kind={d.kind}
+                  />
+                ))}
+              </ul>
+            </div>
+          ))}
+
         {item.children && item.children.length > 0 && (
           <div className="guide-sub">
             <h4 className="guide-section-title">세부 계약 유형</h4>

@@ -1,10 +1,10 @@
 import { supabase } from "./supabase";
 
-// 자료실이 붙는 상세 페이지 slug. 현재는 지출 페이지만 사용합니다.
+// 자료실 기능은 모든 안내 상세 페이지(guide slug)에서 사용할 수 있습니다.
 export const DOC_GUIDE = "expense";
 
-// 지출 페이지의 분류(섹션 제목) — 업로드 시 선택지로 노출됩니다.
-// guides.ts 의 지출 섹션 title 과 정확히 일치해야 화면에 자동 병합됩니다.
+// 지출 페이지의 분류(섹션 제목) — guides.ts 의 지출 섹션 title 과 정확히 일치해야
+// 화면에서 해당 섹션에 자동 병합됩니다.
 export const EXPENSE_CATEGORIES = [
   "신규자 필수자료",
   "지출·학교회계 기준",
@@ -12,6 +12,20 @@ export const EXPENSE_CATEGORIES = [
   "급여·인건비",
   "지급방법·시스템·업무개선",
 ] as const;
+
+// 그 외 페이지에서 기본으로 제안하는 분류(자유롭게 새로 입력 가능)
+export const GENERIC_CATEGORIES = [
+  "매뉴얼·지침",
+  "서식",
+  "참고자료",
+] as const;
+
+// 업로드 시 분류 입력칸에 제안할 후보 목록
+export function suggestedCategories(guide: string): string[] {
+  return guide === "expense"
+    ? [...EXPENSE_CATEGORIES]
+    : [...GENERIC_CATEGORIES];
+}
 
 const BUCKET = "documents";
 
