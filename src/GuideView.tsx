@@ -100,6 +100,41 @@ function QaBlock({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
+function FilesBlock({
+  items,
+}: {
+  items: {
+    name: string;
+    file: string;
+    download: string;
+    kind: "pdf" | "hwp";
+  }[];
+}) {
+  return (
+    <ul className="g-files">
+      {items.map((f, i) => (
+        <li key={i}>
+          <a
+            className="g-file"
+            href={`${import.meta.env.BASE_URL}docs/expense/${f.file}`}
+            download={f.download}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className={`g-file-kind g-file-${f.kind}`}>
+              {f.kind.toUpperCase()}
+            </span>
+            <span className="g-file-name">{f.name}</span>
+            <span className="g-file-open" aria-hidden>
+              ↗
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case "text":
@@ -122,6 +157,8 @@ function BlockView({ block }: { block: Block }) {
       );
     case "qa":
       return <QaBlock items={block.items} />;
+    case "files":
+      return <FilesBlock items={block.items} />;
     case "note":
       return (
         <div className="g-callout">
