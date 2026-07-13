@@ -1003,6 +1003,12 @@ a {
   word-break: break-word;
 }
 
+.board-detail-actions {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid #eeeeee;
+}
+
 .g-file-name {
   flex: 1;
   font-size: 15px;
