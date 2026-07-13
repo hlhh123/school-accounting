@@ -83,6 +83,11 @@ export const catalog: CatalogCategory[] = [
     compact: true,
     items: [
       {
+        slug: "admin-general",
+        title: "행정공통 전반",
+        description: "행정 종합 매뉴얼·성장입문서 등 전반 자료를 안내합니다.",
+      },
+      {
         slug: "service",
         title: "복무",
         description: "근무시간·휴가·출장 등 복무 기준을 안내합니다.",
@@ -106,6 +111,11 @@ export const catalog: CatalogCategory[] = [
         slug: "civil-affairs",
         title: "전화응대, 민원, 정보공개",
         description: "응대·민원 처리·정보공개 절차를 안내합니다.",
+      },
+      {
+        slug: "pr-press",
+        title: "홍보·보도",
+        description: "보도자료 서식·제출 절차 등 홍보 자료를 안내합니다.",
       },
       {
         slug: "welfare",

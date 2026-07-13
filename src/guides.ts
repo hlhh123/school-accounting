@@ -18,7 +18,7 @@ export type Block =
         name: string;
         file: string;
         download: string;
-        kind: "pdf" | "hwp";
+        kind: "pdf" | "hwp" | "doc";
       }[];
     };
 
@@ -537,6 +537,96 @@ export const guides: Record<string, Guide> = {
                 download:
                   "[지원청 위원회] 안성교육지원청 각종 위원회 설치 및 운영 업무처리 지침(2026년).hwpx",
                 kind: "hwp",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 행정공통 전반
+  "admin-general": {
+    intro: "행정공통 전반의 종합 매뉴얼·입문서·참고자료입니다.",
+    sections: [
+      {
+        title: "종합 매뉴얼·입문서",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "신규공무원을 위한 성장입문서(행정공통)",
+                file: "primer-2026.pdf",
+                download: "1. 신규공무원을 위한 성장입문서(행정공통).pdf",
+                kind: "pdf",
+              },
+              {
+                name: "2026 학교 업무매뉴얼 행정",
+                file: "admin-manual-2026.pdf",
+                download: "2026 학교 업무매뉴얼 행정 - 최종 - 수정.pdf",
+                kind: "pdf",
+              },
+              {
+                name: "2026 학교 업무매뉴얼[행정] 개정 내역(2차)",
+                file: "admin-manual-changes.pdf",
+                download:
+                  "경기도교육청 행정관리담당관_[붙임2] 2026학년도 학교 업무매뉴얼[행정] 인쇄본[책자형] 개정 내역(2차).pdf",
+                kind: "pdf",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "시스템·참고자료",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "교데통(데이터취합) 사용자 메뉴얼",
+                file: "gyodaetong-manual.pdf",
+                download: "[교데통] 데이터취합 사용자 메뉴얼.pdf",
+                kind: "pdf",
+              },
+              {
+                name: "업무에 참고하면 좋은 사이트 모음집",
+                file: "useful-sites.docx",
+                download: "업무에 참고하면 좋은 사이트 모음집.docx",
+                kind: "doc",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 홍보·보도
+  "pr-press": {
+    intro: "보도자료 작성·제출 관련 자료입니다.",
+    sections: [
+      {
+        title: "보도자료",
+        blocks: [
+          {
+            type: "files",
+            dir: "gongtong",
+            items: [
+              {
+                name: "2026 보도자료 서식",
+                file: "press-form-2026.hwp",
+                download: "[보도자료] ＃2026 보도자료 서식.hwp",
+                kind: "hwp",
+              },
+              {
+                name: "보도자료 제출절차 및 유의사항",
+                file: "press-guide.pdf",
+                download: "[보도자료] 보도자료 제출절차 및 유의사항.pdf",
+                kind: "pdf",
               },
             ],
           },

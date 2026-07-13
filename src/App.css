@@ -787,6 +787,10 @@ a {
   background: #2d6cdf;
 }
 
+.g-file-doc {
+  background: #2b579a;
+}
+
 .g-file-name {
   flex: 1;
   font-size: 15px;
