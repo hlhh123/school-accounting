@@ -428,11 +428,11 @@ a {
 }
 
 .guide-tab {
-  padding: 11px 18px;
+  padding: 12px 22px;
   border: 0;
   background: none;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: #888888;
   cursor: pointer;
   border-bottom: 2px solid transparent;
