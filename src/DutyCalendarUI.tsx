@@ -66,6 +66,7 @@ export function DutyCalendarPanel() {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
+  const todayDate = now.getDate();
   const [data, setData] = useState<Record<number, DutyTask[]>>(dutyCalendar);
   const [hoverDay, setHoverDay] = useState<number | null>(null);
 
@@ -77,8 +78,10 @@ export function DutyCalendarPanel() {
   const taskDays = new Set(
     tasks.filter((t) => t.day).map((t) => t.day as number),
   );
-  const hoverTasks =
-    hoverDay != null ? tasks.filter((t) => t.day === hoverDay) : [];
+
+  // 마우스를 올린 날이 있으면 그 날, 없으면 오늘 날짜의 일정을 보여준다
+  const briefDay = hoverDay ?? todayDate;
+  const briefTasks = tasks.filter((t) => t.day === briefDay);
 
   return (
     <div
@@ -108,28 +111,17 @@ export function DutyCalendarPanel() {
       />
 
       <ul className="duty-brief">
-        {hoverDay != null ? (
-          hoverTasks.length ? (
-            hoverTasks.map((t, i) => (
-              <li key={i}>
-                <span className="duty-brief-day">{hoverDay}일</span>
-                {t.title}
-              </li>
-            ))
-          ) : (
-            <li className="duty-empty">
-              {hoverDay}일 · 등록된 일정이 없습니다.
-            </li>
-          )
-        ) : tasks.length === 0 ? (
-          <li className="duty-empty">등록된 일정이 없습니다.</li>
-        ) : (
-          tasks.slice(0, 4).map((t, i) => (
+        {briefTasks.length ? (
+          briefTasks.map((t, i) => (
             <li key={i}>
-              {t.day && <span className="duty-brief-day">{t.day}일</span>}
+              <span className="duty-brief-day">{briefDay}일</span>
               {t.title}
             </li>
           ))
+        ) : (
+          <li className="duty-empty">
+            {briefDay}일 · 등록된 일정이 없습니다.
+          </li>
         )}
       </ul>
 
