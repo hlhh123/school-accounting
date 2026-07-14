@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { dutyCalendar, type DutyTask } from "./dutyCalendar";
 import { fetchDutyByMonth } from "./lib/duty";
 
@@ -64,42 +64,75 @@ function MonthCalendar({
 
 export function DutyCalendarPanel() {
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
   const todayDate = now.getDate();
   const [data, setData] = useState<Record<number, DutyTask[]>>(dutyCalendar);
   const [hoverDay, setHoverDay] = useState<number | null>(null);
+  // 0 = 이번 달, -1 = 전달, +1 = 다음 달 …
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     fetchDutyByMonth().then(setData);
   }, []);
+
+  // 이번 달 기준 offset 만큼 이동한 연·월 (연도 경계 자동 처리)
+  const shownDate = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+  const year = shownDate.getFullYear();
+  const month = shownDate.getMonth() + 1;
+  const isThisMonth = offset === 0;
 
   const tasks = data[month] ?? [];
   const taskDays = new Set(
     tasks.filter((t) => t.day).map((t) => t.day as number),
   );
 
-  // 마우스를 올린 날이 있으면 그 날, 없으면 오늘 날짜의 일정을 보여준다
-  const briefDay = hoverDay ?? todayDate;
-  const briefTasks = tasks.filter((t) => t.day === briefDay);
+  // 마우스를 올린 날이 있으면 그 날, 없으면 이번 달은 오늘 일정, 다른 달은 월 전체 미리보기
+  const briefDay = hoverDay ?? (isThisMonth ? todayDate : null);
+  const briefTasks =
+    briefDay != null ? tasks.filter((t) => t.day === briefDay) : tasks.slice(0, 4);
+
+  const goCalendar = () => {
+    window.location.hash = "#/calendar";
+  };
+  // 화살표 클릭이 패널 전체 클릭(달력 열기)으로 번지지 않도록 차단
+  const step = (e: MouseEvent, dir: number) => {
+    e.stopPropagation();
+    setHoverDay(null);
+    setOffset((o) => o + dir);
+  };
 
   return (
     <div
       className="duty-panel"
       role="button"
       tabIndex={0}
-      onClick={() => {
-        window.location.hash = "#/calendar";
-      }}
+      onClick={goCalendar}
       onKeyDown={(e) => {
-        if (e.key === "Enter") window.location.hash = "#/calendar";
+        if (e.key === "Enter") goCalendar();
       }}
     >
       <div className="duty-head">
         <h3>직무달력</h3>
-        <span className="duty-month">
-          {year}년 {month}월
-        </span>
+        <div className="duty-nav-inline">
+          <button
+            type="button"
+            className="duty-step"
+            aria-label="전달"
+            onClick={(e) => step(e, -1)}
+          >
+            ‹
+          </button>
+          <span className="duty-month">
+            {year}년 {month}월
+          </span>
+          <button
+            type="button"
+            className="duty-step"
+            aria-label="다음 달"
+            onClick={(e) => step(e, 1)}
+          >
+            ›
+          </button>
+        </div>
       </div>
 
       <MonthCalendar
@@ -114,18 +147,23 @@ export function DutyCalendarPanel() {
         {briefTasks.length ? (
           briefTasks.map((t, i) => (
             <li key={i}>
-              <span className="duty-brief-day">{briefDay}일</span>
+              {(briefDay ?? t.day) != null && (
+                <span className="duty-brief-day">{briefDay ?? t.day}일</span>
+              )}
               {t.title}
             </li>
           ))
         ) : (
           <li className="duty-empty">
-            {briefDay}일 · 등록된 일정이 없습니다.
+            {briefDay != null
+              ? `${briefDay}일 · 등록된 일정이 없습니다.`
+              : "등록된 일정이 없습니다."}
           </li>
         )}
       </ul>
 
       <span className="duty-more">이번 달 · 연간 일정 자세히 보기 ›</span>
+      <p className="duty-source">출처: 학습동아리 ‘상록’</p>
     </div>
   );
 }
