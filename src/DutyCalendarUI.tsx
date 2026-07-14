@@ -228,14 +228,17 @@ export function DutyCalendarView() {
         </div>
 
         <div className="duty-view-grid">
-          <div className="duty-view-cal">
-            <MonthCalendar
-              year={year}
-              month={month}
-              taskDays={taskDays}
-              onDayHover={setHoverDay}
-            />
+          <div className="duty-view-cal-col">
+            <div className="duty-view-cal">
+              <MonthCalendar
+                year={year}
+                month={month}
+                taskDays={taskDays}
+                onDayHover={setHoverDay}
+              />
+            </div>
 
+            {/* 월 선택 칩은 달력 카드 바깥, 달력 밑에 표시 */}
             <div className="duty-month-chips">
               {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
                 <button
