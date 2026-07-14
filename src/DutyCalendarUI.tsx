@@ -235,6 +235,22 @@ export function DutyCalendarView() {
               taskDays={taskDays}
               onDayHover={setHoverDay}
             />
+
+            <div className="duty-month-chips">
+              {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
+                <button
+                  type="button"
+                  key={m}
+                  className={`duty-chip${m === month ? " is-active" : ""}`}
+                  onClick={() => {
+                    setHoverDay(null);
+                    setMonth(m);
+                  }}
+                >
+                  {m}월
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="duty-view-tasks">
@@ -260,22 +276,6 @@ export function DutyCalendarView() {
                 ))}
               </ul>
             )}
-
-            <div className="duty-month-chips">
-              {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
-                <button
-                  type="button"
-                  key={m}
-                  className={`duty-chip${m === month ? " is-active" : ""}`}
-                  onClick={() => {
-                    setHoverDay(null);
-                    setMonth(m);
-                  }}
-                >
-                  {m}월
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </div>
