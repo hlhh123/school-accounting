@@ -101,16 +101,17 @@ export function DutyCalendarPanel() {
   };
 
   return (
-    <div
-      className="duty-panel"
-      role="button"
-      tabIndex={0}
-      onClick={goCalendar}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") goCalendar();
-      }}
-    >
-      <div className="duty-head">
+    <div className="duty-panel-wrap">
+      <div
+        className="duty-panel"
+        role="button"
+        tabIndex={0}
+        onClick={goCalendar}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") goCalendar();
+        }}
+      >
+        <div className="duty-head">
         <h3>직무달력</h3>
         <div className="duty-nav-inline">
           <button
@@ -162,7 +163,10 @@ export function DutyCalendarPanel() {
         )}
       </ul>
 
-      <span className="duty-more">이번 달 · 연간 일정 자세히 보기 ›</span>
+        <span className="duty-more">이번 달 · 연간 일정 자세히 보기 ›</span>
+      </div>
+
+      {/* 출처는 달력 패널(카드) 바깥, 밑에 표시 */}
       <p className="duty-source">출처: 학습동아리 ‘상록’</p>
     </div>
   );

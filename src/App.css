@@ -1227,9 +1227,9 @@ a {
 }
 
 .duty-source {
-  margin: 10px 0 0;
+  margin: 8px 4px 0;
   text-align: right;
-  color: #aaaaaa;
+  color: #111111;
   font-size: 11px;
 }
 
