@@ -27,8 +27,11 @@ export type GuideTab = {
   key: string;
   label: string;
   // 업로드(Supabase) 네임스페이스 — 이 탭에 올린 자료는 guide=docKey 로 저장됩니다.
-  docKey: string;
+  // 업로드가 없는 특수 탭(예: 계산기)은 docKey 를 두지 않습니다.
+  docKey?: string;
   sections: GuideSection[];
+  // 기본은 자료(문서) 탭. "calculator" 면 계산기 자리(준비 중)로 표시합니다.
+  kind?: "docs" | "calculator";
 };
 export type Guide = {
   source?: string;
@@ -37,6 +40,26 @@ export type Guide = {
   // tabs 가 있으면 GuideView 가 탭 UI 로 표시하고 각 탭의 sections 를 사용합니다.
   tabs?: GuideTab[];
 };
+
+// 업무·행정공통 카테고리는 기본적으로 '서식 / 매뉴얼' 탭 구조를 사용합니다(지출과 동일).
+// calculator: true 를 주면 급여용 '계산기' 빈 탭(준비 중)이 추가됩니다.
+function tabbed(
+  slug: string,
+  opts: {
+    forms?: GuideSection[];
+    manual?: GuideSection[];
+    calculator?: boolean;
+  } = {},
+): GuideTab[] {
+  const tabs: GuideTab[] = [
+    { key: "forms", label: "서식", docKey: `${slug}-forms`, sections: opts.forms ?? [] },
+    { key: "manual", label: "매뉴얼", docKey: slug, sections: opts.manual ?? [] },
+  ];
+  if (opts.calculator) {
+    tabs.push({ key: "calc", label: "계산기", sections: [], kind: "calculator" });
+  }
+  return tabs;
+}
 
 export const guides: Record<string, Guide> = {
   // 지출
@@ -47,7 +70,7 @@ export const guides: Record<string, Guide> = {
     tabs: [
       {
         key: "forms",
-        label: "지출서식",
+        label: "서식",
         docKey: "expense-forms",
         sections: [
           {
@@ -374,264 +397,311 @@ export const guides: Record<string, Guide> = {
     ],
   },
 
-  // 계약 (개요)
-  contract: { sections: [] },
+  // 계약 (개요) — 하위 유형(공사/물품/용역/급식) 카드가 함께 표시됩니다.
+  contract: { sections: [], tabs: tabbed("contract") },
 
   // 계약 > 물품
-  "contract-goods": { sections: [] },
+  "contract-goods": { sections: [], tabs: tabbed("contract-goods") },
 
   // 계약 > 공사
-  "contract-construction": { sections: [] },
+  "contract-construction": { sections: [], tabs: tabbed("contract-construction") },
 
   // 계약 > 용역
-  "contract-service": { sections: [] },
+  "contract-service": { sections: [], tabs: tabbed("contract-service") },
 
   // 계약 > 급식
-  "contract-meal": { sections: [] },
+  "contract-meal": { sections: [], tabs: tabbed("contract-meal") },
 
-  // 공무원급여 (지방공무원·교육공무원)
-  "salary-official": { sections: [] },
+  // 공무원급여 (지방공무원·교육공무원) — 서식 / 매뉴얼 / 계산기
+  "salary-official": {
+    intro: "공무원 급여·수당 관련 서식과 매뉴얼입니다. 계산기는 준비 중입니다.",
+    sections: [],
+    tabs: tabbed("salary-official", { calculator: true }),
+  },
 
-  // 공무직급여 (교육공무직원)
-  "salary-worker": { sections: [] },
+  // 공무직급여 (교육공무직원) — 서식 / 매뉴얼 / 계산기
+  "salary-worker": {
+    intro: "공무직 급여·수당 관련 서식과 매뉴얼입니다. 계산기는 준비 중입니다.",
+    sections: [],
+    tabs: tabbed("salary-worker", { calculator: true }),
+  },
 
   // 물품재산
-  property: { sections: [] },
+  property: { sections: [], tabs: tabbed("property") },
 
   // ── 행정공통분야 ──────────────────────────────────────────────
 
   // 복무
   service: {
     intro: "복무 관련 자료입니다.",
-    sections: [
-      {
-        title: "복무 자료",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "나이스 복무 연가저축 사용자 설명서",
-                file: "nice-leave-savings.pdf",
-                download: "나이스 복무 연가저축 사용자 설명서(2025.12.).pdf",
-                kind: "pdf",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    sections: [],
+    tabs: tabbed("service", {
+      manual: [
+        {
+          title: "복무 자료",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "나이스 복무 연가저축 사용자 설명서",
+                  file: "nice-leave-savings.pdf",
+                  download: "나이스 복무 연가저축 사용자 설명서(2025.12.).pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
   },
+
+  // 인사
+  personnel: { sections: [], tabs: tabbed("personnel") },
+
+  // 교육훈련
+  training: { sections: [], tabs: tabbed("training") },
 
   // 보안
   security: {
     intro: "정보보안·개인정보보호 관련 자료입니다.",
-    sections: [
-      {
-        title: "정보보안",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "정보보안 및 개인정보보호 교육자료",
-                file: "security-privacy-edu.hwp",
-                download: "[정보보안] 정보보안 및 개인정보보호 교육자료.hwp",
-                kind: "hwp",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    sections: [],
+    tabs: tabbed("security", {
+      manual: [
+        {
+          title: "정보보안",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "정보보안 및 개인정보보호 교육자료",
+                  file: "security-privacy-edu.hwp",
+                  download: "[정보보안] 정보보안 및 개인정보보호 교육자료.hwp",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
   },
 
   // 전화응대, 민원, 정보공개
   "civil-affairs": {
     intro: "민원(국민신문고)·정보공개 관련 자료입니다.",
-    sections: [
-      {
-        title: "국민신문고·민원",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "국민신문고 민원 처리 매뉴얼",
-                file: "sinmungo-manual.hwpx",
-                download: "[신문고] 국민신문고 민원 처리 매뉴얼(25.6.).hwpx",
-                kind: "hwp",
-              },
-              {
-                name: "국민신문고 모범 답변 표준안",
-                file: "sinmungo-answer.hwpx",
-                download: "[신문고] 국민신문고 모범 답변 표준안(26. 4.).hwpx",
-                kind: "hwp",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: "정보공개",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "정보공개 결정통지 표준안",
-                file: "infodisclosure-notice.hwpx",
-                download: "[정보공개] 정보공개 결정통지 표준안(2026).hwpx",
-                kind: "hwp",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  // 공무원복지
-  welfare: {
-    intro: "공무원 복지제도 관련 자료입니다.",
-    sections: [
-      {
-        title: "맞춤형 복지",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "2026년 맞춤형 복지제도 업무처리 기준",
-                file: "welfare-2026.hwp",
-                download:
-                  "경기도교육복지종합센터 기획운영부_붙임1. 2026년 맞춤형 복지제도 업무처리 기준.hwp",
-                kind: "hwp",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  // 위원회 운영 기본 방법
-  committee: {
-    intro: "각종 위원회 설치·운영 관련 자료입니다.",
-    sections: [
-      {
-        title: "위원회 운영",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "각종 위원회 설치 및 운영 업무처리 지침(2026)",
-                file: "committee-guide-2026.hwpx",
-                download:
-                  "[지원청 위원회] 안성교육지원청 각종 위원회 설치 및 운영 업무처리 지침(2026년).hwpx",
-                kind: "hwp",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  // 행정공통 전반
-  "admin-general": {
-    intro: "행정공통 전반의 종합 매뉴얼·입문서·참고자료입니다.",
-    sections: [
-      {
-        title: "종합 매뉴얼·입문서",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "신규공무원을 위한 성장입문서(행정공통)",
-                file: "primer-2026.pdf",
-                download: "1. 신규공무원을 위한 성장입문서(행정공통).pdf",
-                kind: "pdf",
-              },
-              {
-                name: "2026 학교 업무매뉴얼 행정",
-                file: "admin-manual-2026.pdf",
-                download: "2026 학교 업무매뉴얼 행정 - 최종 - 수정.pdf",
-                kind: "pdf",
-              },
-              {
-                name: "2026 학교 업무매뉴얼[행정] 개정 내역(2차)",
-                file: "admin-manual-changes.pdf",
-                download:
-                  "경기도교육청 행정관리담당관_[붙임2] 2026학년도 학교 업무매뉴얼[행정] 인쇄본[책자형] 개정 내역(2차).pdf",
-                kind: "pdf",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: "시스템·참고자료",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "교데통(데이터취합) 사용자 메뉴얼",
-                file: "gyodaetong-manual.pdf",
-                download: "[교데통] 데이터취합 사용자 메뉴얼.pdf",
-                kind: "pdf",
-              },
-              {
-                name: "업무에 참고하면 좋은 사이트 모음집",
-                file: "useful-sites.docx",
-                download: "업무에 참고하면 좋은 사이트 모음집.docx",
-                kind: "doc",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    sections: [],
+    tabs: tabbed("civil-affairs", {
+      manual: [
+        {
+          title: "국민신문고·민원",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "국민신문고 민원 처리 매뉴얼",
+                  file: "sinmungo-manual.hwpx",
+                  download: "[신문고] 국민신문고 민원 처리 매뉴얼(25.6.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "국민신문고 모범 답변 표준안",
+                  file: "sinmungo-answer.hwpx",
+                  download: "[신문고] 국민신문고 모범 답변 표준안(26. 4.).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "정보공개",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "정보공개 결정통지 표준안",
+                  file: "infodisclosure-notice.hwpx",
+                  download: "[정보공개] 정보공개 결정통지 표준안(2026).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
   },
 
   // 홍보·보도
   "pr-press": {
     intro: "보도자료 작성·제출 관련 자료입니다.",
-    sections: [
-      {
-        title: "보도자료",
-        blocks: [
-          {
-            type: "files",
-            dir: "gongtong",
-            items: [
-              {
-                name: "2026 보도자료 서식",
-                file: "press-form-2026.hwp",
-                download: "[보도자료] ＃2026 보도자료 서식.hwp",
-                kind: "hwp",
-              },
-              {
-                name: "보도자료 제출절차 및 유의사항",
-                file: "press-guide.pdf",
-                download: "[보도자료] 보도자료 제출절차 및 유의사항.pdf",
-                kind: "pdf",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    sections: [],
+    tabs: tabbed("pr-press", {
+      manual: [
+        {
+          title: "보도자료",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "2026 보도자료 서식",
+                  file: "press-form-2026.hwp",
+                  download: "[보도자료] ＃2026 보도자료 서식.hwp",
+                  kind: "hwp",
+                },
+                {
+                  name: "보도자료 제출절차 및 유의사항",
+                  file: "press-guide.pdf",
+                  download: "[보도자료] 보도자료 제출절차 및 유의사항.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
+
+  // 공무원복지
+  welfare: {
+    intro: "공무원 복지제도 관련 자료입니다.",
+    sections: [],
+    tabs: tabbed("welfare", {
+      manual: [
+        {
+          title: "맞춤형 복지",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "2026년 맞춤형 복지제도 업무처리 기준",
+                  file: "welfare-2026.hwp",
+                  download:
+                    "경기도교육복지종합센터 기획운영부_붙임1. 2026년 맞춤형 복지제도 업무처리 기준.hwp",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
+
+  // 예산 용어 설명
+  "budget-terms": { sections: [], tabs: tabbed("budget-terms") },
+
+  // 기록물관리
+  records: { sections: [], tabs: tabbed("records") },
+
+  // 시설관리
+  facility: { sections: [], tabs: tabbed("facility") },
+
+  // 공문서작성법
+  "official-docs": { sections: [], tabs: tabbed("official-docs") },
+
+  // 위원회 운영 기본 방법
+  committee: {
+    intro: "각종 위원회 설치·운영 관련 자료입니다.",
+    sections: [],
+    tabs: tabbed("committee", {
+      manual: [
+        {
+          title: "위원회 운영",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "각종 위원회 설치 및 운영 업무처리 지침(2026)",
+                  file: "committee-guide-2026.hwpx",
+                  download:
+                    "[지원청 위원회] 안성교육지원청 각종 위원회 설치 및 운영 업무처리 지침(2026년).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
+
+  // 행정공통 전반
+  "admin-general": {
+    intro: "행정공통 전반의 종합 매뉴얼·입문서·참고자료입니다.",
+    sections: [],
+    tabs: tabbed("admin-general", {
+      manual: [
+        {
+          title: "종합 매뉴얼·입문서",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "신규공무원을 위한 성장입문서(행정공통)",
+                  file: "primer-2026.pdf",
+                  download: "1. 신규공무원을 위한 성장입문서(행정공통).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "2026 학교 업무매뉴얼 행정",
+                  file: "admin-manual-2026.pdf",
+                  download: "2026 학교 업무매뉴얼 행정 - 최종 - 수정.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "2026 학교 업무매뉴얼[행정] 개정 내역(2차)",
+                  file: "admin-manual-changes.pdf",
+                  download:
+                    "경기도교육청 행정관리담당관_[붙임2] 2026학년도 학교 업무매뉴얼[행정] 인쇄본[책자형] 개정 내역(2차).pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "시스템·참고자료",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "교데통(데이터취합) 사용자 메뉴얼",
+                  file: "gyodaetong-manual.pdf",
+                  download: "[교데통] 데이터취합 사용자 메뉴얼.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "업무에 참고하면 좋은 사이트 모음집",
+                  file: "useful-sites.docx",
+                  download: "업무에 참고하면 좋은 사이트 모음집.docx",
+                  kind: "doc",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
   },
 };

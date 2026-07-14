@@ -28,9 +28,11 @@ function addGuidePages(pages: DocPage[], slug: string, label: string) {
   const g = guides[slug];
   if (!g) return;
   if (g.tabs && g.tabs.length > 0) {
-    g.tabs.forEach((t) =>
-      pages.push({ slug: t.docKey, label: `${label} · ${t.label}` }),
-    );
+    g.tabs.forEach((t) => {
+      // 계산기 등 업로드가 없는(docKey 없는) 탭은 업로드 대상에서 제외
+      if (!t.docKey) return;
+      pages.push({ slug: t.docKey, label: `${label} · ${t.label}` });
+    });
   } else {
     pages.push({ slug, label });
   }

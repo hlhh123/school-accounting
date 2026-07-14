@@ -521,6 +521,7 @@ function App() {
             <MatjibView />
           ) : guides[slug] ? (
             <GuideView
+              key={slug}
               item={found.item}
               crumb={found.crumb}
               guide={guides[slug]}

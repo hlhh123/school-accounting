@@ -341,13 +341,19 @@ export default function GuideView({
                 </button>
               ))}
             </div>
-            {activeTab && (
-              <GuideSections
-                key={activeTab.key}
-                sections={activeTab.sections}
-                docKey={activeTab.docKey}
-              />
-            )}
+            {activeTab &&
+              (activeTab.kind === "calculator" ? (
+                <div className="detail-placeholder">
+                  <p className="detail-placeholder-title">준비 중입니다</p>
+                  <p>«{item.title}» 계산기 기능이 이곳에 추가될 예정입니다.</p>
+                </div>
+              ) : (
+                <GuideSections
+                  key={activeTab.key}
+                  sections={activeTab.sections}
+                  docKey={activeTab.docKey}
+                />
+              ))}
           </>
         ) : (
           <GuideSections sections={guide.sections} docKey={docGuideKey} />
