@@ -5,7 +5,11 @@ import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
 import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
 import { matjibRegions, type MatjibRegion } from "./matjibData";
-import { fetchMatjibRegions, createRestaurant } from "./lib/matjib";
+import {
+  fetchMatjibRegions,
+  createRestaurant,
+  type MatjibKind,
+} from "./lib/matjib";
 import { DutyCalendarPanel, DutyCalendarView } from "./DutyCalendarUI";
 import GuideView from "./GuideView";
 import BoardView from "./BoardView";
@@ -251,7 +255,7 @@ const MATJIB_FIELDS: {
   required?: boolean;
 }[] = [
   { key: "region", label: "지역", placeholder: "예: 공도읍", required: true },
-  { key: "category", label: "음식구분", placeholder: "예: 한 식" },
+  { key: "category", label: "분류", placeholder: "예: 한 식 · 디저트" },
   { key: "name", label: "상호", placeholder: "가게 이름", required: true },
   { key: "phone", label: "연락처", placeholder: "예: 031-000-0000" },
   { key: "address", label: "주소", placeholder: "도로명 주소" },
@@ -268,9 +272,13 @@ const EMPTY_MATJIB = {
 };
 
 function MatjibAddForm({
+  kind,
+  kindLabel,
   regions,
   onAdded,
 }: {
+  kind: MatjibKind;
+  kindLabel: string;
   regions: MatjibRegion[];
   onAdded: () => void;
 }) {
@@ -298,6 +306,7 @@ function MatjibAddForm({
         phone: form.phone.trim(),
         address: form.address.trim(),
         hours: form.hours.trim(),
+        kind,
       });
       setForm({ ...EMPTY_MATJIB });
       setOpen(false);
@@ -317,7 +326,7 @@ function MatjibAddForm({
           className="matjib-add-toggle"
           onClick={() => setOpen(true)}
         >
-          + 맛집 추가
+          + {kindLabel} 추가
         </button>
       </div>
     );
@@ -326,7 +335,7 @@ function MatjibAddForm({
   return (
     <form className="matjib-add-form" onSubmit={submit}>
       <div className="matjib-add-head">
-        <h4>맛집 추가</h4>
+        <h4>{kindLabel} 추가</h4>
         <span>누구나 자유롭게 등록할 수 있어요.</span>
       </div>
       <div className="matjib-add-grid">
@@ -371,16 +380,32 @@ function MatjibAddForm({
   );
 }
 
-function MatjibView() {
-  const [region, setRegion] = useState<string>("전체");
-  const [regions, setRegions] = useState<MatjibRegion[]>(matjibRegions);
+const MATJIB_TABS: { key: MatjibKind; label: string }[] = [
+  { key: "restaurant", label: "음식점" },
+  { key: "cafe", label: "카페" },
+];
 
-  const reload = () => fetchMatjibRegions().then(setRegions);
+function MatjibView() {
+  const [kind, setKind] = useState<MatjibKind>("restaurant");
+  const [region, setRegion] = useState<string>("전체");
+  const [data, setData] = useState<Record<MatjibKind, MatjibRegion[]>>({
+    restaurant: matjibRegions,
+    cafe: [],
+  });
+
+  const reload = () =>
+    Promise.all([
+      fetchMatjibRegions("restaurant"),
+      fetchMatjibRegions("cafe"),
+    ]).then(([restaurant, cafe]) => setData({ restaurant, cafe }));
 
   useEffect(() => {
     reload();
   }, []);
 
+  const kindLabel =
+    MATJIB_TABS.find((t) => t.key === kind)?.label ?? "음식점";
+  const regions = data[kind];
   const total = regions.reduce((acc, r) => acc + r.items.length, 0);
   const shown =
     region === "전체" ? regions : regions.filter((r) => r.region === region);
@@ -396,11 +421,40 @@ function MatjibView() {
           <p>생활 정보</p>
           <h3>안성 맛집</h3>
           <p className="matjib-count">
-            총 {total}곳 · {regions.length}개 지역
+            {kindLabel} · 총 {total}곳 · {regions.length}개 지역
           </p>
         </div>
 
-        <MatjibAddForm regions={regions} onAdded={reload} />
+        <div className="matjib-tabs">
+          {MATJIB_TABS.map((t) => (
+            <button
+              type="button"
+              key={t.key}
+              className={`matjib-tab${kind === t.key ? " is-active" : ""}`}
+              onClick={() => {
+                setKind(t.key);
+                setRegion("전체");
+              }}
+            >
+              {t.label}
+              <span>{data[t.key].reduce((a, r) => a + r.items.length, 0)}</span>
+            </button>
+          ))}
+        </div>
+
+        <MatjibAddForm
+          kind={kind}
+          kindLabel={kindLabel}
+          regions={regions}
+          onAdded={reload}
+        />
+
+        {regions.length === 0 ? (
+          <p className="matjib-empty">
+            아직 등록된 {kindLabel}이(가) 없어요. 위 “+ {kindLabel} 추가”로 첫
+            번째 장소를 등록해 보세요.
+          </p>
+        ) : null}
 
         <div className="matjib-filter">
           <button

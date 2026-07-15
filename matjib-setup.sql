@@ -8,8 +8,12 @@ create table if not exists public.restaurants (
   phone text not null default '',
   address text not null default '',
   hours text not null default '',
+  kind text not null default 'restaurant', -- 'restaurant'(음식점) | 'cafe'(카페)
   created_at timestamptz not null default now()
 );
+-- 기존 테이블에 kind 컬럼이 없으면 추가(음식점/카페 탭 구분용)
+alter table public.restaurants
+  add column if not exists kind text not null default 'restaurant';
 
 alter table public.restaurants enable row level security;
 drop policy if exists "restaurants_read" on public.restaurants;

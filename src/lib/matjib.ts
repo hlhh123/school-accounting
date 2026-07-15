@@ -10,7 +10,10 @@ export type Restaurant = {
   phone: string;
   address: string;
   hours: string;
+  kind?: string; // 'restaurant'(음식점) | 'cafe'(카페). 없으면 음식점으로 취급.
 };
+
+export type MatjibKind = "restaurant" | "cafe";
 
 export async function fetchRestaurants(): Promise<Restaurant[]> {
   if (!supabase) throw new Error("Supabase 미설정");
@@ -46,9 +49,14 @@ export async function deleteRestaurant(id: string) {
 }
 
 // 지역별로 묶어서 반환. 실패(테이블 미생성) 시 기존 정적 데이터로 폴백.
-export async function fetchMatjibRegions(): Promise<MatjibRegion[]> {
+// kind: 음식점('restaurant') / 카페('cafe') 탭을 구분해 필터링.
+export async function fetchMatjibRegions(
+  kind: MatjibKind = "restaurant",
+): Promise<MatjibRegion[]> {
   try {
-    const rows = await fetchRestaurants();
+    const rows = (await fetchRestaurants()).filter(
+      (r) => (r.kind ?? "restaurant") === kind,
+    );
     const map = new Map<string, MatjibRegion>();
     const order: string[] = [];
     for (const r of rows) {
@@ -65,8 +73,9 @@ export async function fetchMatjibRegions(): Promise<MatjibRegion[]> {
       });
     }
     const result = order.map((k) => map.get(k)!);
-    return result.length ? result : fallback;
+    if (result.length) return result;
+    return kind === "restaurant" ? fallback : [];
   } catch {
-    return fallback;
+    return kind === "restaurant" ? fallback : [];
   }
 }

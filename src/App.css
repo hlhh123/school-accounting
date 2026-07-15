@@ -1416,6 +1416,63 @@ a {
   font-weight: 400 !important;
 }
 
+.matjib-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 22px;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.matjib-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  margin-bottom: -2px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #888888;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.matjib-tab span {
+  min-width: 20px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #eeeeee;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.matjib-tab:hover {
+  color: #333333;
+}
+
+.matjib-tab.is-active {
+  color: #111111;
+  border-bottom-color: #111111;
+}
+
+.matjib-tab.is-active span {
+  background: #111111;
+  color: #ffffff;
+}
+
+.matjib-empty {
+  margin: 8px 0 28px;
+  padding: 28px 20px;
+  background: #fafafa;
+  border: 1px dashed #dddddd;
+  border-radius: 12px;
+  color: #888888;
+  font-size: 14px;
+  text-align: center;
+}
+
 .matjib-add-bar {
   margin: 0 0 24px;
 }
