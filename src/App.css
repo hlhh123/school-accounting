@@ -791,6 +791,18 @@ a {
   background: #2b579a;
 }
 
+.g-file-xls {
+  background: #1e7145;
+}
+
+.g-file-ppt {
+  background: #d24726;
+}
+
+.g-file-img {
+  background: #6b7280;
+}
+
 /* 자유게시판 */
 .board {
   padding: 40px 0 80px;

@@ -115,7 +115,7 @@ function FileLink({
   href: string;
   download: string;
   name: string;
-  kind: "pdf" | "hwp" | "doc";
+  kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img";
 }) {
   return (
     <li>
@@ -147,7 +147,7 @@ function FilesBlock({
     name: string;
     file: string;
     download: string;
-    kind: "pdf" | "hwp" | "doc";
+    kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img";
   }[];
 }) {
   const base = `${import.meta.env.BASE_URL}docs/${dir ?? "expense"}/`;

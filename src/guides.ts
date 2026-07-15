@@ -18,7 +18,7 @@ export type Block =
         name: string;
         file: string;
         download: string;
-        kind: "pdf" | "hwp" | "doc";
+        kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img";
       }[];
     };
 
@@ -427,7 +427,702 @@ export const guides: Record<string, Guide> = {
   },
 
   // 물품재산
-  property: { sections: [], tabs: tabbed("property") },
+  property: {
+    intro: "물품·재산 관리에 필요한 서식과 매뉴얼입니다.",
+    sections: [],
+    tabs: tabbed("property", {
+      forms: [
+        {
+          title: "물품 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "property",
+              items: [
+                  {
+                    name: "2025년도 물품 증감 및 현재액보고서(재무관리과, 2025. 12.)",
+                    file: "p004.hwpx",
+                    download: "16-01-02 2025년도 물품 증감 및 현재액보고서(재무관리과, 2025. 12.).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "2025년도 정기 재물조사 보고서 작성 안내(재무관리과, 2025. 12.)",
+                    file: "p006.hwpx",
+                    download: "16-01-04 2025년도 정기 재물조사 보고서 작성 안내(재무관리과, 2025. 12.).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품의 품종ㆍ상태 구분[별표1]",
+                    file: "p007.hwpx",
+                    download: "16-02-01 물품의 품종ㆍ상태 구분[별표1].hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "분임물품출납원 임명",
+                    file: "p008.hwpx",
+                    download: "16-02-02 분임물품출납원 임명.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품망실보고서",
+                    file: "p009.hwpx",
+                    download: "16-02-03 물품망실보고서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "리스물품 에듀파인 물품대장 등록방법(재무관리과 2023.7.3)",
+                    file: "p010.hwpx",
+                    download: "16-02-04 리스물품 에듀파인 물품대장 등록방법(재무관리과 2023.7.3).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품관리공무원의 지정(경기도교육비특별회계 소관 물품관리조례 시행규칙[별표]",
+                    file: "p011.hwp",
+                    download: "16-02-05 물품관리공무원의 지정(경기도교육비특별회계 소관 물품관리조례 시행규칙[별표].hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "반납 및 인수증",
+                    file: "p013.hwpx",
+                    download: "16-02-07 반납 및 인수증.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "미술품 관리대장",
+                    file: "p014.hwp",
+                    download: "16-02-08 미술품 관리대장.hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "청구 및 출급증",
+                    file: "p016.hwpx",
+                    download: "16-02-10 청구 및 출급증.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "비소모품출납 및 운용카드",
+                    file: "p017.hwpx",
+                    download: "16-02-11 비소모품출납 및 운용카드.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품공차증",
+                    file: "p018.hwpx",
+                    download: "16-02-12 물품공차증.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품출납원 사무인계보고서",
+                    file: "p019.hwpx",
+                    download: "16-02-13 물품출납원 사무인계보고서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품의 정리 구분",
+                    file: "p020.hwpx",
+                    download: "16-02-14 물품의 정리 구분.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "[별표 1] 회계관계공무원의 관직지정",
+                    file: "p021.hwp",
+                    download: "16-02-15 [별표 1] 회계관계공무원의 관직지정.hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "불용결정조서",
+                    file: "p022.hwpx",
+                    download: "16-03-01 불용결정조서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "불용결정 신청조서 및 결정통보서",
+                    file: "p023.hwpx",
+                    download: "16-03-02 불용결정 신청조서 및 결정통보서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품관리전환합의서",
+                    file: "p024.hwpx",
+                    download: "16-04-01 물품관리전환합의서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "불용품매각처분조서",
+                    file: "p025.hwpx",
+                    download: "16-05-01 불용품매각처분조서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "매각 공고문",
+                    file: "p027.hwpx",
+                    download: "16-05-03 매각 공고문.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "수령증",
+                    file: "p028.hwpx",
+                    download: "16-05-04 수령증.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "저장매체 자료삭제 신청서",
+                    file: "p030.hwpx",
+                    download: "16-05-06 저장매체 자료삭제 신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "불용품(해체폐기)조서",
+                    file: "p031.hwpx",
+                    download: "16-05-07 불용품(해체폐기)조서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "조달청 무상양여 요청 기안",
+                    file: "p032.hwpx",
+                    download: "16-05-08 조달청 무상양여 요청 기안.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "정기재물조사 세부계획",
+                    file: "p033.hwpx",
+                    download: "16-06-01 정기재물조사 세부계획.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "차량정수배정 신청서",
+                    file: "p036.hwpx",
+                    download: "16-07-01 차량정수배정 신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "[별표1의]차량의 차종¸ 차형¸ 배정대상¸ 기준정수 및 차량 관리운행 기준(제4조 관련)",
+                    file: "p037.hwpx",
+                    download: "16-07-02 [별표1의]차량의 차종¸ 차형¸ 배정대상¸ 기준정수 및 차량 관리운행 기준(제4조 관련).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "차량 등록 또는 말소등록 보고",
+                    file: "p038.hwpx",
+                    download: "16-07-03 차량 등록 또는 말소등록 보고.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "차량 교체승인 신청서",
+                    file: "p039.hwpx",
+                    download: "16-07-04 차량 교체승인 신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공무용 차량 관리대장",
+                    file: "p040.hwpx",
+                    download: "16-07-05 공무용 차량 관리대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "어린이통학버스신고서",
+                    file: "p041.hwpx",
+                    download: "16-07-06 어린이통학버스신고서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "차량 운행일지",
+                    file: "p042.hwpx",
+                    download: "16-07-07 차량 운행일지.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "차량 정비대장",
+                    file: "p043.hwpx",
+                    download: "16-07-08 차량 정비대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "유류 수불대장",
+                    file: "p044.hwpx",
+                    download: "16-07-09 유류 수불대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "안전운행기록",
+                    file: "p045.hwpx",
+                    download: "16-07-10 안전운행기록.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "운전원 근무수칙",
+                    file: "p046.hwpx",
+                    download: "16-07-11 운전원 근무수칙.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "차량배차 신청",
+                    file: "p047.hwpx",
+                    download: "16-07-12 차량배차 신청.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "경기도교육청 물품선정위원회 자동화 서식",
+                    file: "p053.xlsx",
+                    download: "6-1. 경기도교육청 물품선정위원회 자동화 서식.xlsx",
+                    kind: "xls",
+                  },
+                  {
+                    name: "회의록",
+                    file: "p054.hwpx",
+                    download: "6-2. 회의록.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "물품정보",
+                    file: "p055.xlsx",
+                    download: "물품정보.xlsx",
+                    kind: "xls",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "재산 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "property",
+              items: [
+                  {
+                    name: "건축계획수립",
+                    file: "p061.hwpx",
+                    download: "17-02-01 건축계획수립.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건축물축조승인 신청서 및 승인서",
+                    file: "p062.hwpx",
+                    download: "17-02-02 건축물축조승인 신청서 및 승인서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건축물 착공 신고",
+                    file: "p063.hwpx",
+                    download: "17-02-03 건축물 착공 신고.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공사완료신고",
+                    file: "p064.hwpx",
+                    download: "17-02-04 공사완료신고.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "등기촉탁 신청",
+                    file: "p065.hwpx",
+                    download: "17-02-05 등기촉탁 신청.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "가설건축물 축조신고서",
+                    file: "p066.hwpx",
+                    download: "17-02-06 가설건축물 축조신고서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "가설건축물 축조 신고필증",
+                    file: "p067.hwpx",
+                    download: "17-02-07 가설건축물 축조 신고필증.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "가설건축물 관리대장",
+                    file: "p068.hwpx",
+                    download: "17-02-08 가설건축물 관리대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "가설건축물 존치기간 연장신고서",
+                    file: "p069.hwpx",
+                    download: "17-02-09 가설건축물 존치기간 연장신고서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "가설건축물 존치기간 연장 신고필증",
+                    file: "p070.hwpx",
+                    download: "17-02-10 가설건축물 존치기간 연장 신고필증.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건물 용도폐지 및 철거 신청서",
+                    file: "p072.hwpx",
+                    download: "17-03-01 건물 용도폐지 및 철거 신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공유재산심의회 안건",
+                    file: "p073.hwpx",
+                    download: "17-03-02 공유재산심의회 안건.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건축물(해체 허가신청서¸ 해체 신고서)",
+                    file: "p077.hwpx",
+                    download: "17-03-06 건축물(해체 허가신청서¸ 해체 신고서).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건축물 해체 허가와 신고 대상",
+                    file: "p078.hwpx",
+                    download: "17-03-07 건축물 해체 허가와 신고 대상.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건축물(해체공사 완료신고서, 멸실 신고서)",
+                    file: "p079.hwpx",
+                    download: "17-03-08 건축물(해체공사 완료신고서, 멸실 신고서).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건축물대장 말소신청서",
+                    file: "p080.hwpx",
+                    download: "17-03-09 건축물대장 말소신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공유재산가격평정조서",
+                    file: "p081.hwpx",
+                    download: "17-04-01 공유재산가격평정조서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "대부료산정조서",
+                    file: "p082.hwpx",
+                    download: "17-04-02 대부료산정조서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공유재산 사용·수익허가 및 대부 시 공공요금 부과에 관한 사항 알림",
+                    file: "p083.pdf",
+                    download: "17-04-03 공유재산 사용·수익허가 및 대부 시 공공요금 부과에 관한 사항 알림.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "입찰공고문",
+                    file: "p084.hwpx",
+                    download: "17-04-04 입찰공고문.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "허가조건",
+                    file: "p085.hwpx",
+                    download: "17-04-05 허가조건.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공유재산(유상, 무상) 사용허가서",
+                    file: "p089.hwpx",
+                    download: "17-04-09 공유재산(유상, 무상) 사용허가서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "사용료 납부고지",
+                    file: "p090.hwpx",
+                    download: "17-04-10 사용료 납부고지.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "사용료·대부료를 감면하는 경우의 요약",
+                    file: "p091.hwpx",
+                    download: "17-04-11 사용료·대부료를 감면하는 경우의 요약.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공유재산 대부 및 사용허가 정리부",
+                    file: "p092.hwpx",
+                    download: "17-04-12 공유재산 대부 및 사용허가 정리부.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "행정재산 일시사용 허가신청서",
+                    file: "p093.hwpx",
+                    download: "17-05-01 행정재산 일시사용 허가신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "행정재산 일시사용 허가대장",
+                    file: "p094.hwpx",
+                    download: "17-05-02 행정재산 일시사용 허가대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "관사사용 허가 신청서",
+                    file: "p095.hwpx",
+                    download: "17-06-01 관사사용 허가 신청서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "관사 입주 신고서",
+                    file: "p096.hwpx",
+                    download: "17-06-02 관사 입주 신고서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "서약서",
+                    file: "p097.hwpx",
+                    download: "17-06-03 서약서.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "관사 관리대장",
+                    file: "p098.hwpx",
+                    download: "17-06-04 관사 관리대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "건물가입 시 기본 보장(기본교구, 기본설비, 기본부속물)",
+                    file: "p099.hwpx",
+                    download: "17-07-01 건물가입 시 기본 보장(기본교구, 기본설비, 기본부속물).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "재난사진대장",
+                    file: "p103.hwpx",
+                    download: "17-07-05 재난사진대장.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "화재증명원",
+                    file: "p104.hwpx",
+                    download: "17-07-06 화재증명원.hwpx",
+                    kind: "hwp",
+                  },
+              ],
+            },
+          ],
+        },
+      ],
+      manual: [
+        {
+          title: "물품관리 매뉴얼·지침",
+          blocks: [
+            {
+              type: "files",
+              dir: "property",
+              items: [
+                  {
+                    name: "[e-DASAN현장지원] 물품선정위원회 관련 FAQ 답변 모음 [재무관리과 2024.12.] (1)",
+                    file: "p001.hwp",
+                    download: "[e-DASAN현장지원] 물품선정위원회 관련 FAQ 답변 모음 [재무관리과 2024.12.] (1).hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "제16편 물품관리",
+                    file: "p002.hwpx",
+                    download: "제16편 물품관리.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "지방자치단체 물품관리 운영기준(2024)",
+                    file: "p003.pdf",
+                    download: "16-01-01 지방자치단체 물품관리 운영기준(2024).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "지방자치단체 물품수급관리계획 업무 흐름도",
+                    file: "p005.png",
+                    download: "16-01-03 지방자치단체 물품수급관리계획 업무 흐름도.PNG",
+                    kind: "img",
+                  },
+                  {
+                    name: "K-에듀파인 통합자산관리 물품관리 사용자 매뉴얼_v1.3(2025.8.)",
+                    file: "p012.pptx",
+                    download: "16-02-06 K-에듀파인 통합자산관리 물품관리 사용자 매뉴얼_v1.3(2025.8.).pptx",
+                    kind: "ppt",
+                  },
+                  {
+                    name: "차세대 지방교육행재정통합시스템 미술품관리 매뉴얼",
+                    file: "p015.pdf",
+                    download: "16-02-09 차세대 지방교육행재정통합시스템 미술품관리 매뉴얼.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "전자자산처분시스템 입찰 흐름도",
+                    file: "p026.hwpx",
+                    download: "16-05-02 전자자산처분시스템 입찰 흐름도.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "저장매체 처리장비 이용 안내",
+                    file: "p029.hwpx",
+                    download: "16-05-05 저장매체 처리장비 이용 안내.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "K-에듀파인 통합자산관리시스템 물품결산 및 재물조사 매뉴얼(2024.12.)",
+                    file: "p034.pdf",
+                    download: "16-06-02 K-에듀파인 통합자산관리시스템 물품결산 및 재물조사 매뉴얼(2024.12.).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2024년도 경기도교육청 정기 재물조사 지침[재무관리과 2025.1]",
+                    file: "p035.hwp",
+                    download: "16-06-03 2024년도 경기도교육청 정기 재물조사 지침[재무관리과 2025.1].hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "장비 구입, 구축 용역 규격서 및 과업지시서(예시) [재무관리과 2023.12.]",
+                    file: "p048.hwpx",
+                    download: "16-08-01 장비 구입, 구축 용역 규격서 및 과업지시서(예시) [재무관리과 2023.12.].hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "자체보안대책 표준(안) [재무관리과 2023.12.]",
+                    file: "p049.hwpx",
+                    download: "16-08-02 자체보안대책 표준(안) [재무관리과 2023.12.].hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "2024년도 전자태그(RFID) 기반 물품관리시스템 구축 사업 계획 [재무관리과 2023.12.]",
+                    file: "p050.hwpx",
+                    download: "16-08-03 2024년도 전자태그(RFID) 기반 물품관리시스템 구축 사업 계획 [재무관리과 2023.12.].hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "RFID 물품관리 사용자지침서",
+                    file: "p051.pdf",
+                    download: "16-08-04 RFID 물품관리 사용자지침서.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "물품선정위원회 운영 기준 [재무관리과 2024.12.]",
+                    file: "p052.hwp",
+                    download: "물품선정위원회 운영 기준 [재무관리과 2024.12.].hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "참고_물품선정위원회 운영 기준",
+                    file: "p056.hwp",
+                    download: "참고_물품선정위원회 운영 기준.hwp",
+                    kind: "hwp",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "공유재산 매뉴얼·지침",
+          blocks: [
+            {
+              type: "files",
+              dir: "property",
+              items: [
+                  {
+                    name: "제17편 공유재산관리",
+                    file: "p057.hwpx",
+                    download: "제17편 공유재산관리.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "2022.12.31. 채권 관리 업무 편람(개정판)",
+                    file: "p058.pdf",
+                    download: "★ 2022.12.31. 채권 관리 업무 편람(개정판).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2024 공유재산업무편람",
+                    file: "p059.pdf",
+                    download: "17-01-01 2024 공유재산업무편람.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[사용자지침서] EAA_재산관리_v1.3",
+                    file: "p060.pdf",
+                    download: "17-01-02 [사용자지침서] EAA_재산관리_v1.3.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "경기도 31개 시군 건축조례(차양 및 비가람시설) 개정 결과 안내",
+                    file: "p071.pdf",
+                    download: "17-02-11 경기도 31개 시군 건축조례(차양 및 비가람시설) 개정 결과 안내.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공작물 처분 흐름도",
+                    file: "p074.hwpx",
+                    download: "17-03-03 공작물 처분 흐름도.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "2023년 K-에듀파인 통합자산관리(재산관리) 시스템 교육자료v1.0",
+                    file: "p075.pptx",
+                    download: "17-03-04 2023년 K-에듀파인 통합자산관리(재산관리) 시스템 교육자료v1.0.pptx",
+                    kind: "ppt",
+                  },
+                  {
+                    name: "K-에듀파인 통합자산관리(재산 주요기능 및 FAQ)",
+                    file: "p076.pptx",
+                    download: "17-03-05 K-에듀파인 통합자산관리(재산 주요기능 및 FAQ).pptx",
+                    kind: "ppt",
+                  },
+                  {
+                    name: "사용허가 입찰 흐름도",
+                    file: "p086.hwpx",
+                    download: "17-04-06 사용허가 입찰 흐름도.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "전자자산처분시스템 입찰 흐름도",
+                    file: "p087.hwpx",
+                    download: "17-04-07 전자자산처분시스템 입찰 흐름도.hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "공유재산(매점 및 자동판매기) 우선 사용허가 유의사항 알림",
+                    file: "p088.pdf",
+                    download: "17-04-08 공유재산(매점 및 자동판매기) 우선 사용허가 유의사항 알림.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2026년도 교육시설공제 가입 및 재난관리 교육(정기가입 교재)",
+                    file: "p100.pdf",
+                    download: "17-07-02 2026년도 교육시설공제 가입 및 재난관리 교육(정기가입 교재).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "교육시설공제사업운영규정(교육시설공제정보망-게시판-정관규정법령)",
+                    file: "p101.pdf",
+                    download: "17-07-03 교육시설공제사업운영규정(교육시설공제정보망-게시판-정관규정법령).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공제급여 신청안내(신청절차, 신청서류, 정보망 이용안내)",
+                    file: "p102.hwpx",
+                    download: "17-07-04 공제급여 신청안내(신청절차, 신청서류, 정보망 이용안내).hwpx",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "경기도교육청 재무관리과_(붙임) 폐교재산 활용 가이드라인(26.1.)",
+                    file: "p105.pdf",
+                    download: "경기도교육청 재무관리과_(붙임) 폐교재산 활용 가이드라인(26.1.).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공유재산 및 물품 관리법(법률)(제19990호)(20240710)",
+                    file: "p106.pdf",
+                    download: "공유재산 및 물품 관리법(법률)(제19990호)(20240710).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공유재산관리 관련 FAQ 답변 모음 (2023. 2. 20.)",
+                    file: "p107.hwp",
+                    download: "공유재산관리 관련 FAQ 답변 모음 (2023. 2. 20.).hwp",
+                    kind: "hwp",
+                  },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
 
   // ── 행정공통분야 ──────────────────────────────────────────────
 
