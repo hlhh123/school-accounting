@@ -408,6 +408,32 @@ function CategorySection({ category }: { category: CatalogCategory }) {
   );
 }
 
+// 오른쪽 여백에 고정되는 G-ONE 바로가기 배너 (PC 폭에서만 표시)
+function GoneBanner() {
+  return (
+    <a
+      className="gone-banner"
+      href="https://gdp.goe.go.kr/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="경기 업무협업포털 G-ONE(지원이) 바로가기"
+    >
+      <div className="gone-brand">
+        <span className="gone-logo">G-ONE</span>
+        <span className="gone-portal">경기 업무협업포털</span>
+      </div>
+      <div className="gone-card">
+        <p className="gone-ai-title">[AI 대화] 무엇을 도와드릴까요?</p>
+        <span className="gone-input">무엇이든 물어보세요</span>
+      </div>
+      <p className="gone-desc">
+        지원이가 필요한 지침·매뉴얼을 AI로 찾아드려요
+      </p>
+      <span className="gone-go">바로가기 ›</span>
+    </a>
+  );
+}
+
 function HomePage() {
   return (
     <div className="app">
@@ -475,6 +501,8 @@ function HomePage() {
           </a>
         </div>
       </footer>
+
+      <GoneBanner />
     </div>
   );
 }
