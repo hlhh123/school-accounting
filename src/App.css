@@ -1416,6 +1416,138 @@ a {
   font-weight: 400 !important;
 }
 
+.matjib-add-bar {
+  margin: 0 0 24px;
+}
+
+.matjib-add-toggle {
+  padding: 10px 18px;
+  background: #111111;
+  border: 1px solid #111111;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.matjib-add-toggle:hover {
+  background: #333333;
+}
+
+.matjib-add-form {
+  margin: 0 0 28px;
+  padding: 22px;
+  background: #fafafa;
+  border: 1px solid #e6e6e6;
+  border-radius: 14px;
+}
+
+.matjib-add-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.matjib-add-head h4 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+
+.matjib-add-head span {
+  color: #888888;
+  font-size: 13px;
+}
+
+.matjib-add-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.matjib-add-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.matjib-add-field span {
+  color: #555555;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.matjib-add-field span em {
+  color: #d23f3f;
+  font-style: normal;
+}
+
+.matjib-add-field input {
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.matjib-add-field input:focus {
+  outline: none;
+  border-color: #111111;
+}
+
+.matjib-add-error {
+  margin: 14px 0 0;
+  color: #d23f3f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.matjib-add-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.matjib-add-cancel,
+.matjib-add-submit {
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.matjib-add-cancel {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  color: #444444;
+}
+
+.matjib-add-cancel:hover {
+  border-color: #999999;
+}
+
+.matjib-add-submit {
+  background: #111111;
+  border: 1px solid #111111;
+  color: #ffffff;
+}
+
+.matjib-add-submit:hover {
+  background: #333333;
+}
+
+.matjib-add-submit:disabled {
+  opacity: 0.5;
+}
+
+@media (max-width: 560px) {
+  .matjib-add-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .matjib-filter {
   display: flex;
   flex-wrap: wrap;

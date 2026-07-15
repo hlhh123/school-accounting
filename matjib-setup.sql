@@ -16,6 +16,9 @@ drop policy if exists "restaurants_read" on public.restaurants;
 create policy "restaurants_read" on public.restaurants for select using (true);
 drop policy if exists "restaurants_write" on public.restaurants;
 create policy "restaurants_write" on public.restaurants for all to authenticated using (true) with check (true);
+-- 누구나(비로그인 포함) 맛집 '추가'는 가능하도록 익명 insert 허용. 수정/삭제는 관리자(authenticated)만.
+drop policy if exists "restaurants_public_insert" on public.restaurants;
+create policy "restaurants_public_insert" on public.restaurants for insert to anon with check (true);
 
 insert into public.restaurants (sort, region, category, name, phone, address, hours)
 select * from (values

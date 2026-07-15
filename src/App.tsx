@@ -5,7 +5,7 @@ import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
 import { fetchGwansaBundle, type GwansaBundle } from "./lib/gwansa";
 import { matjibRegions, type MatjibRegion } from "./matjibData";
-import { fetchMatjibRegions } from "./lib/matjib";
+import { fetchMatjibRegions, createRestaurant } from "./lib/matjib";
 import { DutyCalendarPanel, DutyCalendarView } from "./DutyCalendarUI";
 import GuideView from "./GuideView";
 import BoardView from "./BoardView";
@@ -244,12 +244,141 @@ function SubCategoryPage({ item, crumb }: { item: CatalogItem; crumb: string }) 
   );
 }
 
+const MATJIB_FIELDS: {
+  key: string;
+  label: string;
+  placeholder: string;
+  required?: boolean;
+}[] = [
+  { key: "region", label: "지역", placeholder: "예: 공도읍", required: true },
+  { key: "category", label: "음식구분", placeholder: "예: 한 식" },
+  { key: "name", label: "상호", placeholder: "가게 이름", required: true },
+  { key: "phone", label: "연락처", placeholder: "예: 031-000-0000" },
+  { key: "address", label: "주소", placeholder: "도로명 주소" },
+  { key: "hours", label: "영업시간/휴무", placeholder: "예: 매일 11:00~21:00" },
+];
+
+const EMPTY_MATJIB = {
+  region: "",
+  category: "",
+  name: "",
+  phone: "",
+  address: "",
+  hours: "",
+};
+
+function MatjibAddForm({
+  regions,
+  onAdded,
+}: {
+  regions: MatjibRegion[];
+  onAdded: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({ ...EMPTY_MATJIB });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const set = (key: string, value: string) =>
+    setForm((f) => ({ ...f, [key]: value }));
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form.region.trim() || !form.name.trim()) {
+      setError("지역과 상호는 필수입니다.");
+      return;
+    }
+    setSaving(true);
+    setError(null);
+    try {
+      await createRestaurant({
+        region: form.region.trim(),
+        category: form.category.trim(),
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        address: form.address.trim(),
+        hours: form.hours.trim(),
+      });
+      setForm({ ...EMPTY_MATJIB });
+      setOpen(false);
+      onAdded();
+    } catch {
+      setError("등록에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (!open) {
+    return (
+      <div className="matjib-add-bar">
+        <button
+          type="button"
+          className="matjib-add-toggle"
+          onClick={() => setOpen(true)}
+        >
+          + 맛집 추가
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form className="matjib-add-form" onSubmit={submit}>
+      <div className="matjib-add-head">
+        <h4>맛집 추가</h4>
+        <span>누구나 자유롭게 등록할 수 있어요.</span>
+      </div>
+      <div className="matjib-add-grid">
+        {MATJIB_FIELDS.map((field) => (
+          <label className="matjib-add-field" key={field.key}>
+            <span>
+              {field.label}
+              {field.required && <em> *</em>}
+            </span>
+            <input
+              type="text"
+              value={form[field.key as keyof typeof form]}
+              placeholder={field.placeholder}
+              list={field.key === "region" ? "matjib-region-list" : undefined}
+              onChange={(e) => set(field.key, e.target.value)}
+            />
+          </label>
+        ))}
+      </div>
+      <datalist id="matjib-region-list">
+        {regions.map((r) => (
+          <option value={r.region} key={r.region} />
+        ))}
+      </datalist>
+      {error && <p className="matjib-add-error">{error}</p>}
+      <div className="matjib-add-actions">
+        <button
+          type="button"
+          className="matjib-add-cancel"
+          onClick={() => {
+            setOpen(false);
+            setError(null);
+          }}
+        >
+          취소
+        </button>
+        <button type="submit" className="matjib-add-submit" disabled={saving}>
+          {saving ? "등록 중…" : "등록"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
 function MatjibView() {
   const [region, setRegion] = useState<string>("전체");
   const [regions, setRegions] = useState<MatjibRegion[]>(matjibRegions);
 
+  const reload = () => fetchMatjibRegions().then(setRegions);
+
   useEffect(() => {
-    fetchMatjibRegions().then(setRegions);
+    reload();
   }, []);
 
   const total = regions.reduce((acc, r) => acc + r.items.length, 0);
@@ -270,6 +399,8 @@ function MatjibView() {
             총 {total}곳 · {regions.length}개 지역
           </p>
         </div>
+
+        <MatjibAddForm regions={regions} onAdded={reload} />
 
         <div className="matjib-filter">
           <button
