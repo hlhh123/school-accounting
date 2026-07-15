@@ -1271,12 +1271,31 @@ export const guides: Record<string, Guide> = {
 
   // 공무원복지
   welfare: {
-    intro: "공무원 복지제도 관련 자료입니다.",
+    intro: "맞춤형 복지제도 관련 서식과 매뉴얼입니다.",
     sections: [],
     tabs: tabbed("welfare", {
+      forms: [
+        {
+          title: "맞춤형 복지 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "welfare",
+              items: [
+                {
+                  name: "2026년 맞춤형복지 신청서",
+                  file: "w009.hwpx",
+                  download: "2026년 신청서.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+      ],
       manual: [
         {
-          title: "맞춤형 복지",
+          title: "업무처리 기준",
           blocks: [
             {
               type: "files",
@@ -1288,6 +1307,86 @@ export const guides: Record<string, Guide> = {
                   download:
                     "경기도교육복지종합센터 기획운영부_붙임1. 2026년 맞춤형 복지제도 업무처리 기준.hwp",
                   kind: "hwp",
+                },
+              ],
+            },
+            {
+              type: "files",
+              dir: "welfare",
+              items: [
+                {
+                  name: "2026학년도 기간제교원 맞춤형복지제도 업무처리 기준",
+                  file: "w005.hwp",
+                  download:
+                    "경기도교육복지종합센터 기획운영부_[붙임2] 2026학년도 기간제교원 맞춤형복지제도 업무처리 기준.hwp",
+                  kind: "hwp",
+                },
+                {
+                  name: "2026년 사립학교 교육공무직원 맞춤형복지 업무처리 기준",
+                  file: "w006.hwp",
+                  download:
+                    "경기도교육청 사립학교과_(발송)2026년 사립학교 교육공무직원 맞춤형복지 업무처리 기준.hwp",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "업무매뉴얼·지급처리",
+          blocks: [
+            {
+              type: "files",
+              dir: "welfare",
+              items: [
+                {
+                  name: "맞춤형복지 기관담당자 업무매뉴얼",
+                  file: "w001.pdf",
+                  download: "맞춤형복지 기관담당자 업무매뉴얼.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "맞춤형복지 기관담당자 업무매뉴얼(지급처리 및 마감)",
+                  file: "w002.pdf",
+                  download:
+                    "(지급처리 및 마감)맞춤형복지기관담당자 업무매뉴얼.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "맞춤형복지 지급처리 방법",
+                  file: "w003.hwp",
+                  download: "맞춤형복지 지급처리 방법.hwp",
+                  kind: "hwp",
+                },
+                {
+                  name: "2026년 맞춤형복지 지급일정",
+                  file: "w004.xlsx",
+                  download: "2026년 맞춤형복지 지급일정.xlsx",
+                  kind: "xls",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "안내·질의응답",
+          blocks: [
+            {
+              type: "files",
+              dir: "welfare",
+              items: [
+                {
+                  name: "2026년 공무원 단체보험 안내문(실손의료비 포함)",
+                  file: "w007.pdf",
+                  download:
+                    "경기도교육복지종합센터 기획운영부_붙임2. 2026년 공무원 단체보험 안내문(실손의료비 포함).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "2026년 맞춤형복지 담당자 교육 현장 주요 질의응답",
+                  file: "w008.pdf",
+                  download: "2026년 맞춤형복지 담당자 교육 현장 주요 질의응답.pdf",
+                  kind: "pdf",
                 },
               ],
             },
