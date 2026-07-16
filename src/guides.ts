@@ -1807,6 +1807,23 @@ export const guides: Record<string, Guide> = {
     tabs: tabbed("service", {
       manual: [
         {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅲ. 복무·출장·초과근무",
+                  file: "primer-service.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 복무.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
           title: "복무 자료",
           blocks: [
             {
@@ -1828,10 +1845,56 @@ export const guides: Record<string, Guide> = {
   },
 
   // 인사
-  personnel: { sections: [], tabs: tabbed("personnel") },
+  personnel: {
+    sections: [],
+    tabs: tabbed("personnel", {
+      manual: [
+        {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅳ. 발령·전보·승진",
+                  file: "primer-personnel.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 인사(발령·전보·승진).pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
 
   // 교육훈련
-  training: { sections: [], tabs: tabbed("training") },
+  training: {
+    sections: [],
+    tabs: tabbed("training", {
+      manual: [
+        {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅳ. 교육훈련",
+                  file: "primer-training.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 교육훈련.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
 
   // 보안
   security: {
@@ -1839,6 +1902,23 @@ export const guides: Record<string, Guide> = {
     sections: [],
     tabs: tabbed("security", {
       manual: [
+        {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅴ. 보안",
+                  file: "primer-security.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 보안.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
         {
           title: "정보보안",
           blocks: [
@@ -1866,6 +1946,23 @@ export const guides: Record<string, Guide> = {
     sections: [],
     tabs: tabbed("civil-affairs", {
       manual: [
+        {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅴ. 전화민원 응대",
+                  file: "primer-civil.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 전화민원 응대.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
         {
           title: "국민신문고·민원",
           blocks: [
@@ -1969,6 +2066,23 @@ export const guides: Record<string, Guide> = {
       ],
       manual: [
         {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅱ. 나를 위한 보상, 공무원 복지",
+                  file: "primer-welfare.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 공무원 복지.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
           title: "업무처리 기준",
           blocks: [
             {
@@ -2071,7 +2185,30 @@ export const guides: Record<string, Guide> = {
   },
 
   // 예산 용어 설명
-  "budget-terms": { sections: [], tabs: tabbed("budget-terms") },
+  "budget-terms": {
+    sections: [],
+    tabs: tabbed("budget-terms", {
+      manual: [
+        {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅴ. 예산",
+                  file: "primer-budget.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 예산.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
 
   // 기록물관리
   records: { sections: [], tabs: tabbed("records") },
@@ -2080,7 +2217,30 @@ export const guides: Record<string, Guide> = {
   facility: { sections: [], tabs: tabbed("facility") },
 
   // 공문서작성법
-  "official-docs": { sections: [], tabs: tabbed("official-docs") },
+  "official-docs": {
+    sections: [],
+    tabs: tabbed("official-docs", {
+      manual: [
+        {
+          title: "신규공무원 성장입문서(행정공통)",
+          blocks: [
+            {
+              type: "files",
+              dir: "gongtong",
+              items: [
+                {
+                  name: "성장입문서 발췌 — Ⅴ. 공문서 작성",
+                  file: "primer-docs.pdf",
+                  download: "신규공무원 성장입문서(행정공통) - 공문서.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
 
   // 위원회 운영 기본 방법
   committee: {
