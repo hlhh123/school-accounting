@@ -416,14 +416,688 @@ export const guides: Record<string, Guide> = {
   "salary-official": {
     intro: "공무원 급여·수당 관련 서식과 매뉴얼입니다. 계산기는 준비 중입니다.",
     sections: [],
-    tabs: tabbed("salary-official", { calculator: true }),
+    tabs: tabbed("salary-official", {
+      forms: [
+        {
+          title: "계약제교원 운영지침 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "2026 공립 유·초·중등·특수 학교 계약제 교원 운영 지침(2026.1월 개정판)_서식모음",
+                    file: "o007.pdf",
+                    download: "06-02 2026 공립 유·초·중등·특수 학교 계약제 교원 운영 지침(2026.1월 개정판)_서식모음.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "원천징수 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "원천징수동의서",
+                    file: "o009.pdf",
+                    download: "08-01-03 원천징수동의서.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "원천징수 관리대장",
+                    file: "o010.pdf",
+                    download: "08-01-04 원천징수 관리대장.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "보수·수당 신고 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "부양가족신고서",
+                    file: "o026.pdf",
+                    download: "08-02-15 부양가족신고서.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "자녀학비보조수당 신고서",
+                    file: "o027.pdf",
+                    download: "08-02-16 자녀학비보조수당 신고서.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "기술정보수당 가산금 신고서",
+                    file: "o033.pdf",
+                    download: "08-02-21 기술정보수당 가산금 신고서.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "채권압류·공탁 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "채권압류자관리대장",
+                    file: "o036.pdf",
+                    download: "08-04-01 채권압류자관리대장.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "채권압류 및 지급내역",
+                    file: "o037.pdf",
+                    download: "08-04-02 채권압류 및 지급내역.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공탁서류 기안 예시",
+                    file: "o038.pdf",
+                    download: "08-04-03 공탁서류 기안 예시.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공탁양식",
+                    file: "o039.pdf",
+                    download: "08-04-04 공탁양식.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "연금·조위금 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "사망조위금 청구서",
+                    file: "o050.pdf",
+                    download: "08-05-07 사망조위금 청구서.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+      ],
+      manual: [
+        {
+          title: "법령·규정·업무지침",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "공무원보수규정(대통령령)(제36489호)(20260630)",
+                    file: "o001.pdf",
+                    download: "01 공무원보수규정(대통령령)(제36489호)(20260630).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공무원수당 등에 관한 규정(대통령령)(제36015호)(20260102)",
+                    file: "o002.pdf",
+                    download: "02 공무원수당 등에 관한 규정(대통령령)(제36015호)(20260102).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "지방공무원 보수규정(대통령령)(제36430호)(20260701)",
+                    file: "o003.pdf",
+                    download: "03 지방공무원 보수규정(대통령령)(제36430호)(20260701).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2026 공무원보수 등의 업무지침(인사혁신처예규 제204호)_20260122",
+                    file: "o004.pdf",
+                    download: "04 2026 공무원보수 등의 업무지침(인사혁신처예규 제204호)_20260122.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "지방공무원보수업무 등 처리지침_20260102",
+                    file: "o005.pdf",
+                    download: "05 지방공무원보수업무 등 처리지침_20260102.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2026 공립 유·초·중등·특수 학교 계약제 교원 운영 지침(2026.1월 개정판)",
+                    file: "o006.pdf",
+                    download: "06-01 2026 공립 유·초·중등·특수 학교 계약제 교원 운영 지침(2026.1월 개정판).pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "제8편 보수 매뉴얼(본편)",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "제8편 보수",
+                    file: "o008.pdf",
+                    download: "제8편 보수.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "보수·수당 기준(별표·봉급표)",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "[별표 4] 대우공무원수당¸ 정근수당 가산금¸ 가족수당¸ 가족수당 가산금¸ 자녀학비보조수당 및 주택수당 감액 지급 구분표",
+                    file: "o011.pdf",
+                    download: "08-02-01 [별표 4] 대우공무원수당¸ 정근수당 가산금¸ 가족수당¸ 가족수당 가산금¸ 자녀학비보조수당 및 주택수당 감액 지급 구분표.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 7] 특수지근무수당(도서벽지수당) 지급 구분표(제12조제1항 관련)",
+                    file: "o012.pdf",
+                    download: "08-02-02 [별표 7] 특수지근무수당(도서벽지수당) 지급 구분표(제12조제1항 관련).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 8] 위험근무수당 등급별 구분표(제13조 관련)(지방공무원 수당 등에 관한 규정)",
+                    file: "o013.pdf",
+                    download: "08-02-03 [별표 8] 위험근무수당 등급별 구분표(제13조 관련)(지방공무원 수당 등에 관한 규정).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 9] 특수업무수당 지급 구분표(제14조 관련)(지방공무원 수당 등에 관한 규정)",
+                    file: "o014.pdf",
+                    download: "08-02-03 [별표 9] 특수업무수당 지급 구분표(제14조 관련)(지방공무원 수당 등에 관한 규정).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 16] 일반직공무원 등의 경력환산율표",
+                    file: "o015.pdf",
+                    download: "08-02-04 [별표 16] 일반직공무원 등의 경력환산율표.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 17] 연구직공무원의 경력환산율표",
+                    file: "o016.pdf",
+                    download: "08-02-05 [별표 17] 연구직공무원의 경력환산율표.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 19] 지도직공무원의 경력환산율표",
+                    file: "o017.pdf",
+                    download: "08-02-06 [별표 19] 지도직공무원의 경력환산율표.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 22] 교육공무원 등의 경력환산율표(공무원보수규정)",
+                    file: "o018.pdf",
+                    download: "08-02-07 [별표 22] 교육공무원 등의 경력환산율표(공무원보수규정).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "경기도교육청 소속 기간제교원 정근수당 지급방식 변경",
+                    file: "o019.pdf",
+                    download: "08-02-08 경기도교육청 소속 기간제교원 정근수당 지급방식 변경.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 6] 자녀학비보조수당 지급 구분표(제11조제1항 관련)(공무원수당 등에 관한 규정)",
+                    file: "o020.pdf",
+                    download: "08-02-09 [별표 6] 자녀학비보조수당 지급 구분표(제11조제1항 관련)(공무원수당 등에 관한 규정).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 1] 일반직공무원의 직급표(제3조제1항 관련)(공무원임용령)",
+                    file: "o021.pdf",
+                    download: "08-02-10 [별표 1] 일반직공무원의 직급표(제3조제1항 관련)(공무원임용령).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "경기도교육감 소속 지방공무원 업무대행제도 운영 계획(2026.1.)",
+                    file: "o022.pdf",
+                    download: "08-02-11 경기도교육감 소속 지방공무원 업무대행제도 운영 계획(2026.1.).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "교육공무원 국내출장 기간 중 초과근무수당 처리 사항 안내",
+                    file: "o023.pdf",
+                    download: "08-02-12 교육공무원 국내출장 기간 중 초과근무수당 처리 사항 안내.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공무원별 봉급표",
+                    file: "o024.pdf",
+                    download: "08-02-13 공무원별 봉급표.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 11] 유치원ㆍ초등학교ㆍ중학교ㆍ고등학교 교원 등의 봉급표",
+                    file: "o025.pdf",
+                    download: "08-02-14 [별표 11] 유치원ㆍ초등학교ㆍ중학교ㆍ고등학교 교원 등의 봉급표.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "신분변동시 보수지급방법",
+                    file: "o028.pdf",
+                    download: "08-02-17 신분변동시 보수지급방법.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 1] 교원연구비 지급단가(제3조 관련)(교원연구비 지급에 관한 규정)",
+                    file: "o029.pdf",
+                    download: "08-02-18 [별표 1] 교원연구비 지급단가(제3조 관련)(교원연구비 지급에 관한 규정).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[별표 2] 정근수당 지급 구분표(제7조제1항 관련)(공무원수당 등에 관한 규정)",
+                    file: "o030.pdf",
+                    download: "08-02-18 [별표 2] 정근수당 지급 구분표(제7조제1항 관련)(공무원수당 등에 관한 규정).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2022년 단체(임금)협약 안내",
+                    file: "o031.pdf",
+                    download: "08-02-19 2022년 단체(임금)협약 안내.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "[붙임] 지방공무원 위험근무수당 지급기준 준수 철저",
+                    file: "o032.pdf",
+                    download: "08-02-20 [붙임] 지방공무원 위험근무수당 지급기준 준수 철저.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "연말정산",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "연말정산 안내자료 예시",
+                    file: "o034.pdf",
+                    download: "08-03-01 연말정산 안내자료 예시.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "채권압류·공탁",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "채권압류 및 공탁업무 처리요령",
+                    file: "o035.pdf",
+                    download: "08-04-00 ★채권압류 및 공탁업무 처리요령.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "채권 관리업무 편람(2022.12.31.)",
+                    file: "o040.pdf",
+                    download: "08-04-05 채권 관리업무 편람(2022.12.31.).pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "공무원연금·대여학자금·조위금",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "2022년 공무원연금 가이드북",
+                    file: "o041.pdf",
+                    download: "08-05-00 2022년 공무원연금 가이드북.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "공무원연금 급여요약",
+                    file: "o042.pdf",
+                    download: "08-05-01 공무원연금 급여요약.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "퇴직급여 종류별 급여계산식장기급여요약",
+                    file: "o043.pdf",
+                    download: "08-05-02 퇴직급여 종류별 급여계산식장기급여요약.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2024년 대여학자금 업무처리기준-배포용",
+                    file: "o044.pdf",
+                    download: "08-05-03 2024년 대여학자금 업무처리기준-배포용.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2025년도 대여학자금 업무처리기준 책자_단면 (1)",
+                    file: "o045.pdf",
+                    download: "08-05-03 2025년도 대여학자금 업무처리기준 책자_단면 (1).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2021 공무원연금 실무",
+                    file: "o046.pdf",
+                    download: "08-05-04 2021 공무원연금 실무.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2025년도 대여학자금 업무처리기준",
+                    file: "o047.pdf",
+                    download: "08-05-05 2025년도 대여학자금 업무처리기준.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "대여학자금 신청 방법",
+                    file: "o048.pdf",
+                    download: "08-05-05 대여학자금 신청 방법.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2025년도 공무원 연금대부 업무처리기준(최종) (1)",
+                    file: "o049.pdf",
+                    download: "08-05-06 2025년도 공무원 연금대부 업무처리기준(최종) (1).pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "건강보험(EDI)",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "edi 건강보험 취득신고",
+                    file: "o051.pdf",
+                    download: "08-06-01 edi 건강보험 취득신고.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 피부양자 등록",
+                    file: "o052.pdf",
+                    download: "08-06-02 edi 피부양자 등록.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 건강보험 상실신고",
+                    file: "o053.pdf",
+                    download: "08-06-03 edi 건강보험 상실신고.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 보수월액 변경 신고 방법",
+                    file: "o054.pdf",
+                    download: "08-06-04 edi 보수월액 변경 신고 방법.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 직장가입자내용변경",
+                    file: "o055.pdf",
+                    download: "08-06-05 edi 직장가입자내용변경.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 직장가입자 근무처 변동",
+                    file: "o056.pdf",
+                    download: "08-06-06 edi 직장가입자 근무처 변동.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 고지유예 신청 해지",
+                    file: "o057.pdf",
+                    download: "08-06-07 edi 고지유예 신청 해지.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 보수총액 신고",
+                    file: "o058.pdf",
+                    download: "08-06-08 edi 보수총액 신고.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "건강보험증 발급",
+                    file: "o059.png",
+                    download: "08-06-09 건강보험증 발급.png",
+                    kind: "img",
+                  },
+                  {
+                    name: "피부양자추가 방법",
+                    file: "o060.pdf",
+                    download: "08-06-10 피부양자추가 방법.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "웹EDI_가입_및_업무처리_매뉴얼",
+                    file: "o061.pdf",
+                    download: "08-06-11 웹EDI_가입_및_업무처리_매뉴얼.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "edi 건강보험증 신청 변경 방법",
+                    file: "o062.pdf",
+                    download: "08-06-12 edi 건강보험증 신청 변경 방법.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "맞춤형복지",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-official",
+              items: [
+                  {
+                    name: "2026년 맞춤형복지 제도 업무처리 기준",
+                    file: "o063.pdf",
+                    download: "08-08-01 2026년 맞춤형복지 제도 업무처리 기준.pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+      ],
+      calculator: true,
+    }),
   },
 
   // 공무직급여 (교육공무직원) — 서식 / 매뉴얼 / 계산기
   "salary-worker": {
     intro: "공무직 급여·수당 관련 서식과 매뉴얼입니다. 계산기는 준비 중입니다.",
     sections: [],
-    tabs: tabbed("salary-worker", { calculator: true }),
+    tabs: tabbed("salary-worker", {
+      forms: [
+        {
+          title: "급여·퇴직금 산출 서식·계산기",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                  {
+                    name: "통상임금·퇴직금·연차수당 통합 산출 서식",
+                    file: "w009.xlsx",
+                    download: "[서식01] 통상임금·퇴직금·연차수당 통합 산출 서식.xlsx",
+                    kind: "xls",
+                  },
+                  {
+                    name: "4대보험 기관·개인 부담금 산출 서식(2026)",
+                    file: "w010.xlsx",
+                    download: "[서식02] 4대보험 기관·개인 부담금 산출 서식(2026).xlsx",
+                    kind: "xls",
+                  },
+                  {
+                    name: "확정기여형(DC) 퇴직금 산출 내역서",
+                    file: "w011.xlsx",
+                    download: "[서식03] 확정기여형(DC) 퇴직금 산출 내역서.xlsx",
+                    kind: "xls",
+                  },
+                  {
+                    name: "급식조리원 확정급여형(DB) 퇴직금 계산기",
+                    file: "w012.xlsx",
+                    download: "[서식04] 급식조리원 확정급여형(DB) 퇴직금 계산기.xlsx",
+                    kind: "xls",
+                  },
+                  {
+                    name: "시설당직원 연차휴가 및 미사용수당 계산기",
+                    file: "w013.xlsx",
+                    download: "[서식05] 시설당직원 연차휴가 및 미사용수당 계산기.xlsx",
+                    kind: "xls",
+                  },
+                  {
+                    name: "기간제교사 퇴직금 계산 양식",
+                    file: "w018.xlsx",
+                    download: "[참고] 기간제교사 퇴직금 계산 양식.xlsx",
+                    kind: "xls",
+                  },
+              ],
+            },
+          ],
+        },
+      ],
+      manual: [
+        {
+          title: "급여 업무 매뉴얼·지침",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                  {
+                    name: "교육공무직원 급여 업무 매뉴얼(2025)",
+                    file: "w007.pdf",
+                    download: "[매뉴얼] 교육공무직원 급여 업무 매뉴얼(2025).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "교육공무직원 복무제도 안내(2026).",
+                    file: "w014.pdf",
+                    download: "[지침] 교육공무직원 복무제도 안내(2026)..pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "교육공무직원 생활안정지원금 지원 계획",
+                    file: "w015.hwp",
+                    download: "[지침] 교육공무직원 생활안정지원금 지원 계획.hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "교육공무직원 임금 지급기준 변경안(2025)",
+                    file: "w016.hwp",
+                    download: "[지침] 교육공무직원 임금 지급기준 변경안(2025).hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "교육공무직원 임금 지급기준(2026)",
+                    file: "w017.hwp",
+                    download: "[지침] 교육공무직원 임금 지급기준(2026).hwp",
+                    kind: "hwp",
+                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "나이스·연말정산",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                  {
+                    name: "방학 중 생활안정지원금 재원 설정 방법",
+                    file: "w001.pdf",
+                    download: "[나이스] 방학 중 생활안정지원금 재원 설정 방법.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "(251217)수정사항",
+                    file: "w002.hwp",
+                    download: "(251217)수정사항.hwp",
+                    kind: "hwp",
+                  },
+                  {
+                    name: "2025년 개정세법 요약(재수정반영) (2)",
+                    file: "w003.docx",
+                    download: "2025년 개정세법 요약(재수정반영) (2).docx",
+                    kind: "doc",
+                  },
+                  {
+                    name: "2025년 귀속 연말정산 담당자 교육 강의자료(안성)",
+                    file: "w004.pdf",
+                    download: "2025년 귀속 연말정산 담당자 교육 강의자료(안성).pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2025년 원천징수의무자를 위한 신고안내",
+                    file: "w005.pdf",
+                    download: "2025년 원천징수의무자를 위한 신고안내.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2025년 원천징수의무자를 위한 연말정산 신고안내",
+                    file: "w006.pdf",
+                    download: "2025년 원천징수의무자를 위한 연말정산 신고안내.pdf",
+                    kind: "pdf",
+                  },
+                  {
+                    name: "2025년 귀속 나이스 연말정산 사용자 설명서_260113 (1)",
+                    file: "w008.pdf",
+                    download: "[붙임] 2025년 귀속 나이스 연말정산 사용자 설명서_260113 (1).pdf",
+                    kind: "pdf",
+                  },
+              ],
+            },
+          ],
+        },
+      ],
+      calculator: true,
+    }),
   },
 
   // 물품재산
