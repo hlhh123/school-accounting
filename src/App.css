@@ -2445,8 +2445,9 @@ a {
 }
 
 .gt-tile {
-  flex: 1 1 190px;
-  min-width: 170px;
+  /* 글자 길이에 맞춰 폭이 정해지고, 남는 공간을 나눠 가져 한 줄을 채웁니다 */
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -2473,9 +2474,8 @@ a {
   font-weight: 750;
   letter-spacing: -0.3px;
   line-height: 1.4;
-  /* 한글이 단어 중간에서 끊기지 않도록 (예: 정보공개 → 정보공/개) */
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  /* 제목은 항상 한 줄로 */
+  white-space: nowrap;
 }
 
 .gt-featured svg,
@@ -2495,8 +2495,6 @@ a {
 
 @media (max-width: 760px) {
   .gt-tile {
-    flex: 1 1 140px;
-    min-width: 140px;
     padding: 14px 15px;
   }
 
