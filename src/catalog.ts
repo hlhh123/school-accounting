@@ -8,6 +8,8 @@ export type CatalogItem = {
   description: string;
   special?: "gwansa" | "food" | "board"; // 전용 화면이 있는 항목
   children?: CatalogItem[]; // 하위 카테고리가 있는 항목 (예: 계약 → 공사/물품/용역/급식)
+  group?: string; // 홈 화면에서 묶어 표시할 주제 그룹 (grouped 섹션에서만 사용)
+  featured?: boolean; // 그룹 위에 대표 항목으로 크게 표시
 };
 
 export type CatalogCategory = {
@@ -17,7 +19,11 @@ export type CatalogCategory = {
   heading: string; // 섹션 제목
   items: CatalogItem[];
   compact?: boolean; // 항목이 많은 섹션은 카드를 작게 표시
+  grouped?: boolean; // 주제 그룹 + 아이콘 타일 형태로 표시
 };
+
+// grouped 섹션에서 그룹을 표시할 순서
+export const GROUP_ORDER = ["근무와 인사", "문서와 정보", "예산·시설·운영"];
 
 export const catalog: CatalogCategory[] = [
   {
@@ -80,72 +86,85 @@ export const catalog: CatalogCategory[] = [
     sectionId: "work-guides",
     label: "행정공통분야",
     heading: "행정공통분야",
-    compact: true,
+    grouped: true,
     items: [
       {
         slug: "admin-general",
         title: "행정공통 전반",
         description: "행정 종합 매뉴얼·성장입문서 등 전반 자료를 안내합니다.",
+        featured: true,
       },
       {
         slug: "service",
         title: "복무",
         description: "근무시간·휴가·출장 등 복무 기준을 안내합니다.",
+        group: "근무와 인사",
       },
       {
         slug: "personnel",
         title: "인사",
         description: "임용·전보·평정 등 인사 업무를 안내합니다.",
+        group: "근무와 인사",
       },
       {
         slug: "training",
         title: "교육훈련",
         description: "공무원 교육훈련 이수 방법을 안내합니다.",
-      },
-      {
-        slug: "security",
-        title: "보안",
-        description: "문서·정보 보안 준수 사항을 안내합니다.",
-      },
-      {
-        slug: "civil-affairs",
-        title: "전화응대, 민원, 정보공개",
-        description: "응대·민원 처리·정보공개 절차를 안내합니다.",
-      },
-      {
-        slug: "pr-press",
-        title: "홍보·보도",
-        description: "보도자료 서식·제출 절차 등 홍보 자료를 안내합니다.",
+        group: "근무와 인사",
       },
       {
         slug: "welfare",
         title: "공무원복지",
         description: "맞춤형복지 등 복지 제도를 안내합니다.",
-      },
-      {
-        slug: "budget-terms",
-        title: "예산 용어 설명",
-        description: "자주 쓰는 예산 용어를 정리했습니다.",
-      },
-      {
-        slug: "records",
-        title: "기록물관리",
-        description: "기록물 등록·보존 방법을 안내합니다.",
-      },
-      {
-        slug: "facility",
-        title: "시설관리",
-        description: "시설·물품 관리 기준을 안내합니다.",
+        group: "근무와 인사",
       },
       {
         slug: "official-docs",
         title: "공문서작성법",
         description: "공문서 작성 기준과 예시를 확인합니다.",
+        group: "문서와 정보",
+      },
+      {
+        slug: "records",
+        title: "기록물관리",
+        description: "기록물 등록·보존 방법을 안내합니다.",
+        group: "문서와 정보",
+      },
+      {
+        slug: "security",
+        title: "보안",
+        description: "문서·정보 보안 준수 사항을 안내합니다.",
+        group: "문서와 정보",
+      },
+      {
+        slug: "civil-affairs",
+        title: "전화응대, 민원, 정보공개",
+        description: "응대·민원 처리·정보공개 절차를 안내합니다.",
+        group: "문서와 정보",
+      },
+      {
+        slug: "pr-press",
+        title: "홍보·보도",
+        description: "보도자료 서식·제출 절차 등 홍보 자료를 안내합니다.",
+        group: "문서와 정보",
+      },
+      {
+        slug: "budget-terms",
+        title: "예산 용어 설명",
+        description: "자주 쓰는 예산 용어를 정리했습니다.",
+        group: "예산·시설·운영",
+      },
+      {
+        slug: "facility",
+        title: "시설관리",
+        description: "시설·물품 관리 기준을 안내합니다.",
+        group: "예산·시설·운영",
       },
       {
         slug: "committee",
         title: "위원회 운영 기본 방법",
         description: "각종 위원회 구성·운영 방법을 안내합니다.",
+        group: "예산·시설·운영",
       },
     ],
   },

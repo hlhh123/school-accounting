@@ -17,6 +17,7 @@ import { guides } from "./guides";
 import {
   catalog,
   findItem,
+  GROUP_ORDER,
   type CatalogCategory,
   type CatalogItem,
 } from "./catalog";
@@ -565,7 +566,143 @@ function NoticesPanel() {
   );
 }
 
+// 행정공통분야 항목별 아이콘 (단색 선 아이콘)
+const ITEM_ICONS: Record<string, ReactNode> = {
+  "admin-general": (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18M8 4v16" />
+    </>
+  ),
+  service: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  personnel: (
+    <>
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 20a7 7 0 0114 0" />
+    </>
+  ),
+  training: (
+    <>
+      <path d="M4 6h16v13H4z" />
+      <path d="M12 6v13M4 6l8-2 8 2" />
+    </>
+  ),
+  welfare: <path d="M12 20s-7-4.5-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.5-7 9-7 9z" />,
+  "official-docs": (
+    <>
+      <path d="M6 3h9l4 4v14H6z" />
+      <path d="M9 12h7M9 16h5" />
+    </>
+  ),
+  records: <path d="M4 6h6l2 2h8v11H4z" />,
+  security: <path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z" />,
+  "civil-affairs": (
+    <path d="M5 4h4l2 5-2.5 1.5a12 12 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" />
+  ),
+  "pr-press": (
+    <>
+      <path d="M4 9v6h4l6 4V5L8 9z" />
+      <path d="M18 8a6 6 0 010 8" />
+    </>
+  ),
+  "budget-terms": (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 8v8M9.5 10.5h5M9.5 13.5h5" />
+    </>
+  ),
+  facility: (
+    <>
+      <path d="M4 20V9l8-5 8 5v11z" />
+      <path d="M10 20v-6h4v6" />
+    </>
+  ),
+  committee: (
+    <>
+      <circle cx="8" cy="9" r="2.5" />
+      <circle cx="16" cy="9" r="2.5" />
+      <path d="M3 19a5 5 0 0110 0M11 19a5 5 0 0110 0" />
+    </>
+  ),
+};
+
+function ItemIcon({ slug }: { slug: string }) {
+  const paths = ITEM_ICONS[slug];
+  if (!paths) return null;
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {paths}
+    </svg>
+  );
+}
+
+// 주제 그룹 + 아이콘 타일로 표시하는 섹션(행정공통분야)
+function GroupedCategorySection({ category }: { category: CatalogCategory }) {
+  const featured = category.items.filter((i) => i.featured);
+  const groups = GROUP_ORDER.map((name) => ({
+    name,
+    items: category.items.filter((i) => i.group === name),
+  })).filter((g) => g.items.length > 0);
+
+  return (
+    <section className="banner" id={category.sectionId}>
+      <div className="section-inner">
+        <div className="section-heading">
+          {category.label !== category.heading && <p>{category.label}</p>}
+          <h3>{category.heading}</h3>
+        </div>
+
+        {featured.map((item) => (
+          <button
+            type="button"
+            key={item.slug}
+            className="gt-featured"
+            onClick={() => openItem(item.slug)}
+          >
+            <ItemIcon slug={item.slug} />
+            <span className="gt-featured-title">{item.title}</span>
+            <span className="gt-featured-go" aria-hidden="true">
+              →
+            </span>
+          </button>
+        ))}
+
+        {groups.map((group) => (
+          <div className="gt-group" key={group.name}>
+            <div className="gt-group-head">
+              <h4>{group.name}</h4>
+              <span className="gt-rule" />
+              <span className="gt-count">{group.items.length}</span>
+            </div>
+            <div className="gt-band">
+              {group.items.map((item) => (
+                <button
+                  type="button"
+                  key={item.slug}
+                  className="gt-tile"
+                  onClick={() => openItem(item.slug)}
+                >
+                  <ItemIcon slug={item.slug} />
+                  <span className="gt-tile-title">{item.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function CategorySection({ category }: { category: CatalogCategory }) {
+  if (category.grouped) {
+    return <GroupedCategorySection category={category} />;
+  }
   return (
     <section className="banner" id={category.sectionId}>
       <div className="section-inner">

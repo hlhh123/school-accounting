@@ -2370,6 +2370,137 @@ a {
   }
 }
 
+/* ── 행정공통분야: 주제 그룹 + 아이콘 타일 ───────────────────────── */
+.gt-featured {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 22px;
+  margin-bottom: 30px;
+  background: #ffffff;
+  border: 1.5px solid #111111;
+  border-radius: 14px;
+  color: inherit;
+  text-align: left;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.gt-featured:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.07);
+}
+
+.gt-featured-title {
+  flex: 0 0 auto;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.gt-featured-go {
+  margin-left: auto;
+  color: #888888;
+  font-size: 18px;
+}
+
+.gt-group + .gt-group {
+  margin-top: 28px;
+}
+
+.gt-group-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.gt-group-head h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.gt-rule {
+  flex: 1;
+  height: 1px;
+  background: #e6e6e6;
+}
+
+.gt-count {
+  color: #999999;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.gt-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gt-tile {
+  flex: 1 1 190px;
+  min-width: 170px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 17px 18px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 14px;
+  color: inherit;
+  text-align: left;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.gt-tile:hover {
+  transform: translateY(-3px);
+  border-color: #b5b5b5;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.gt-tile-title {
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.3px;
+  line-height: 1.4;
+}
+
+.gt-featured svg,
+.gt-tile svg {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  stroke: #111111;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.gt-featured svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 760px) {
+  .gt-tile {
+    flex: 1 1 140px;
+    min-width: 140px;
+    padding: 14px 15px;
+  }
+
+  .gt-tile-title {
+    font-size: 14px;
+  }
+}
+
 /* ── G-ONE 플로팅 배너 (PC 전용, 스크롤 따라다님) ───────────────── */
 .gone-banner {
   position: fixed;
