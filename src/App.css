@@ -2141,6 +2141,23 @@ a {
   font-size: 20px;
 }
 
+/* 기본 제공(코드) 자료 행 — 읽기 전용 */
+.data-table tr.is-builtin td {
+  color: #888888;
+  background: #fafafa;
+}
+
+.admin-builtin-tag {
+  display: inline-block;
+  padding: 3px 9px;
+  background: #eeeeee;
+  border-radius: 999px;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* 관리자 탭 (서식/매뉴얼, 음식점/카페 등) */
 .admin-tabs {
   display: flex;

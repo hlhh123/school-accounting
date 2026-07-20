@@ -37,6 +37,32 @@ function docTargetsFor(slug: string): DocTarget[] {
   return [{ key: slug, label: "자료" }];
 }
 
+// 코드(guides.ts)에 들어 있는 기본 제공 자료. 관리자에서 읽기 전용으로 함께 보여줍니다.
+type StaticDoc = { category: string; name: string; kind: string; file: string };
+function staticDocsFor(slug: string, targetKey: string): StaticDoc[] {
+  const g = guides[slug];
+  if (!g) return [];
+  const sections =
+    g.tabs && g.tabs.length > 0
+      ? (g.tabs.find((t) => t.docKey === targetKey)?.sections ?? [])
+      : g.sections;
+  const out: StaticDoc[] = [];
+  for (const sec of sections) {
+    for (const block of sec.blocks) {
+      if (block.type !== "files") continue;
+      for (const item of block.items) {
+        out.push({
+          category: sec.title,
+          name: item.name,
+          kind: item.kind,
+          file: item.file,
+        });
+      }
+    }
+  }
+  return out;
+}
+
 function AdminHeader({ onExit }: { onExit: () => void }) {
   return (
     <header className="header">
@@ -294,8 +320,15 @@ function ItemDocsManager({ slug, title }: { slug: string; title: string }) {
     setEditingId(null);
   }, [target]);
 
+  // 코드에 들어 있는 기본 제공 자료(읽기 전용)
+  const staticDocs = staticDocsFor(slug, target);
+
   const categoryOptions = Array.from(
-    new Set([...suggestedCategories(target), ...docs.map((d) => d.category)]),
+    new Set([
+      ...suggestedCategories(target),
+      ...staticDocs.map((s) => s.category),
+      ...docs.map((d) => d.category),
+    ]),
   ).filter(Boolean);
 
   const startNew = () => {
@@ -458,42 +491,62 @@ function ItemDocsManager({ slug, title }: { slug: string; title: string }) {
 
       {loading ? (
         <p>불러오는 중…</p>
-      ) : docs.length === 0 ? (
+      ) : docs.length === 0 && staticDocs.length === 0 ? (
         <p className="admin-empty">
           등록된 자료가 없습니다. "행 추가"로 올려 주세요.
         </p>
       ) : (
-        <div className="table-scroll">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>분류</th>
-                <th>제목</th>
-                <th>형식</th>
-                <th>관리</th>
-              </tr>
-            </thead>
-            <tbody>
-              {docs.map((d) => (
-                <tr key={d.id}>
-                  <td>{d.category}</td>
-                  <td>{d.name}</td>
-                  <td>{d.kind.toUpperCase()}</td>
-                  <td>
-                    <div className="admin-list-actions">
-                      <button type="button" onClick={() => startEdit(d)}>
-                        수정
-                      </button>
-                      <button type="button" onClick={() => remove(d)}>
-                        삭제
-                      </button>
-                    </div>
-                  </td>
+        <>
+          <div className="table-scroll">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>분류</th>
+                  <th>제목</th>
+                  <th>형식</th>
+                  <th>관리</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {docs.map((d) => (
+                  <tr key={d.id}>
+                    <td>{d.category}</td>
+                    <td>{d.name}</td>
+                    <td>{d.kind.toUpperCase()}</td>
+                    <td>
+                      <div className="admin-list-actions">
+                        <button type="button" onClick={() => startEdit(d)}>
+                          수정
+                        </button>
+                        <button type="button" onClick={() => remove(d)}>
+                          삭제
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {staticDocs.map((s) => (
+                  <tr key={`static-${s.file}`} className="is-builtin">
+                    <td>{s.category}</td>
+                    <td>{s.name}</td>
+                    <td>{s.kind.toUpperCase()}</td>
+                    <td>
+                      <span className="admin-builtin-tag">기본 제공</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {staticDocs.length > 0 && (
+            <p className="admin-hint">
+              <strong>기본 제공</strong> {staticDocs.length}건은 사이트에 미리
+              넣어 둔 자료라 여기서 수정·삭제할 수 없습니다. 변경이 필요하면
+              담당자에게 요청해 주세요. 새로 올린 자료만 수정·삭제됩니다.
+            </p>
+          )}
+        </>
       )}
     </div>
   );
