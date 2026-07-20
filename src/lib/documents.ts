@@ -141,6 +141,19 @@ export async function uploadDocument(input: {
   }
 }
 
+// 제목·분류 수정 (파일 자체는 그대로 두고 메타데이터만 변경)
+export async function updateDocument(
+  id: string,
+  values: { name: string; category: string },
+): Promise<void> {
+  if (!supabase) throw new Error("Supabase가 설정되지 않았습니다.");
+  const { error } = await supabase
+    .from("documents")
+    .update({ name: values.name.trim(), category: values.category.trim() })
+    .eq("id", id);
+  if (error) throw error;
+}
+
 // 파일 + 메타데이터 삭제
 export async function deleteDocument(doc: Doc): Promise<void> {
   if (!supabase) throw new Error("Supabase가 설정되지 않았습니다.");

@@ -2141,6 +2141,38 @@ a {
   font-size: 20px;
 }
 
+/* 관리자 탭 (서식/매뉴얼, 음식점/카페 등) */
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.admin-tab {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 999px;
+  color: #666666;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.admin-tab:hover {
+  border-color: #999999;
+}
+
+.admin-tab.is-active {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+}
+
 .admin-editor {
   margin-bottom: 28px;
   padding: 24px;
@@ -2239,6 +2271,13 @@ a {
   color: #555555;
   font-size: 14px;
   font-weight: 600;
+}
+
+.admin-nav-item.is-sub {
+  padding-left: 26px;
+  color: #777777;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .admin-nav-item:hover {

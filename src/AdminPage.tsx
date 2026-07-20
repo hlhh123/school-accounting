@@ -16,38 +16,25 @@ import {
 import {
   fetchAllDocs,
   uploadDocument,
+  updateDocument,
   deleteDocument,
   suggestedCategories,
   type Doc,
 } from "./lib/documents";
 
-// 자료실 업로드를 지원하는 페이지 목록(가이드가 있는 catalog 항목 + 하위 항목).
-// 탭이 있는 가이드(예: 지출)는 탭별로 별도 업로드 대상이 됩니다.
-type DocPage = { slug: string; label: string };
-function addGuidePages(pages: DocPage[], slug: string, label: string) {
+// 한 항목(배너)이 가진 자료 보관함 목록.
+// 탭이 있는 가이드(예: 지출)는 탭(서식/매뉴얼)별로 나뉩니다.
+type DocTarget = { key: string; label: string };
+function docTargetsFor(slug: string): DocTarget[] {
   const g = guides[slug];
-  if (!g) return;
+  if (!g) return [];
   if (g.tabs && g.tabs.length > 0) {
-    g.tabs.forEach((t) => {
-      // 계산기 등 업로드가 없는(docKey 없는) 탭은 업로드 대상에서 제외
-      if (!t.docKey) return;
-      pages.push({ slug: t.docKey, label: `${label} · ${t.label}` });
-    });
-  } else {
-    pages.push({ slug, label });
+    // 계산기 등 업로드가 없는(docKey 없는) 탭은 제외
+    return g.tabs
+      .filter((t) => t.docKey)
+      .map((t) => ({ key: t.docKey as string, label: t.label }));
   }
-}
-function buildDocPages(): DocPage[] {
-  const pages: DocPage[] = [];
-  for (const cat of catalog) {
-    for (const item of cat.items) {
-      addGuidePages(pages, item.slug, item.title);
-      item.children?.forEach((ch) =>
-        addGuidePages(pages, ch.slug, `${item.title} · ${ch.title}`),
-      );
-    }
-  }
-  return pages;
+  return [{ key: slug, label: "자료" }];
 }
 
 function AdminHeader({ onExit }: { onExit: () => void }) {
@@ -275,27 +262,26 @@ function NoticeManager() {
   );
 }
 
-const DOC_PAGES = buildDocPages();
-
-function DocumentManager() {
-  const [page, setPage] = useState<string>(DOC_PAGES[0]?.slug ?? "expense");
+function ItemDocsManager({ slug, title }: { slug: string; title: string }) {
+  const targets = docTargetsFor(slug);
+  const [target, setTarget] = useState<string>(targets[0]?.key ?? slug);
   const [docs, setDocs] = useState<Doc[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+
+  // editingId: "new" = 새 파일 업로드, 그 외 = 해당 행 수정
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [fileKey, setFileKey] = useState(0); // input 초기화용
+  const [fileKey, setFileKey] = useState(0);
 
-  const pageLabel =
-    DOC_PAGES.find((p) => p.slug === page)?.label ?? page;
-
-  const reload = async (slug: string) => {
+  const reload = async (key: string) => {
     setLoading(true);
     setError("");
     try {
-      setDocs(await fetchAllDocs(slug));
+      setDocs(await fetchAllDocs(key));
     } catch (err) {
       setError(err instanceof Error ? err.message : "불러오기 실패");
     } finally {
@@ -304,28 +290,42 @@ function DocumentManager() {
   };
 
   useEffect(() => {
-    reload(page);
-    setCategory("");
-  }, [page]);
+    reload(target);
+    setEditingId(null);
+  }, [target]);
 
-  // 분류 입력칸 제안: 기본 제안 + 이미 업로드된 분류
   const categoryOptions = Array.from(
-    new Set([...suggestedCategories(page), ...docs.map((d) => d.category)]),
+    new Set([...suggestedCategories(target), ...docs.map((d) => d.category)]),
   ).filter(Boolean);
+
+  const startNew = () => {
+    setEditingId("new");
+    setCategory("");
+    setName("");
+    setFile(null);
+    setFileKey((k) => k + 1);
+  };
+
+  const startEdit = (d: Doc) => {
+    setEditingId(d.id);
+    setCategory(d.category);
+    setName(d.name);
+    setFile(null);
+  };
+
+  const cancel = () => {
+    setEditingId(null);
+    setCategory("");
+    setName("");
+    setFile(null);
+  };
 
   const onPickFile = (f: File | null) => {
     setFile(f);
-    // 제목을 비워뒀다면 파일명(확장자 제외)으로 기본값 채우기
-    if (f && !name.trim()) {
-      setName(f.name.replace(/\.[^.]+$/, ""));
-    }
+    if (f && !name.trim()) setName(f.name.replace(/\.[^.]+$/, ""));
   };
 
-  const upload = async () => {
-    if (!file) {
-      setError("업로드할 파일을 선택해 주세요.");
-      return;
-    }
+  const save = async () => {
     if (!name.trim()) {
       setError("제목을 입력해 주세요.");
       return;
@@ -334,16 +334,28 @@ function DocumentManager() {
       setError("분류를 입력해 주세요.");
       return;
     }
+    if (editingId === "new" && !file) {
+      setError("업로드할 파일을 선택해 주세요.");
+      return;
+    }
     setBusy(true);
     setError("");
     try {
-      await uploadDocument({ guide: page, category: category.trim(), name, file });
-      setName("");
-      setFile(null);
+      if (editingId === "new") {
+        await uploadDocument({
+          guide: target,
+          category: category.trim(),
+          name,
+          file: file as File,
+        });
+      } else if (editingId) {
+        await updateDocument(editingId, { name, category });
+      }
+      cancel();
       setFileKey((k) => k + 1);
-      await reload(page);
+      await reload(target);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "업로드 실패");
+      setError(err instanceof Error ? err.message : "저장 실패");
     } finally {
       setBusy(false);
     }
@@ -354,7 +366,7 @@ function DocumentManager() {
     setError("");
     try {
       await deleteDocument(doc);
-      await reload(page);
+      await reload(target);
     } catch (err) {
       setError(err instanceof Error ? err.message : "삭제 실패");
     }
@@ -363,13 +375,26 @@ function DocumentManager() {
   return (
     <div className="admin-panel">
       <div className="admin-panel-head">
-        <h3>자료실 (파일 업로드)</h3>
+        <h3>{title}</h3>
+        <button type="button" className="admin-primary" onClick={startNew}>
+          + 행 추가
+        </button>
       </div>
 
-      <p className="admin-empty" style={{ marginTop: 0 }}>
-        업로드한 파일은 <strong>{pageLabel}</strong> 페이지의 선택한 분류 아래에
-        표시됩니다.
-      </p>
+      {targets.length > 1 && (
+        <div className="admin-tabs">
+          {targets.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              className={`admin-tab${t.key === target ? " is-active" : ""}`}
+              onClick={() => setTarget(t.key)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {error && <p className="admin-error">{error}</p>}
 
@@ -379,80 +404,96 @@ function DocumentManager() {
         ))}
       </datalist>
 
-      <div className="admin-editor">
-        <label>
-          페이지
-          <select value={page} onChange={(e) => setPage(e.target.value)}>
-            {DOC_PAGES.map((p) => (
-              <option key={p.slug} value={p.slug}>
-                {p.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          분류
-          <input
-            type="text"
-            list="doc-category-options"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="예: 매뉴얼·지침 (직접 입력 가능)"
-          />
-        </label>
-        <label>
-          제목
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="화면에 표시할 제목"
-          />
-        </label>
-        <label>
-          파일
-          <input
-            key={fileKey}
-            type="file"
-            accept=".pdf,.hwp,.hwpx"
-            onChange={(e) => onPickFile(e.target.files?.[0] ?? null)}
-          />
-        </label>
-        <div className="admin-editor-actions">
-          <button
-            type="button"
-            className="admin-primary"
-            onClick={upload}
-            disabled={busy}
-          >
-            {busy ? "업로드 중…" : "업로드"}
-          </button>
+      {editingId && (
+        <div className="admin-editor">
+          <label>
+            분류
+            <input
+              type="text"
+              list="doc-category-options"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="예: 매뉴얼·지침 (직접 입력 가능)"
+            />
+          </label>
+          <label>
+            제목
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="화면에 표시할 제목"
+            />
+          </label>
+          {editingId === "new" ? (
+            <label>
+              파일
+              <input
+                key={fileKey}
+                type="file"
+                accept=".pdf,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                onChange={(e) => onPickFile(e.target.files?.[0] ?? null)}
+              />
+            </label>
+          ) : (
+            <p className="admin-hint">
+              파일은 그대로 두고 제목·분류만 바뀝니다.
+            </p>
+          )}
+          <div className="admin-editor-actions">
+            <button
+              type="button"
+              className="admin-primary"
+              onClick={save}
+              disabled={busy}
+            >
+              {busy ? "저장 중…" : "저장"}
+            </button>
+            <button type="button" className="admin-ghost" onClick={cancel}>
+              취소
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {loading ? (
         <p>불러오는 중…</p>
       ) : docs.length === 0 ? (
-        <p className="admin-empty">이 페이지에 업로드된 파일이 없습니다.</p>
+        <p className="admin-empty">
+          등록된 자료가 없습니다. "행 추가"로 올려 주세요.
+        </p>
       ) : (
-        <ul className="admin-list">
-          {docs.map((d) => (
-            <li key={d.id}>
-              <div>
-                <strong>
-                  <span className="admin-pin">{d.category}</span>
-                  {d.name}
-                </strong>
-                <p>{d.kind.toUpperCase()}</p>
-              </div>
-              <div className="admin-list-actions">
-                <button type="button" onClick={() => remove(d)}>
-                  삭제
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="table-scroll">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>분류</th>
+                <th>제목</th>
+                <th>형식</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              {docs.map((d) => (
+                <tr key={d.id}>
+                  <td>{d.category}</td>
+                  <td>{d.name}</td>
+                  <td>{d.kind.toUpperCase()}</td>
+                  <td>
+                    <div className="admin-list-actions">
+                      <button type="button" onClick={() => startEdit(d)}>
+                        수정
+                      </button>
+                      <button type="button" onClick={() => remove(d)}>
+                        삭제
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
@@ -505,28 +546,34 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           >
             직무달력
           </button>
-          <button
-            type="button"
-            className={`admin-nav-item${selected === "expense-docs" ? " is-active" : ""}`}
-            onClick={() => setSelected("expense-docs")}
-          >
-            자료실
-          </button>
 
           {catalog.map((cat) => (
             <div className="admin-nav-group" key={cat.key}>
               <p className="admin-nav-label">{cat.label}</p>
               {cat.items.map((item) => (
-                <button
-                  key={item.slug}
-                  type="button"
-                  className={`admin-nav-item${
-                    selected === item.slug ? " is-active" : ""
-                  }`}
-                  onClick={() => setSelected(item.slug)}
-                >
-                  {item.title}
-                </button>
+                <div key={item.slug}>
+                  <button
+                    type="button"
+                    className={`admin-nav-item${
+                      selected === item.slug ? " is-active" : ""
+                    }`}
+                    onClick={() => setSelected(item.slug)}
+                  >
+                    {item.title}
+                  </button>
+                  {item.children?.map((child) => (
+                    <button
+                      key={child.slug}
+                      type="button"
+                      className={`admin-nav-item is-sub${
+                        selected === child.slug ? " is-active" : ""
+                      }`}
+                      onClick={() => setSelected(child.slug)}
+                    >
+                      {child.title}
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
           ))}
@@ -537,12 +584,16 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             <NoticeManager />
           ) : selected === "calendar" ? (
             <DutyAdmin />
-          ) : selected === "expense-docs" ? (
-            <DocumentManager />
           ) : selected === "gwansa" ? (
             <GwansaAdmin />
           ) : selected === "food" ? (
             <MatjibAdmin />
+          ) : docTargetsFor(selected).length > 0 ? (
+            <ItemDocsManager
+              key={selected}
+              slug={selected}
+              title={findItem(selected)?.item.title ?? selected}
+            />
           ) : (
             <AdminPlaceholder slug={selected} />
           )}
