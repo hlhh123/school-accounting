@@ -566,8 +566,62 @@ function NoticesPanel() {
   );
 }
 
-// 행정공통분야 항목별 아이콘 (단색 선 아이콘)
+// 항목별 아이콘 (단색 선 아이콘)
 const ITEM_ICONS: Record<string, ReactNode> = {
+  // 업무
+  expense: (
+    <>
+      <rect x="2.5" y="6" width="19" height="12" rx="2" />
+      <circle cx="12" cy="12" r="2.5" />
+    </>
+  ),
+  contract: (
+    <>
+      <path d="M6 3h9l4 4v14H6z" />
+      <path d="M9 13l2 2 4-4" />
+    </>
+  ),
+  property: (
+    <>
+      <path d="M3 8l9-5 9 5v8l-9 5-9-5z" />
+      <path d="M3 8l9 5 9-5M12 13v8" />
+    </>
+  ),
+  "salary-official": (
+    <>
+      <rect x="3" y="6" width="18" height="13" rx="2" />
+      <path d="M3 10.5h18M16 15h2.5" />
+    </>
+  ),
+  "salary-worker": (
+    <>
+      <ellipse cx="12" cy="7" rx="7" ry="3" />
+      <path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7" />
+      <path d="M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5" />
+    </>
+  ),
+  // 생활 정보
+  gwansa: (
+    <>
+      <path d="M3 11l9-7 9 7" />
+      <path d="M5.5 10v10h13V10" />
+      <path d="M10 20v-6h4v6" />
+    </>
+  ),
+  food: (
+    <>
+      <path d="M6 3v7a2 2 0 104 0V3" />
+      <path d="M8 10v11" />
+      <path d="M16.5 3c-1.7 0-3 2.2-3 5s1.3 4 3 4v9" />
+    </>
+  ),
+  board: (
+    <>
+      <path d="M4 5h12v9H9l-5 4z" />
+      <path d="M7.5 9.5h5" />
+    </>
+  ),
+  // 행정공통분야
   "admin-general": (
     <>
       <rect x="3" y="4" width="18" height="16" rx="2" />
@@ -666,9 +720,6 @@ function GroupedCategorySection({ category }: { category: CatalogCategory }) {
           >
             <ItemIcon slug={item.slug} />
             <span className="gt-featured-title">{item.title}</span>
-            <span className="gt-featured-go" aria-hidden="true">
-              →
-            </span>
           </button>
         ))}
 
@@ -676,8 +727,6 @@ function GroupedCategorySection({ category }: { category: CatalogCategory }) {
           <div className="gt-group" key={group.name}>
             <div className="gt-group-head">
               <h4>{group.name}</h4>
-              <span className="gt-rule" />
-              <span className="gt-count">{group.items.length}</span>
             </div>
             <div className="gt-band">
               {group.items.map((item) => (
@@ -719,7 +768,10 @@ function CategorySection({ category }: { category: CatalogCategory }) {
               key={item.slug}
               onClick={() => openItem(item.slug)}
             >
-              <span className="service-title">{item.title}</span>
+              <span className="service-head">
+                <ItemIcon slug={item.slug} />
+                <span className="service-title">{item.title}</span>
+              </span>
               <span className="service-description">{item.description}</span>
               <span className="service-arrow">→</span>
             </button>

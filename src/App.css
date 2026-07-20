@@ -221,6 +221,21 @@ a {
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.06);
 }
 
+.service-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-head svg {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  stroke: #111111;
+  stroke-width: 1.6;
+  fill: none;
+}
+
 .service-title {
   display: block;
   font-size: 21px;
@@ -2400,12 +2415,6 @@ a {
   letter-spacing: -0.4px;
 }
 
-.gt-featured-go {
-  margin-left: auto;
-  color: #888888;
-  font-size: 18px;
-}
-
 .gt-group + .gt-group {
   margin-top: 28px;
 }
@@ -2422,19 +2431,6 @@ a {
   font-size: 14px;
   font-weight: 800;
   letter-spacing: -0.2px;
-}
-
-.gt-rule {
-  flex: 1;
-  height: 1px;
-  background: #e6e6e6;
-}
-
-.gt-count {
-  color: #999999;
-  font-size: 12px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
 }
 
 .gt-band {
