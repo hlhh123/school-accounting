@@ -240,6 +240,8 @@ a {
   display: block;
   font-size: 21px;
   font-weight: 750;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .service-description {
@@ -248,6 +250,8 @@ a {
   margin-top: 14px;
   color: #777777;
   line-height: 1.6;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .service-arrow {
@@ -2413,6 +2417,7 @@ a {
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.4px;
+  word-break: keep-all;
 }
 
 .gt-group + .gt-group {
@@ -2468,6 +2473,9 @@ a {
   font-weight: 750;
   letter-spacing: -0.3px;
   line-height: 1.4;
+  /* 한글이 단어 중간에서 끊기지 않도록 (예: 정보공개 → 정보공/개) */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .gt-featured svg,
