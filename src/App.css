@@ -176,11 +176,14 @@ a {
   margin: 0 auto;
 }
 
+/* 섹션 제목: 왼쪽 정렬 + 아래 헤어라인 (카드와 축을 맞춥니다) */
 .section-heading {
-  margin-bottom: 38px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid #111111;
+  text-align: left;
 }
 
-.section-heading p,
 .information-label {
   margin: 0 0 12px;
   color: #777777;
@@ -191,8 +194,8 @@ a {
 .section-heading h3,
 .information-box h3 {
   margin: 0;
-  font-size: 32px;
-  letter-spacing: -1.3px;
+  font-size: 28px;
+  letter-spacing: -1.2px;
 }
 
 .service-grid {

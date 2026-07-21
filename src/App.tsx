@@ -707,7 +707,6 @@ function GroupedCategorySection({ category }: { category: CatalogCategory }) {
     <section className="banner" id={category.sectionId}>
       <div className="section-inner">
         <div className="section-heading">
-          {category.label !== category.heading && <p>{category.label}</p>}
           <h3>{category.heading}</h3>
         </div>
 
@@ -765,7 +764,6 @@ function CategorySection({ category }: { category: CatalogCategory }) {
     <section className="banner" id={category.sectionId}>
       <div className="section-inner">
         <div className="section-heading">
-          {category.label !== category.heading && <p>{category.label}</p>}
           <h3>{category.heading}</h3>
         </div>
 

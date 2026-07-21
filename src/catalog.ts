@@ -172,7 +172,7 @@ export const catalog: CatalogCategory[] = [
     key: "life",
     sectionId: "anseong-life",
     label: "생활 정보",
-    heading: "신규자를 위한 안성 생활 정보",
+    heading: "안성 생활 정보",
     items: [
       {
         slug: "gwansa",
