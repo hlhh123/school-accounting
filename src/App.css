@@ -176,11 +176,9 @@ a {
   margin: 0 auto;
 }
 
-/* 섹션 제목: 왼쪽 정렬 + 아래 헤어라인 (카드와 축을 맞춥니다) */
+/* 섹션 제목: 왼쪽 정렬 (카드와 축을 맞춥니다) */
 .section-heading {
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 1.5px solid #111111;
+  margin-bottom: 30px;
   text-align: left;
 }
 
