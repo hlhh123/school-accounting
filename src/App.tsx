@@ -711,17 +711,26 @@ function GroupedCategorySection({ category }: { category: CatalogCategory }) {
           <h3>{category.heading}</h3>
         </div>
 
-        {featured.map((item) => (
-          <button
-            type="button"
-            key={item.slug}
-            className="gt-featured"
-            onClick={() => openItem(item.slug)}
-          >
-            <ItemIcon slug={item.slug} />
-            <span className="gt-featured-title">{item.title}</span>
-          </button>
-        ))}
+        {featured.length > 0 && (
+          <div className="gt-group">
+            <div className="gt-group-head">
+              <h4>전반</h4>
+            </div>
+            <div className="gt-band">
+              {featured.map((item) => (
+                <button
+                  type="button"
+                  key={item.slug}
+                  className="gt-tile is-lead"
+                  onClick={() => openItem(item.slug)}
+                >
+                  <ItemIcon slug={item.slug} />
+                  <span className="gt-tile-title">{item.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {groups.map((group) => (
           <div className="gt-group" key={group.name}>

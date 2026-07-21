@@ -2446,36 +2446,6 @@ a {
 }
 
 /* ── 행정공통분야: 주제 그룹 + 아이콘 타일 ───────────────────────── */
-.gt-featured {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 18px 22px;
-  margin-bottom: 30px;
-  background: #ffffff;
-  border: 1.5px solid #111111;
-  border-radius: 14px;
-  color: inherit;
-  text-align: left;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.gt-featured:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.07);
-}
-
-.gt-featured-title {
-  flex: 0 0 auto;
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: -0.4px;
-  word-break: keep-all;
-}
-
 .gt-group + .gt-group {
   margin-top: 28px;
 }
@@ -2525,6 +2495,11 @@ a {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
 }
 
+/* 대표 항목(행정공통 전반): 다른 타일과 동일 스타일, 폭만 내용에 맞춤 */
+.gt-tile.is-lead {
+  flex: 0 0 auto;
+}
+
 .gt-tile-title {
   font-size: 15px;
   font-weight: 750;
@@ -2534,7 +2509,6 @@ a {
   white-space: nowrap;
 }
 
-.gt-featured svg,
 .gt-tile svg {
   flex: 0 0 auto;
   width: 20px;
@@ -2542,11 +2516,6 @@ a {
   stroke: #111111;
   stroke-width: 1.6;
   fill: none;
-}
-
-.gt-featured svg {
-  width: 22px;
-  height: 22px;
 }
 
 @media (max-width: 760px) {
