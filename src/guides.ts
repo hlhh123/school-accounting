@@ -397,8 +397,946 @@ export const guides: Record<string, Guide> = {
     ],
   },
 
-  // 계약 (개요) — 하위 유형(공사/물품/용역/급식) 카드가 함께 표시됩니다.
-  contract: { sections: [], tabs: tabbed("contract") },
+  // 계약 (개요) — «계약방법 찾기» 검색기 + 서식/매뉴얼, 하위 유형 카드가 함께 표시됩니다.
+  // 자료 출처: 경기도교육청 학교 업무매뉴얼 «제13편 계약» 및 첨부자료
+  contract: {
+    intro:
+      "계약분야·유형과 추정가격을 입력해 적용 가능한 계약방법과 절차를 확인하세요. 아래 서식·매뉴얼과 세부 계약 유형도 함께 제공합니다.",
+    sections: [],
+    tabs: [
+      {
+        key: "forms",
+        label: "서식",
+        docKey: "contract-forms",
+        sections: [
+        {
+          title: "계약 준비 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-02-03 소규모 공사 계획서(옥상 방수공사 및 외부방수공사)",
+                  file: "c022.hwpx",
+                  download: "13-02-03 소규모 공사 계획서(옥상 방수공사 및 외부방수공사).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-04 물품 구입 계획서(가스 저감창치 구매 및 설치)",
+                  file: "c023.hwpx",
+                  download: "13-02-04 물품 구입 계획서(가스 저감창치 구매 및 설치).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-05 일반물품. 추첨물품평가표",
+                  file: "c024.hwpx",
+                  download: "13-02-05 일반물품. 추첨물품평가표.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-06 회의록(별지)",
+                  file: "c025.hwpx",
+                  download: "13-02-06 회의록(별지).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "수의계약·입찰 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-03-14 현장(품)설명청취조서",
+                  file: "c041.hwpx",
+                  download: "13-03-14 현장(품)설명청취조서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-25 1인 수의계약 대상자 결정을 위한 사전점검 리스트",
+                  file: "c052.hwpx",
+                  download: "13-03-25 1인 수의계약 대상자 결정을 위한 사전점검 리스트.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-26 수의계약 요청 사유서",
+                  file: "c053.hwpx",
+                  download: "13-03-26 수의계약 요청 사유서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-34 부정당업자 제재처분 요청",
+                  file: "c061.hwpx",
+                  download: "13-03-34 부정당업자 제재처분 요청.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-37 계약이행 촉구 등 시정 요구(서식 1)",
+                  file: "c064.hwpx",
+                  download: "13-03-37 계약이행 촉구 등 시정 요구(서식 1).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-38 수의계약 배제업무 등록 예정 안내 공문 발송",
+                  file: "c065.hwpx",
+                  download: "13-03-38 수의계약 배제업무 등록 예정 안내 공문 발송.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-39 수의계약 배제업체 등록 결재",
+                  file: "c066.hwpx",
+                  download: "13-03-39 수의계약 배제업체 등록 결재.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약 체결 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-04-01 표준계약서(지방계약법 시행규칙)",
+                  file: "c069.hwpx",
+                  download: "13-04-01 표준계약서(지방계약법 시행규칙).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-04-02 낙찰결정통지 및 계약체결 알림 공문(예시)",
+                  file: "c070.hwpx",
+                  download: "13-04-02 낙찰결정통지 및 계약체결 알림 공문(예시).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-04-03 계약이행 통합 서약서(개선 서식)",
+                  file: "c071.hwpx",
+                  download: "13-04-03 계약이행 통합 서약서(개선 서식).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약 이행·관리 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-05-03 건설공사의 직접시공계획서",
+                  file: "c076.hwpx",
+                  download: "13-05-03 건설공사의 직접시공계획서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-04 산업안전보건관리비 사용계획서",
+                  file: "c077.hwpx",
+                  download: "13-05-04 산업안전보건관리비 사용계획서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-05 환경관리비 사용(변경) 계획서",
+                  file: "c078.hwpx",
+                  download: "13-05-05 환경관리비 사용(변경) 계획서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-09 노무비 구분관리제 및 지급확인제(착수)",
+                  file: "c082.hwpx",
+                  download: "13-05-09 노무비 구분관리제 및 지급확인제(착수).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-10 공공요금징수협약서(예시)",
+                  file: "c083.hwpx",
+                  download: "13-05-10 공공요금징수협약서(예시).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-11 공공요금징수 적용 제외 신청서(예시)",
+                  file: "c084.hwpx",
+                  download: "13-05-11 공공요금징수 적용 제외 신청서(예시).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-15 학교시설공사 시 공공요금 계산기(2025. 11.)",
+                  file: "c088.xlsx",
+                  download: "13-05-15 학교시설공사 시 공공요금 계산기(2025. 11.).xlsx",
+                  kind: "xls",
+                },
+                {
+                  name: "13-05-19 하도급지킴이 이용 확약서",
+                  file: "c092.hwpx",
+                  download: "13-05-19 하도급지킴이 이용 확약서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-25 공사 중지 기안문(예시)",
+                  file: "c098.hwpx",
+                  download: "13-05-25 공사 중지 기안문(예시).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-26 공사 중지 해제 기안문(예시)",
+                  file: "c099.hwpx",
+                  download: "13-05-26 공사 중지 해제 기안문(예시).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-27 공공요금 납부 요청 기안문(예시)",
+                  file: "c100.hwpx",
+                  download: "13-05-27 공공요금 납부 요청 기안문(예시).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-35 준공정산사유서",
+                  file: "c108.hwpx",
+                  download: "13-05-35 준공정산사유서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-36 노무비 구분관리제 및 지급확인제(준공)",
+                  file: "c109.hwpx",
+                  download: "13-05-36 노무비 구분관리제 및 지급확인제(준공).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "검사·대가지급 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-06-01 준공검사조서",
+                  file: "c110.hwpx",
+                  download: "13-06-01 준공검사조서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-06-02 물품검수조서",
+                  file: "c111.hwpx",
+                  download: "13-06-02 물품검수조서.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "하자 관리 서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-07-01 하자검사조서",
+                  file: "c116.hwpx",
+                  download: "13-07-01 하자검사조서.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-07-02 하자보수관리부",
+                  file: "c117.hwpx",
+                  download: "13-07-02 하자보수관리부.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        ],
+      },
+      {
+        key: "manual",
+        label: "매뉴얼",
+        docKey: "contract",
+        sections: [
+        {
+          title: "계약 업무매뉴얼(제13편)",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "제13편 계약",
+                  file: "c016.hwpx",
+                  download: "제13편 계약.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약업무 흐름도",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-02-01 공사 계약업무 흐름도",
+                  file: "c020.hwpx",
+                  download: "13-02-01 공사 계약업무 흐름도.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-02 물품, 용역계약업무 흐름도",
+                  file: "c021.hwpx",
+                  download: "13-02-02 물품, 용역계약업무 흐름도.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약의 이해·업종 구분",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-01-01 계약체결 형태별 구분",
+                  file: "c017.hwpx",
+                  download: "13-01-01 계약체결 형태별 구분.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-01-02 건설업의 업종, 업종별 업무분야 및 업무내용(건설산업기본법 시행령 제7조 관련 별표1)",
+                  file: "c018.hwpx",
+                  download: "13-01-02 건설업의 업종, 업종별 업무분야 및 업무내용(건설산업기본법 시행령 제7조 관련 별표1).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-01-03 제한입찰 시 계약담당자 유의사항 안내(재무기획관-15654, 2021.8.17.)",
+                  file: "c019.pdf",
+                  download: "13-01-03 제한입찰 시 계약담당자 유의사항 안내(재무기획관-15654, 2021.8.17.).pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "법령·예규·규칙",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "[개정전문] 지방자치단체 입찰 및 계약집행기준",
+                  file: "c011.hwpx",
+                  download: "[개정전문] 지방자치단체 입찰 및 계약집행기준.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "[개정전문] 지방자치단체 입찰시 낙찰자 결정기준",
+                  file: "c012.hwpx",
+                  download: "[개정전문] 지방자치단체 입찰시 낙찰자 결정기준.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "경기도교육비특별회계 재무회계 규칙(경기도교육청규칙)(제00972호)(20250301)",
+                  file: "c013.pdf",
+                  download: "경기도교육비특별회계 재무회계 규칙(경기도교육청규칙)(제00972호)(20250301).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "지방자치단체를 당사자로 하는 계약에 관한 법률 시행규칙(행정안전부령)(제00625호)(20260701)",
+                  file: "c008.pdf",
+                  download: "지방자치단체를 당사자로 하는 계약에 관한 법률 시행규칙(행정안전부령)(제00625호)(20260701).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "지방자치단체를 당사자로 하는 계약에 관한 법률 시행령(대통령령)(제36338호)(20260603)",
+                  file: "c009.pdf",
+                  download: "지방자치단체를 당사자로 하는 계약에 관한 법률 시행령(대통령령)(제36338호)(20260603).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "지방자치단체를 당사자로 하는 계약에 관한 법률(법률)(제19634호)(20240217)",
+                  file: "c010.pdf",
+                  download: "지방자치단체를 당사자로 하는 계약에 관한 법률(법률)(제19634호)(20240217).pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약심사·일상감사·물품선정위원회",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-02-07 물품선정위원회 추첨 운영 예시",
+                  file: "c026.hwpx",
+                  download: "13-02-07 물품선정위원회 추첨 운영 예시.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-08 물품선정위원회 운영 기준(2025. 4.)",
+                  file: "c027.hwpx",
+                  download: "13-02-08 물품선정위원회 운영 기준(2025. 4.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-09 공사 원가계산",
+                  file: "c028.hwpx",
+                  download: "13-02-09 공사 원가계산.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-11 경기도교육청 계약심사 대상 정비 및 효율화 추진계획 알림",
+                  file: "c029.pdf",
+                  download: "13-02-11 경기도교육청 계약심사 대상 정비 및 효율화 추진계획 알림.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-02-12 경기도 일상감사 지침 개정",
+                  file: "c030.hwpx",
+                  download: "13-02-12 경기도 일상감사 지침 개정.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-02-13 일상감사 대상(계약업무) 요약 표",
+                  file: "c031.pdf",
+                  download: "13-02-13 일상감사 대상(계약업무) 요약 표.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-02-15 2025 현장체험학습 안전매뉴얼[융합교육정책과 2025. 2.]",
+                  file: "c032.pdf",
+                  download: "13-02-15 2025 현장체험학습 안전매뉴얼[융합교육정책과 2025. 2.].pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "입찰·수의계약 기준",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-03-01 중소기업자 우선 조달제도",
+                  file: "c033.hwpx",
+                  download: "13-03-01 중소기업자 우선 조달제도.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-03 2025년 공공구매제도 요약표_2025.6.1.기준",
+                  file: "c034.hwpx",
+                  download: "13-03-03 2025년 공공구매제도 요약표_2025.6.1.기준.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-04 사회적협동조합 제품 우선구매 지침(2025.01.)",
+                  file: "c035.pdf",
+                  download: "13-03-04 사회적협동조합 제품 우선구매 지침(2025.01.).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-03-05 중증장애인생산품 우선구매 제도 안내",
+                  file: "c036.hwpx",
+                  download: "13-03-05 중증장애인생산품 우선구매 제도 안내 .hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-06 2025년도 녹색제품 구매지침",
+                  file: "c037.pdf",
+                  download: "13-03-06 2025년도 녹색제품 구매지침.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-03-07 사례1. 화장실 개선공사",
+                  file: "c038.hwpx",
+                  download: "13-03-07 사례1. 화장실 개선공사.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-08 사례2. 급식소 증축공사 건설폐기물 처리 용역",
+                  file: "c039.hwpx",
+                  download: "13-03-08 사례2. 급식소 증축공사 건설폐기물 처리 용역.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-09 사례3. 가구류 구입",
+                  file: "c040.hwpx",
+                  download: "13-03-09 사례3. 가구류 구입.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-15 입찰의 무효 사유",
+                  file: "c042.hwpx",
+                  download: "13-03-15 입찰의 무효 사유.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-16 유찰 시 처리 방법",
+                  file: "c043.hwpx",
+                  download: "13-03-16 유찰 시 처리 방법.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-17 적격심사 서류",
+                  file: "c044.hwpx",
+                  download: "13-03-17 적격심사 서류.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-18 지방교육행정기관 규격기술평가위원회 구성운영 기준",
+                  file: "c045.pdf",
+                  download: "13-03-18 지방교육행정기관 규격기술평가위원회 구성운영 기준.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-03-19 경기도교육청 홈페이지 계약공개 메뉴 수정·개선 사항 알림",
+                  file: "c046.pdf",
+                  download: "13-03-19 경기도교육청 홈페이지 계약공개 메뉴 수정·개선 사항 알림.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-03-20 사례1. 옥상 방수공사",
+                  file: "c047.hwpx",
+                  download: "13-03-20 사례1. 옥상 방수공사.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-21 사례2. 현장체험학습 전세버스 임차 용역",
+                  file: "c048.hwpx",
+                  download: "13-03-21 사례2. 현장체험학습 전세버스 임차 용역.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-22 사례3. 학습준비물 구입",
+                  file: "c049.hwpx",
+                  download: "13-03-22 사례3. 학습준비물 구입.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-23 하자구분 곤란 등에 따른 1인 견적서 제출 가능 수의계약",
+                  file: "c050.hwpx",
+                  download: "13-03-23  하자구분 곤란 등에 따른 1인 견적서 제출 가능 수의계약.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-24 천재지변 등에 따른 1인 견적서 제출 가능 수의계약",
+                  file: "c051.hwpx",
+                  download: "13-03-24 천재지변 등에 따른 1인 견적서 제출 가능 수의계약.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-27 지역경제 활성화 방안 추진 계획 알림",
+                  file: "c054.pdf",
+                  download: "13-03-27 지역경제 활성화 방안 추진 계획 알림.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-03-28 경기도교육청 계약업무 개선사항(재무관리과, 2025. 2.)",
+                  file: "c055.hwpx",
+                  download: "13-03-28 경기도교육청 계약업무 개선사항(재무관리과, 2025. 2.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-29 다수공급자계약 2단계경쟁 업무추진 절차",
+                  file: "c056.hwpx",
+                  download: "13-03-29 다수공급자계약 2단계경쟁 업무추진 절차.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-30 학생용컴퓨터 구매",
+                  file: "c057.hwpx",
+                  download: "13-03-30 학생용컴퓨터 구매.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-31 가구류 구매",
+                  file: "c058.hwpx",
+                  download: "13-03-31 가구류 구매.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-32 [별표2] 부정당업자의 입찰 참가자격 제한기준(제76조 관련)",
+                  file: "c059.hwpx",
+                  download: "13-03-32 [별표2] 부정당업자의 입찰 참가자격 제한기준(제76조 관련).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-33 제재 사유(지방계약법 제31조 및 시행령 제92조)",
+                  file: "c060.hwpx",
+                  download: "13-03-33 제재 사유(지방계약법 제31조 및 시행령 제92조).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-35 부정당업자 입찰참가자격 제한 업무처리 요령(개정)",
+                  file: "c062.hwpx",
+                  download: "13-03-35 부정당업자 입찰참가자격 제한 업무처리 요령(개정).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-36 수의계약 배제사유",
+                  file: "c063.hwpx",
+                  download: "13-03-36 수의계약 배제사유.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-40 수의계약 배제업무 흐름도",
+                  file: "c067.hwpx",
+                  download: "13-03-40 수의계약 배제업무 흐름도.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-03-41 수의계약 배제업체 업무처리 방법(개정)(재무관리과, 2025. 2.)",
+                  file: "c068.hwpx",
+                  download: "13-03-41 수의계약 배제업체 업무처리 방법(개정)(재무관리과, 2025. 2.).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약 체결 기준",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-04-04 지방계약법 시행령 수의계약 등 한시적 특례 적용기간 연장 안내",
+                  file: "c072.pdf",
+                  download: "13-04-04 지방계약법 시행령 수의계약 등 한시적 특례 적용기간 연장 안내.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-04-05 2024년 경기도교육청 클린계약 운영계획",
+                  file: "c073.hwpx",
+                  download: "13-04-05 2024년 경기도교육청 클린계약 운영계획.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-04-06 [사용자 지침서] DAE_계약관리_v1.0_학교회계_최종",
+                  file: "c074.pdf",
+                  download: "13-04-06 [사용자 지침서] DAE_계약관리_v1.0_학교회계_최종.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "계약 이행·안전·하도급 기준",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-05-01 2026년 경기도교육청 중대재해 예방 기본계획",
+                  file: "c075.pdf",
+                  download: "13-05-01 2026년 경기도교육청 중대재해 예방 기본계획.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-05-06 품질시험계획의 내용",
+                  file: "c079.hwpx",
+                  download: "13-05-06 품질시험계획의 내용.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-07 품질관리계획서 작성기준",
+                  file: "c080.hwpx",
+                  download: "13-05-07 품질관리계획서 작성기준.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-08 안전관리계획의 수립기준",
+                  file: "c081.hwpx",
+                  download: "13-05-08 안전관리계획의 수립기준.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-12 용역근로자 근로조건 보호지침",
+                  file: "c085.hwpx",
+                  download: "13-05-12 용역근로자 근로조건 보호지침.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-13 공사근로자 노무비 구분관리 및 지급확인제 실무요령(개정)",
+                  file: "c086.hwpx",
+                  download: "13-05-13 공사근로자 노무비 구분관리 및 지급확인제 실무요령(개정).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-14 (공문) 학교 시설공사 공공요금(수도광열비) 징수 기준 개선 알림(시설과 2025.11.25.)",
+                  file: "c087.hwpx",
+                  download: "13-05-14 (공문) 학교 시설공사 공공요금(수도광열비) 징수 기준 개선 알림(시설과 2025.11.25.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-16 하도급계약 통보 시 제출 서류",
+                  file: "c089.hwpx",
+                  download: "13-05-16 하도급계약 통보 시 제출 서류.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-17 하도급지킴이 업무흐름",
+                  file: "c090.hwpx",
+                  download: "13-05-17 하도급지킴이 업무흐름.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-18 하도급대금 지급 처리 사항",
+                  file: "c091.hwpx",
+                  download: "13-05-18 하도급대금 지급 처리 사항.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-20 주요 날씨별 현장관리",
+                  file: "c093.hwpx",
+                  download: "13-05-20 주요 날씨별 현장관리.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-21 25년 미세먼지 건강장해 예방가이드",
+                  file: "c094.pdf",
+                  download: "13-05-21 25년 미세먼지 건강장해 예방가이드.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-05-22 25년 온열질환예방지침 및 점검표",
+                  file: "c095.pdf",
+                  download: "13-05-22 25년 온열질환예방지침 및 점검표.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-05-23 25년 장마철 건설현장 핵심안전 수칙",
+                  file: "c096.pdf",
+                  download: "13-05-23 25년 장마철 건설현장 핵심안전 수칙.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-05-24 한랭질환 예방가이드",
+                  file: "c097.pdf",
+                  download: "13-05-24 한랭질환 예방가이드.pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-05-28 공공발주자 임금직접지급제 주요내용 및 이행 철저(국토교통부, 2022.12.5.)",
+                  file: "c101.hwpx",
+                  download: "13-05-28 공공발주자 임금직접지급제 주요내용 및 이행 철저(국토교통부, 2022.12.5.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-29 임금직접지급제와 전자카드제간 연계 확산 추진 계획(국토교통부, 2023. 1. 5.)",
+                  file: "c102.hwpx",
+                  download: "13-05-29 임금직접지급제와 전자카드제간 연계 확산 추진 계획(국토교통부, 2023. 1. 5.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-30 전자카드제와 하도급지킴이 연계 매뉴얼(국토교통부, 2023. 1. 5.)",
+                  file: "c103.pdf",
+                  download: "13-05-30 전자카드제와 하도급지킴이 연계 매뉴얼(국토교통부, 2023. 1. 5.).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "13-05-31 (국토교통부)일요일 휴무제 시행방안",
+                  file: "c104.hwpx",
+                  download: "13-05-31 (국토교통부)일요일 휴무제 시행방안.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-32 2026년 학교 내 공사장 화재 안전관리 강화 대책 알림(2025. 12.)",
+                  file: "c105.hwpx",
+                  download: "13-05-32 2026년 학교 내 공사장 화재 안전관리 강화 대책 알림(2025. 12.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-33 물가변동으로 인한 계약금액의 조정",
+                  file: "c106.hwpx",
+                  download: "13-05-33 물가변동으로 인한 계약금액의 조정.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-05-34 계약 주체별 해제·해지 사유",
+                  file: "c107.hwpx",
+                  download: "13-05-34 계약 주체별 해제·해지 사유.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "검사와 대가지급",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "13-06-03 조달청 납품검사 대행 절차",
+                  file: "c112.hwpx",
+                  download: "13-06-03 조달청 납품검사 대행 절차.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-06-04 지연배상금 산출 예시",
+                  file: "c113.hwpx",
+                  download: "13-06-04 지연배상금 산출 예시.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-06-05 2024세입세출외현금관리요령(2024.3.)",
+                  file: "c114.hwpx",
+                  download: "13-06-05 2024세입세출외현금관리요령(2024.3.).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "13-06-06 채권압류 및 공탁업무 처리요령",
+                  file: "c115.pdf",
+                  download: "13-06-06 채권압류 및 공탁업무 처리요령.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "시스템·제도 안내",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "12-03-03 경기도교육청 계약업무 개선사항(재무관리과 2025.2)",
+                  file: "c001.hwpx",
+                  download: "12-03-03 경기도교육청 계약업무 개선사항(재무관리과 2025.2).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "2024년 10월 하반기 적용 시중노임단가 안내 및 최저임금 준수 철저(재무관리과 2024)",
+                  file: "c002.pdf",
+                  download: "2024년 10월 하반기 적용 시중노임단가 안내 및 최저임금 준수 철저(재무관리과 2024).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "2025년 공공구매제도 요약표(2025.6.1.기준)",
+                  file: "c003.hwpx",
+                  download: "2025년 공공구매제도 요약표(2025.6.1.기준).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "2026년 상반기 적용 시중노임단가 안내 및 최저임금 준수 철저(재무관리과, 2026. 01.)",
+                  file: "c004.pdf",
+                  download: "2026년 상반기 적용 시중노임단가 안내 및 최저임금 준수 철저(재무관리과, 2026. 01.).pdf",
+                  kind: "pdf",
+                },
+                {
+                  name: "도서정가제 시행에 따른 지방계약 운영지침(통보)",
+                  file: "c005.hwpx",
+                  download: "도서정가제 시행에 따른 지방계약 운영지침(통보).hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "지정정보처리장치 업무흐름",
+                  file: "c006.hwpx",
+                  download: "지정정보처리장치 업무흐름.hwpx",
+                  kind: "hwp",
+                },
+                {
+                  name: "차세대 나라장터 사용자매뉴얼",
+                  file: "c007.hwpx",
+                  download: "차세대 나라장터 사용자매뉴얼.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "참고 매뉴얼·사례집",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "5. 계약(2025년 버전)",
+                  file: "c015.hwpx",
+                  download: "5. 계약(2025년 버전).hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "타 시·도 참고 편람",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "2025+계약실무편람(지방계약+예규+개정사항+반영)_대전",
+                  file: "c118.pdf",
+                  download: "2025+계약실무편람(지방계약+예규+개정사항+반영)_대전.pdf",
+                  kind: "pdf",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "타 기관 업무사이트 참고",
+          blocks: [
+            {
+              type: "files",
+              dir: "contract",
+              items: [
+                {
+                  name: "서울교육청 계약길라잡이",
+                  file: "c014.hwpx",
+                  download: "서울교육청 계약길라잡이.hwpx",
+                  kind: "hwp",
+                },
+              ],
+            },
+          ],
+        },
+        ],
+      },
+    ],
+  },
 
   // 계약 > 물품
   "contract-goods": { sections: [], tabs: tabbed("contract-goods") },

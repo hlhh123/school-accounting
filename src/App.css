@@ -2625,3 +2625,436 @@ a {
     display: none;
   }
 }
+/* ── 계약방법 찾기(계약 길잡이) 검색기 ───────────────────────────────── */
+.cf {
+  margin: 8px 0 34px;
+  padding: 22px;
+  background: linear-gradient(180deg, #f7f3ff, #ffffff);
+  border: 1px solid #e7ddfa;
+  border-radius: 16px;
+}
+
+.cf-intro {
+  margin-bottom: 16px;
+}
+
+.cf-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.cf-sub {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+}
+
+.cf-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cf-select,
+.cf-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d9cdf3;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 15px;
+  color: #222222;
+}
+
+.cf-select:disabled {
+  background: #f2f2f2;
+  color: #aaaaaa;
+}
+
+.cf-price {
+  position: relative;
+  grid-column: 1 / -1;
+}
+
+.cf-price .cf-input {
+  padding-right: 34px;
+}
+
+.cf-won {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888888;
+  font-size: 14px;
+}
+
+.cf-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+}
+
+.cf-btn {
+  flex: 1;
+  padding: 12px 0;
+  border: 0;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cf-btn-search {
+  background: #7b3fe4;
+  color: #ffffff;
+}
+
+.cf-btn-search:hover {
+  background: #6a2fd0;
+}
+
+.cf-btn-reset {
+  background: #2b2b2b;
+  color: #ffffff;
+  flex: 0 0 40%;
+}
+
+.cf-btn-reset:hover {
+  background: #111111;
+}
+
+.cf-error {
+  margin: 12px 0 0;
+  color: #d23f3f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* 결과 */
+.cf-result {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px dashed #d9cdf3;
+}
+
+.cf-result-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.cf-crumb {
+  font-size: 16px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.cf-band {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7b3fe4;
+  background: #f0e8fd;
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.cf-typenote {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #777777;
+}
+
+.cf-section-label {
+  margin: 22px 0 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #333333;
+}
+
+.cf-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cf-method {
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.cf-method-recommended {
+  border-color: #7b3fe4;
+  box-shadow: 0 2px 10px rgba(123, 63, 228, 0.1);
+}
+
+.cf-method-unavailable {
+  opacity: 0.55;
+}
+
+.cf-method-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cf-method-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.cf-method-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.cf-badge-recommended {
+  background: #7b3fe4;
+  color: #ffffff;
+}
+
+.cf-badge-possible {
+  background: #eeeeee;
+  color: #555555;
+}
+
+.cf-badge-unavailable {
+  background: #f4f4f4;
+  color: #aaaaaa;
+}
+
+.cf-method-reason {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666666;
+}
+
+/* 단계 */
+.cf-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cf-step {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.cf-step-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cf-step-head.is-open {
+  background: #faf7ff;
+}
+
+.cf-step-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222222;
+}
+
+.cf-caret {
+  color: #b499ec;
+  font-size: 20px;
+  transition: transform 0.15s ease;
+}
+
+.cf-caret.is-open {
+  transform: rotate(90deg);
+}
+
+.cf-step-body {
+  padding: 4px 16px 16px;
+}
+
+.cf-step-body ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.cf-step-body li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555555;
+}
+
+.cf-step-refs {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  background: #f6f2fe;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: #6a2fd0;
+  line-height: 1.6;
+}
+
+.cf-disclaimer {
+  margin: 22px 0 0;
+  padding: 12px 14px;
+  background: #fff8e8;
+  border: 1px solid #f2e2b8;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #8a6d1f;
+}
+
+.cf-laws {
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.cf-laws > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #444444;
+  padding: 6px 0;
+}
+
+.cf-laws ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.cf-laws li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.cf-laws li strong {
+  display: block;
+  color: #222222;
+  font-size: 14px;
+}
+
+.cf-laws li span {
+  color: #777777;
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .cf-form,
+  .cf-methods {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cf-method-submit {
+  margin: 8px 0 0;
+  padding: 6px 9px;
+  background: #f6f2fe;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #6a2fd0;
+}
+
+.cf-repeat {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  background: #f7f7f9;
+  border-left: 3px solid #b499ec;
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #555555;
+}
+
+/* 사전 확인사항 */
+.cf-checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cf-check {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.cf-check.is-hit {
+  border-color: #f0c86a;
+  background: #fffdf6;
+}
+
+.cf-check-mark {
+  flex: 0 0 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e8e8e8;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.cf-check.is-hit .cf-check-mark {
+  background: #eaa32a;
+  color: #ffffff;
+}
+
+.cf-check-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cf-check-body strong {
+  font-size: 14px;
+  color: #222222;
+}
+
+.cf-check-body span {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666666;
+}
+
+.cf-system {
+  margin: 14px 0 0;
+  padding: 11px 14px;
+  background: #f6f2fe;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6a2fd0;
+}

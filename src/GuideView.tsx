@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Block, Guide, GuideSection } from "./guides";
 import type { CatalogItem } from "./catalog";
+import ContractFinder from "./ContractFinder";
 import {
   fetchDocsByCategory,
   publicUrl,
@@ -322,6 +323,9 @@ export default function GuideView({
           {guide.intro && <p className="guide-intro">{guide.intro}</p>}
           {guide.source && <p className="guide-source">출처: {guide.source}</p>}
         </div>
+
+        {/* 계약 상세페이지: 서식/매뉴얼 위에 «계약방법 찾기» 검색기를 노출 */}
+        {item.slug === "contract" && <ContractFinder />}
 
         {tabs && tabs.length > 0 ? (
           <>
