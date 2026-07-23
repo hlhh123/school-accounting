@@ -38,31 +38,11 @@ export const catalog: CatalogCategory[] = [
         description: "지출 원인행위·품의·정산 등 지출 업무를 안내합니다.",
       },
       {
+        // 공사·물품·용역 구분은 «계약방법 찾기» 검색기에서 선택하므로
+        // 별도 하위 페이지는 두지 않습니다.
         slug: "contract",
         title: "계약",
         description: "공사·물품·용역·급식 계약 업무를 안내합니다.",
-        children: [
-          {
-            slug: "contract-construction",
-            title: "공사",
-            description: "공사 계약 절차와 기준을 안내합니다.",
-          },
-          {
-            slug: "contract-goods",
-            title: "물품",
-            description: "물품 구매 계약 절차를 안내합니다.",
-          },
-          {
-            slug: "contract-service",
-            title: "용역",
-            description: "용역 계약 절차를 안내합니다.",
-          },
-          {
-            slug: "contract-meal",
-            title: "급식",
-            description: "급식 관련 계약 절차를 안내합니다.",
-          },
-        ],
       },
       {
         slug: "property",

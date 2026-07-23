@@ -401,7 +401,7 @@ export const guides: Record<string, Guide> = {
   // 자료 출처: 경기도교육청 학교 업무매뉴얼 «제13편 계약» 및 첨부자료
   contract: {
     intro:
-      "계약분야·유형과 추정가격을 입력해 적용 가능한 계약방법과 절차를 확인하세요. 아래 서식·매뉴얼과 세부 계약 유형도 함께 제공합니다.",
+      "계약분야·유형과 추정가격을 입력해 적용 가능한 계약방법과 절차를 확인하세요. 아래에서 계약 서식과 매뉴얼도 내려받을 수 있습니다.",
     sections: [],
     tabs: [
       {
@@ -1337,18 +1337,6 @@ export const guides: Record<string, Guide> = {
       },
     ],
   },
-
-  // 계약 > 물품
-  "contract-goods": { sections: [], tabs: tabbed("contract-goods") },
-
-  // 계약 > 공사
-  "contract-construction": { sections: [], tabs: tabbed("contract-construction") },
-
-  // 계약 > 용역
-  "contract-service": { sections: [], tabs: tabbed("contract-service") },
-
-  // 계약 > 급식
-  "contract-meal": { sections: [], tabs: tabbed("contract-meal") },
 
   // 공무원급여 (지방공무원·교육공무원) — 서식 / 매뉴얼 / 계산기
   "salary-official": {
