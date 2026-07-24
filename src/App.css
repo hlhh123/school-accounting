@@ -104,53 +104,16 @@ a {
   color: #000000;
 }
 
-/* 상단: 흰 바탕 2단 (왼쪽 제목 / 오른쪽 공지사항) */
+/* 상단: 흰 바탕 — 직무달력을 전체 폭으로 표시 */
 .hero-split {
   background: #ffffff;
   border-bottom: 1px solid #eeeeee;
 }
 
 .hero-split-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 48px;
   width: min(1200px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 84px 0;
-}
-
-.hero-left {
-  text-align: left;
-}
-
-.hero-label {
-  margin: 0 0 18px;
-  color: #888888;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-
-.hero-left h2 {
-  margin: 0;
-  color: #111111;
-  font-size: clamp(28px, 3.4vw, 52px);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -2px;
-  white-space: nowrap;
-}
-
-.hero-sub {
-  margin: 26px 0 0;
-  color: #666666;
-  font-size: 17px;
-  line-height: 1.75;
-}
-
-.hero-right {
-  min-width: 0;
+  padding: 40px 0 48px;
 }
 
 .banner {
@@ -1222,17 +1185,39 @@ a {
   border-color: #cfcfcf;
 }
 
+/* 달력(왼쪽) + 그날의 일정(오른쪽) */
+.duty-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.duty-side {
+  min-width: 0;
+  padding-left: 28px;
+  border-left: 1px solid #eeeeee;
+}
+
+.duty-side-title {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 750;
+  color: #111111;
+  letter-spacing: -0.3px;
+}
+
 .duty-brief {
-  margin: 16px 0 0;
-  padding: 14px 0 0;
-  border-top: 1px solid #eeeeee;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
 .duty-brief li {
-  padding: 4px 0;
+  padding: 5px 0;
   color: #444444;
   font-size: 13px;
+  line-height: 1.6;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2386,9 +2371,20 @@ a {
   }
 
   .hero-split-inner {
+    padding: 32px 0 40px;
+  }
+
+  /* 좁은 화면에서는 달력 아래로 일정 표시 */
+  .duty-body {
     grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 56px 0;
+    gap: 16px;
+  }
+
+  .duty-side {
+    padding-left: 0;
+    padding-top: 14px;
+    border-left: 0;
+    border-top: 1px solid #eeeeee;
   }
 
   .duty-view-grid {
@@ -2424,14 +2420,6 @@ a {
     height: 34px;
   }
 
-  .hero-left h2 {
-    font-size: clamp(20px, 7vw, 32px);
-    letter-spacing: -1.4px;
-  }
-
-  .hero-sub {
-    font-size: 16px;
-  }
 
   .service-grid {
     grid-template-columns: 1fr;

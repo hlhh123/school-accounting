@@ -136,32 +136,36 @@ export function DutyCalendarPanel() {
         </div>
       </div>
 
-      <MonthCalendar
-        year={year}
-        month={month}
-        taskDays={taskDays}
-        compact
-        onDayHover={setHoverDay}
-      />
+      {/* 달력(왼쪽) + 그날의 일정(오른쪽) */}
+      <div className="duty-body">
+        <MonthCalendar
+          year={year}
+          month={month}
+          taskDays={taskDays}
+          compact
+          onDayHover={setHoverDay}
+        />
 
-      <ul className="duty-brief">
-        {briefTasks.length ? (
-          briefTasks.map((t, i) => (
-            <li key={i}>
-              {(briefDay ?? t.day) != null && (
-                <span className="duty-brief-day">{briefDay ?? t.day}일</span>
-              )}
-              {t.title}
-            </li>
-          ))
-        ) : (
-          <li className="duty-empty">
-            {briefDay != null
-              ? `${briefDay}일 · 등록된 일정이 없습니다.`
-              : "등록된 일정이 없습니다."}
-          </li>
-        )}
-      </ul>
+        <div className="duty-side">
+          <h4 className="duty-side-title">
+            {briefDay != null ? `${month}월 ${briefDay}일 일정` : `${month}월 일정`}
+          </h4>
+          <ul className="duty-brief">
+            {briefTasks.length ? (
+              briefTasks.map((t, i) => (
+                <li key={i}>
+                  {(briefDay ?? t.day) != null && (
+                    <span className="duty-brief-day">{briefDay ?? t.day}일</span>
+                  )}
+                  {t.title}
+                </li>
+              ))
+            ) : (
+              <li className="duty-empty">등록된 일정이 없습니다.</li>
+            )}
+          </ul>
+        </div>
+      </div>
 
         <span className="duty-more">이번 달 · 연간 일정 자세히 보기 ›</span>
       </div>

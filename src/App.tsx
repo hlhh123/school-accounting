@@ -846,19 +846,7 @@ function HomePage() {
       <main>
         <section className="hero-split" id="home">
           <div className="hero-split-inner">
-            <div className="hero-left">
-              <p className="hero-label">안성교육지원청</p>
-              <h2>새내기를 위한 길잡이</h2>
-              <p className="hero-sub">
-                처음 오신 분들도 쉽게 업무를 시작할 수 있도록,
-                <br />
-                업무 지침과 안성 생활 정보를 한곳에 정리했습니다.
-              </p>
-            </div>
-
-            <div className="hero-right">
-              <DutyCalendarPanel />
-            </div>
+            <DutyCalendarPanel />
           </div>
         </section>
 
