@@ -1077,7 +1077,7 @@ a {
 }
 
 .cal-compact .cal-day {
-  font-size: 12px;
+  font-size: 13px;
   border-radius: 6px;
 }
 
@@ -1188,20 +1188,25 @@ a {
 /* 달력(왼쪽) + 그날의 일정(오른쪽) */
 .duty-body {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 32px;
   align-items: start;
+}
+
+/* 달력은 너무 커지지 않도록 폭을 제한 */
+.duty-body .cal {
+  max-width: 420px;
 }
 
 .duty-side {
   min-width: 0;
-  padding-left: 28px;
+  padding-left: 32px;
   border-left: 1px solid #eeeeee;
 }
 
 .duty-side-title {
-  margin: 0 0 10px;
-  font-size: 14px;
+  margin: 0 0 12px;
+  font-size: 17px;
   font-weight: 750;
   color: #111111;
   letter-spacing: -0.3px;
@@ -1214,20 +1219,28 @@ a {
 }
 
 .duty-brief li {
-  padding: 5px 0;
-  color: #444444;
-  font-size: 13px;
-  line-height: 1.6;
+  padding: 7px 0;
+  color: #333333;
+  font-size: 15px;
+  line-height: 1.65;
+  /* 제목이 길면 두 줄까지 표시 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .duty-brief-day {
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 10px;
   color: #888888;
+  font-size: 14px;
   font-weight: 600;
+}
+
+.duty-side .duty-empty {
+  font-size: 15px;
 }
 
 .duty-empty {
