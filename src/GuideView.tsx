@@ -3,6 +3,7 @@ import type { Block, Guide, GuideSection } from "./guides";
 import type { CatalogItem } from "./catalog";
 import ContractFinder from "./ContractFinder";
 import { CalculatorTabs } from "./calculators";
+import BoardPanel from "./BoardPanel";
 import {
   fetchDocsByCategory,
   publicUrl,
@@ -349,6 +350,18 @@ export default function GuideView({
             {activeTab &&
               (activeTab.kind === "calculator" ? (
                 <CalculatorTabs slug={docGuideKey} itemTitle={item.title} />
+              ) : activeTab.kind === "qna" ? (
+                <div className="qna">
+                  <p className="qna-intro">
+                    «{item.title}» 관련 궁금한 점을 자유롭게 질문하고 답글을 남겨보세요.
+                    누구나 익명으로 참여할 수 있습니다.
+                  </p>
+                  <BoardPanel
+                    board={`qna:${docGuideKey}`}
+                    categoryPlaceholder="예: 호봉, 수당, 연말정산 등 (선택)"
+                    writeLabel="✎ 질문하기"
+                  />
+                </div>
               ) : (
                 <GuideSections
                   key={activeTab.key}

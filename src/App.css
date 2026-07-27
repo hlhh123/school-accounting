@@ -3496,3 +3496,133 @@ a {
   line-height: 1.6;
   color: #888888;
 }
+
+/* ── 질문(Q&A) 탭 · 댓글 ─────────────────────────────────────────────── */
+.qna-intro {
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #888888;
+}
+
+.board-optional {
+  color: #aaaaaa;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+/* 댓글 영역 */
+.cm {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #eeeeee;
+}
+
+.cm-title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #333333;
+}
+
+.cm-loading,
+.cm-empty {
+  margin: 0 0 14px;
+  font-size: 13.5px;
+  color: #999999;
+}
+
+.cm-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cm-item {
+  padding: 12px 14px;
+  background: #f7f7f9;
+  border-radius: 10px;
+}
+
+.cm-item-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #333333;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cm-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cm-date {
+  font-size: 12px;
+  color: #aaaaaa;
+}
+
+.cm-del {
+  border: 0;
+  background: none;
+  color: #b06a6a;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.cm-del:hover {
+  text-decoration: underline;
+}
+
+.cm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cm-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.cm-form textarea:focus {
+  outline: none;
+  border-color: #7b3fe4;
+}
+
+.cm-form-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cm-form-row input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.cm-form-row input:focus {
+  outline: none;
+  border-color: #7b3fe4;
+}
+
+.cm-form-row .board-primary {
+  white-space: nowrap;
+}

@@ -30,8 +30,8 @@ export type GuideTab = {
   // 업로드가 없는 특수 탭(예: 계산기)은 docKey 를 두지 않습니다.
   docKey?: string;
   sections: GuideSection[];
-  // 기본은 자료(문서) 탭. "calculator" 면 계산기 자리(준비 중)로 표시합니다.
-  kind?: "docs" | "calculator";
+  // 기본은 자료(문서) 탭. "calculator" 면 계산기, "qna" 면 질문게시판으로 표시합니다.
+  kind?: "docs" | "calculator" | "qna";
 };
 export type Guide = {
   source?: string;
@@ -49,6 +49,7 @@ function tabbed(
     forms?: GuideSection[];
     manual?: GuideSection[];
     calculator?: boolean;
+    qna?: boolean;
   } = {},
 ): GuideTab[] {
   const tabs: GuideTab[] = [
@@ -57,6 +58,9 @@ function tabbed(
   ];
   if (opts.calculator) {
     tabs.push({ key: "calc", label: "계산기", sections: [], kind: "calculator" });
+  }
+  if (opts.qna) {
+    tabs.push({ key: "qna", label: "질문", sections: [], kind: "qna" });
   }
   return tabs;
 }
@@ -1869,6 +1873,7 @@ export const guides: Record<string, Guide> = {
         },
       ],
       calculator: true,
+      qna: true,
     }),
   },
 
@@ -2023,6 +2028,7 @@ export const guides: Record<string, Guide> = {
         },
       ],
       calculator: true,
+      qna: true,
     }),
   },
 
