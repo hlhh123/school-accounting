@@ -1,0 +1,1 @@
+function e(e){return Number.isFinite(e)?Math.round(e).toLocaleString(`ko-KR`):`0`}function t(e){let t=Number(String(e).replace(/[^0-9.-]/g,``));return Number.isFinite(t)?t:0}function n(e){return Math.floor(e/10)*10}export{t as n,e as r,n as t};
