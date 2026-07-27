@@ -15,6 +15,9 @@ import {
 } from "react";
 
 const HobongCalculator = lazy(() => import("./HobongCalculator"));
+const DcRetirement = lazy(() => import("./calc/DcRetirement"));
+const Insurance4 = lazy(() => import("./calc/Insurance4"));
+const Preparing = lazy(() => import("./calc/Preparing"));
 
 export type CalcEntry = {
   key: string;
@@ -39,6 +42,39 @@ export const CALCULATORS: Record<string, CalcEntry[]> = {
     //   desc: "출장 일수·등급으로 여비를 계산합니다.",
     //   Component: lazy(() => import("./YeobiCalculator")),
     // },
+  ],
+  // 공무직급여 계산기 — 교육공무직원 급여 서식(01~05)을 웹으로 재구성.
+  "salary-worker": [
+    {
+      key: "f01",
+      title: "통상임금·퇴직금·연차수당",
+      desc: "통상임금 산정 → 퇴직금·연차수당을 통합 산출합니다. (구현 예정)",
+      Component: Preparing,
+    },
+    {
+      key: "f02",
+      title: "4대보험 부담금",
+      desc: "보수월액으로 개인·기관 부담 4대보험료를 계산합니다(2026년 요율).",
+      Component: Insurance4,
+    },
+    {
+      key: "f03",
+      title: "확정기여형(DC) 퇴직금",
+      desc: "연간 임금 항목으로 연간임금총액(A)과 DC 적립퇴직금(A÷12)을 계산합니다.",
+      Component: DcRetirement,
+    },
+    {
+      key: "f04",
+      title: "급식조리원 DB 퇴직금",
+      desc: "기본급·근속수당으로 1일 통상임금·연차수당·퇴직금을 계산합니다. (구현 예정)",
+      Component: Preparing,
+    },
+    {
+      key: "f05",
+      title: "시설당직원 연차·미사용수당",
+      desc: "요일별 근무시간으로 연차일수·미사용수당을 계산합니다. (구현 예정)",
+      Component: Preparing,
+    },
   ],
 };
 

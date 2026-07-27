@@ -3626,3 +3626,208 @@ a {
 .cm-form-row .board-primary {
   white-space: nowrap;
 }
+
+/* ── 공무직 급여 계산기 (서식01~05) ─────────────────────────────────── */
+.sc {
+  margin-top: 4px;
+}
+
+.sc-note {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  background: #f6f2fe;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #5a4a7a;
+}
+
+.sc-note b {
+  color: #6a2fd0;
+  font-weight: 700;
+}
+
+.sc-section {
+  margin: 20px 0 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #333333;
+}
+
+.sc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.sc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sc-field-wide {
+  max-width: 260px;
+  margin-bottom: 4px;
+}
+
+.sc-field > span {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #555555;
+}
+
+.sc-field input {
+  padding: 10px 12px;
+  border: 1px solid #d9cdf3;
+  border-radius: 9px;
+  font-size: 14px;
+  color: #222222;
+  font-family: inherit;
+  text-align: right;
+}
+
+.sc-field input:focus {
+  outline: none;
+  border-color: #7b3fe4;
+}
+
+.sc-field-wide input {
+  text-align: left;
+}
+
+/* 요율 토글 */
+.sc-toggle {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  background: #f2f2f4;
+  border-radius: 10px;
+}
+
+.sc-toggle-btn {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: #666666;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sc-toggle-btn.is-active {
+  background: #ffffff;
+  color: #7b3fe4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* 결과 */
+.sc-result {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.sc-stat {
+  padding: 16px 18px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sc-stat-primary {
+  border-color: #7b3fe4;
+  background: linear-gradient(180deg, #f7f3ff, #ffffff);
+  box-shadow: 0 2px 10px rgba(123, 63, 228, 0.1);
+}
+
+.sc-stat-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #777777;
+}
+
+.sc-stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #111111;
+  font-variant-numeric: tabular-nums;
+}
+
+.sc-stat-sub {
+  font-size: 11.5px;
+  color: #999999;
+}
+
+/* 표 */
+.sc-table-scroll {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.sc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.sc-table th,
+.sc-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eeeeee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.sc-table th {
+  background: #f7f7f9;
+  font-weight: 700;
+  color: #555555;
+}
+
+.sc-table .sc-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sc-table-total td {
+  font-weight: 800;
+  color: #111111;
+  border-top: 2px solid #ddd;
+  background: #faf7ff;
+}
+
+.sc-reset {
+  margin-top: 16px;
+  padding: 9px 18px;
+  border: 1px solid #d9cdf3;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #6a2fd0;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sc-reset:hover {
+  background: #f3ecff;
+}
+
+.sc-disclaimer {
+  margin: 22px 0 0;
+  padding: 12px 14px;
+  background: #fff8e8;
+  border: 1px solid #f2e2b8;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #8a6d1f;
+}
