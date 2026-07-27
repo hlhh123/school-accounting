@@ -3059,3 +3059,397 @@ a {
   line-height: 1.6;
   color: #6a2fd0;
 }
+
+/* ── 지방공무원 호봉획정 계산기 ───────────────────────────────────────── */
+.hb {
+  margin: 4px 0 8px;
+}
+
+.hb-intro {
+  margin-bottom: 16px;
+}
+
+.hb-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.hb-sub {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+}
+
+.hb-drop {
+  padding: 30px 20px;
+  border: 2px dashed #d9cdf3;
+  border-radius: 14px;
+  background: #faf7ff;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.hb-drop:hover,
+.hb-drop.is-over {
+  border-color: #7b3fe4;
+  background: #f3ecff;
+}
+
+.hb-drop-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.hb-drop-hint {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: #999999;
+}
+
+.hb-error {
+  margin: 12px 0 0;
+  color: #d23f3f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hb-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.hb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hb-field > span {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #555555;
+}
+
+.hb-field input {
+  padding: 10px 12px;
+  border: 1px solid #d9cdf3;
+  border-radius: 9px;
+  font-size: 14px;
+  color: #222222;
+  font-family: inherit;
+}
+
+/* 요약 */
+.hb-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.hb-stat {
+  padding: 16px;
+  border: 1px solid #e7ddfa;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f7f3ff, #ffffff);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hb-stat.ok {
+  border-color: #bfe3c6;
+  background: #f5fbf6;
+}
+
+.hb-stat.warn {
+  border-color: #f0c86a;
+  background: #fffdf6;
+}
+
+.hb-stat-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #777777;
+}
+
+.hb-stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.hb-stat-value em {
+  font-size: 14px;
+  font-weight: 600;
+  color: #888888;
+  font-style: normal;
+}
+
+.hb-warnings {
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  list-style: none;
+  background: #fff8e8;
+  border: 1px solid #f2e2b8;
+  border-radius: 10px;
+}
+
+.hb-warnings li {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #8a6d1f;
+}
+
+.hb-section-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 26px 0 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #333333;
+}
+
+.hb-hint {
+  font-size: 12px;
+  font-weight: 500;
+  color: #999999;
+}
+
+.hb-add {
+  margin-left: auto;
+  padding: 5px 11px;
+  border: 1px solid #d9cdf3;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #6a2fd0;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.hb-add:hover {
+  background: #f3ecff;
+}
+
+.hb-empty {
+  margin: 0;
+  font-size: 13px;
+  color: #999999;
+}
+
+.hb-table-scroll {
+  overflow-x: auto;
+}
+
+.hb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.hb-table th,
+.hb-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #eeeeee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.hb-table th {
+  background: #f7f7f9;
+  font-weight: 700;
+  color: #555555;
+}
+
+/* 임용전 경력 편집 */
+.hb-before {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hb-brow {
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.hb-brow-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.hb-brow-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.hb-brow-span {
+  font-size: 12.5px;
+  color: #888888;
+}
+
+.hb-brow-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.hb-ratio,
+.hb-same {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #444444;
+}
+
+.hb-ratio select {
+  padding: 5px 8px;
+  border: 1px solid #d9cdf3;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.hb-conv {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6a2fd0;
+}
+
+.hb-reason {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  background: #f6f2fe;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #6a2fd0;
+}
+
+/* 제한기간 */
+.hb-limits {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hb-limit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.hb-limit input[type="text"] {
+  flex: 1 1 140px;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.hb-limit input[type="date"] {
+  padding: 7px 9px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.hb-limit button {
+  border: 0;
+  background: #f0f0f0;
+  color: #777777;
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.hb-notes {
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.hb-notes > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #6a2fd0;
+  padding: 6px 0;
+}
+
+.hb-notes ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.hb-notes li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+  color: #555555;
+}
+
+.hb-log-toggle {
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #888888;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: inherit;
+}
+
+.hb-log {
+  margin: 10px 0 0;
+  padding: 14px;
+  background: #1e1e24;
+  color: #e8e8ea;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hb-disclaimer {
+  margin: 24px 0 0;
+  padding: 12px 14px;
+  background: #fff8e8;
+  border: 1px solid #f2e2b8;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #8a6d1f;
+}
+
+@media (max-width: 640px) {
+  .hb-form {
+    grid-template-columns: 1fr;
+  }
+}

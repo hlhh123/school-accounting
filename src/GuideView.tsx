@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import type { Block, Guide, GuideSection } from "./guides";
 import type { CatalogItem } from "./catalog";
 import ContractFinder from "./ContractFinder";
+
+// 호봉 계산기는 엑셀 파서(xlsx)를 포함해 무겁습니다.
+// 계산기 탭을 열 때만 별도 청크로 내려받습니다.
+const HobongCalculator = lazy(() => import("./HobongCalculator"));
 import {
   fetchDocsByCategory,
   publicUrl,
@@ -347,10 +351,18 @@ export default function GuideView({
             </div>
             {activeTab &&
               (activeTab.kind === "calculator" ? (
-                <div className="detail-placeholder">
-                  <p className="detail-placeholder-title">준비 중입니다</p>
-                  <p>«{item.title}» 계산기 기능이 이곳에 추가될 예정입니다.</p>
-                </div>
+                docGuideKey === "salary-official" ? (
+                  <Suspense
+                    fallback={<p className="guide-empty">계산기를 불러오는 중…</p>}
+                  >
+                    <HobongCalculator />
+                  </Suspense>
+                ) : (
+                  <div className="detail-placeholder">
+                    <p className="detail-placeholder-title">준비 중입니다</p>
+                    <p>«{item.title}» 계산기 기능이 이곳에 추가될 예정입니다.</p>
+                  </div>
+                )
               ) : (
                 <GuideSections
                   key={activeTab.key}
