@@ -3453,3 +3453,46 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── 계산기 서브탭 (계산기 탭 안에서 여러 계산기 전환) ─────────────────── */
+.calc {
+  margin-top: 4px;
+}
+
+.calc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.calc-tab {
+  padding: 9px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #555555;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.calc-tab:hover {
+  border-color: #c9b8f0;
+  color: #333333;
+}
+
+.calc-tab.is-active {
+  background: #7b3fe4;
+  border-color: #7b3fe4;
+  color: #ffffff;
+}
+
+.calc-desc {
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #888888;
+}

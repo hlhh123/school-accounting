@@ -121,14 +121,6 @@ export default function HobongCalculator() {
 
   return (
     <div className="hb">
-      <div className="hb-intro">
-        <h4 className="hb-title">지방공무원 호봉(근속년수) 획정</h4>
-        <p className="hb-sub">
-          나이스에서 내려받은 «개인인사기록카드» 엑셀을 올리면 획정 호봉·근무연수·차기승급일을
-          계산합니다. 임용전 경력의 환산율·동일경력은 자동 판정되며, 아래에서 직접 조정할 수 있습니다.
-        </p>
-      </div>
-
       {/* 업로드 */}
       <div
         className={`hb-drop${dragOver ? " is-over" : ""}`}
