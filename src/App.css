@@ -8,7 +8,8 @@ html {
 
 body {
   margin: 0;
-  background: #ffffff;
+  /* 최외곽 카드의 둥근 모서리가 보이도록 아주 옅은 배경 */
+  background: #edecf1;
   color: #111111;
   font-family:
     Pretendard,
@@ -32,16 +33,18 @@ a {
 }
 
 .app {
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .header {
   position: sticky;
-  top: 0;
+  top: 12px;
   z-index: 100;
   background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid #e8e8e8;
   backdrop-filter: blur(10px);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
 }
 
 .header-inner {
@@ -1899,6 +1902,8 @@ a {
 
 .footer {
   border-top: 1px solid #e5e5e5;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 }
 
 .footer-inner {
