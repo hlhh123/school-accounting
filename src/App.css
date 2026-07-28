@@ -791,6 +791,7 @@ a {
 /* 자유게시판 */
 .board {
   padding: 40px 0 80px;
+  text-align: left;
 }
 
 .board-heading {
