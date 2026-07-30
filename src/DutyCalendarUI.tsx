@@ -293,3 +293,68 @@ export function DutyCalendarView() {
     </section>
   );
 }
+
+// 홈 대시보드 카드용 축약 직무달력 (어두운 테마). 데이터·이동경로는 기존과 동일.
+export function DutyCalendarCard() {
+  const now = new Date();
+  const todayDate = now.getDate();
+  const [data, setData] = useState<Record<number, DutyTask[]>>(dutyCalendar);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    fetchDutyByMonth().then(setData);
+  }, []);
+
+  const shownDate = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+  const year = shownDate.getFullYear();
+  const month = shownDate.getMonth() + 1;
+  const isThisMonth = offset === 0;
+
+  const tasks = data[month] ?? [];
+  const taskDays = new Set(
+    tasks.filter((t) => t.day).map((t) => t.day as number),
+  );
+
+  // 이번 달이면 오늘 이후 일정, 아니면 그 달 일정을 앞에서부터
+  const dated = tasks.filter((t) => t.day) as (DutyTask & { day: number })[];
+  const upcoming = isThisMonth ? dated.filter((t) => t.day >= todayDate) : dated;
+  const list = (upcoming.length ? upcoming : dated).slice(0, 5);
+
+  const step = (e: MouseEvent, dir: number) => {
+    e.stopPropagation();
+    setOffset((o) => o + dir);
+  };
+
+  return (
+    <div className="dash-cal">
+      <div className="dash-cal-nav">
+        <button type="button" aria-label="이전 달" onClick={(e) => step(e, -1)}>
+          ‹
+        </button>
+        <strong>
+          {year}년 {month}월
+        </strong>
+        <button type="button" aria-label="다음 달" onClick={(e) => step(e, 1)}>
+          ›
+        </button>
+      </div>
+
+      <MonthCalendar year={year} month={month} taskDays={taskDays} compact />
+
+      <ul className="dash-cal-tasks">
+        {list.length ? (
+          list.map((t, i) => (
+            <li key={i}>
+              <span className="d">
+                {month}.{t.day}
+              </span>
+              <span className="t">{t.title}</span>
+            </li>
+          ))
+        ) : (
+          <li className="dash-cal-empty">이번 달 등록된 일정이 없습니다.</li>
+        )}
+      </ul>
+    </div>
+  );
+}

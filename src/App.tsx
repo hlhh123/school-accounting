@@ -10,7 +10,7 @@ import {
   createRestaurant,
   type MatjibKind,
 } from "./lib/matjib";
-import { DutyCalendarPanel, DutyCalendarView } from "./DutyCalendarUI";
+import { DutyCalendarCard, DutyCalendarView } from "./DutyCalendarUI";
 import GuideView from "./GuideView";
 import BoardView from "./BoardView";
 import { guides } from "./guides";
@@ -18,7 +18,6 @@ import {
   catalog,
   findItem,
   GROUP_ORDER,
-  type CatalogCategory,
   type CatalogItem,
 } from "./catalog";
 
@@ -516,7 +515,8 @@ function MatjibView() {
   );
 }
 
-function NoticesPanel() {
+// 공지사항 모달 (대시보드 사이드바 버튼으로 열림, 어두운 테마)
+function NoticesModal({ onClose }: { onClose: () => void }) {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -529,39 +529,58 @@ function NoticesPanel() {
   const toggle = (id: string) => setOpenId((prev) => (prev === id ? null : id));
 
   return (
-    <div className="notices-panel" id="notices">
-      <div className="notices-head">
-        <h3>공지사항</h3>
+    <div
+      className="dash-modal-overlay"
+      role="button"
+      tabIndex={0}
+      aria-label="닫기"
+      onClick={onClose}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" || e.key === "Enter") onClose();
+      }}
+    >
+      <div
+        className="dash-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="공지사항"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="dash-modal-head">
+          <h3>공지사항</h3>
+          <button type="button" className="dash-modal-x" onClick={onClose}>
+            ✕
+          </button>
+        </div>
+        {notices.length === 0 ? (
+          <p className="dash-modal-empty">등록된 공지사항이 없습니다.</p>
+        ) : (
+          <ul className="dash-notice-list">
+            {notices.map((n) => {
+              const open = openId === n.id;
+              return (
+                <li key={n.id}>
+                  <button
+                    type="button"
+                    className="dash-notice-line"
+                    onClick={() => toggle(n.id)}
+                    aria-expanded={open}
+                  >
+                    <span className="dash-notice-title">
+                      {n.pinned && <span className="dash-notice-pin">고정</span>}
+                      {n.title}
+                    </span>
+                    <span className="dash-notice-date">
+                      {n.created_at.slice(0, 10)}
+                    </span>
+                  </button>
+                  {open && n.body && <p className="dash-notice-body">{n.body}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
-
-      {notices.length === 0 ? (
-        <p className="notices-empty">등록된 공지사항이 없습니다.</p>
-      ) : (
-        <ul className="notice-list">
-          {notices.map((n) => {
-            const open = openId === n.id;
-            return (
-              <li key={n.id} className="notice-row">
-                <button
-                  type="button"
-                  className="notice-line"
-                  onClick={() => toggle(n.id)}
-                  aria-expanded={open}
-                >
-                  <span className="notice-title">
-                    {n.pinned && <span className="notice-pin">고정</span>}
-                    {n.title}
-                  </span>
-                  <span className="notice-date">
-                    {n.created_at.slice(0, 10)}
-                  </span>
-                </button>
-                {open && n.body && <p className="notice-body">{n.body}</p>}
-              </li>
-            );
-          })}
-        </ul>
-      )}
     </div>
   );
 }
@@ -695,183 +714,300 @@ function ItemIcon({ slug }: { slug: string }) {
   );
 }
 
-// 주제 그룹 + 아이콘 타일로 표시하는 섹션(행정공통분야)
-function GroupedCategorySection({ category }: { category: CatalogCategory }) {
-  const featured = category.items.filter((i) => i.featured);
-  const groups = GROUP_ORDER.map((name) => ({
-    name,
-    items: category.items.filter((i) => i.group === name),
-  })).filter((g) => g.items.length > 0);
+// ── 홈 대시보드 ──────────────────────────────────────────────
+const WORK_CAT = catalog.find((c) => c.key === "work");
+const GUIDE_CAT = catalog.find((c) => c.key === "guide");
+const LIFE_CAT = catalog.find((c) => c.key === "life");
+
+type DashMenu = { key: string; label: string; icon: ReactNode };
+const DASH_MENU: DashMenu[] = [
+  {
+    key: "home",
+    label: "홈 대시보드",
+    icon: (
+      <>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </>
+    ),
+  },
+  {
+    key: "cal",
+    label: "직무달력",
+    icon: (
+      <>
+        <rect x="3" y="4" width="18" height="17" rx="2" />
+        <path d="M3 9h18M8 2v4M16 2v4" />
+      </>
+    ),
+  },
+  {
+    key: "work",
+    label: "업무",
+    icon: (
+      <>
+        <rect x="2.5" y="6" width="19" height="12" rx="2" />
+        <circle cx="12" cy="12" r="2.5" />
+      </>
+    ),
+  },
+  {
+    key: "gong",
+    label: "행정공통분야",
+    icon: (
+      <>
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M3 9h18M8 4v16" />
+      </>
+    ),
+  },
+  {
+    key: "life",
+    label: "안성 생활정보",
+    icon: (
+      <>
+        <path d="M3 11l9-7 9 7" />
+        <path d="M5.5 10v10h13V10" />
+      </>
+    ),
+  },
+];
+
+function DashboardHome() {
+  const [active, setActive] = useState("home");
+  const [showNotices, setShowNotices] = useState(false);
+
+  // 대시보드에서는 #root의 1126px 둥근 틀을 풀어 화면 전체를 채운다.
+  useEffect(() => {
+    const root = document.getElementById("root");
+    root?.classList.add("root-dashboard");
+    return () => root?.classList.remove("root-dashboard");
+  }, []);
+
+  const onMenu = (key: string) => {
+    setActive(key);
+    if (key === "cal") {
+      // 직무달력 카드로 포커스(상세는 카드의 '전체 보기'에서 이동)
+      document.getElementById("dash-cal")?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+      return;
+    }
+    if (key === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    document.getElementById(`dash-${key}`)?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
+  };
+
+  const featured = GUIDE_CAT ? GUIDE_CAT.items.filter((i) => i.featured) : [];
+  const groups = GUIDE_CAT
+    ? GROUP_ORDER.map((name) => ({
+        name,
+        items: GUIDE_CAT.items.filter((i) => i.group === name),
+      })).filter((g) => g.items.length > 0)
+    : [];
 
   return (
-    <section className="banner" id={category.sectionId}>
-      <div className="section-inner">
-        <div className="section-heading">
-          <h3>{category.heading}</h3>
-        </div>
-
-        {featured.length > 0 && (
-          <div className="gt-group">
-            <div className="gt-group-head">
-              <h4>전반</h4>
-            </div>
-            <div className="gt-band">
-              {featured.map((item) => (
-                <button
-                  type="button"
-                  key={item.slug}
-                  className="gt-tile is-lead"
-                  onClick={() => openItem(item.slug)}
-                >
-                  <ItemIcon slug={item.slug} />
-                  <span className="gt-tile-title">{item.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {groups.map((group) => (
-          <div className="gt-group" key={group.name}>
-            <div className="gt-group-head">
-              <h4>{group.name}</h4>
-            </div>
-            <div className="gt-band">
-              {group.items.map((item) => (
-                <button
-                  type="button"
-                  key={item.slug}
-                  className="gt-tile"
-                  onClick={() => openItem(item.slug)}
-                >
-                  <ItemIcon slug={item.slug} />
-                  <span className="gt-tile-title">{item.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CategorySection({ category }: { category: CatalogCategory }) {
-  if (category.grouped) {
-    return <GroupedCategorySection category={category} />;
-  }
-  return (
-    <section className="banner" id={category.sectionId}>
-      <div className="section-inner">
-        <div className="section-heading">
-          <h3>{category.heading}</h3>
-        </div>
-
-        <div className={`service-grid${category.compact ? " is-compact" : ""}`}>
-          {category.items.map((item) => (
-            <button
-              type="button"
-              className="service-card"
-              key={item.slug}
-              onClick={() => openItem(item.slug)}
-            >
-              <span className="service-head">
-                <ItemIcon slug={item.slug} />
-                <span className="service-title">{item.title}</span>
+    <div className="dashboard">
+      <div className="dash-layout">
+        {/* 사이드바 */}
+        <aside className="dash-side">
+          <div className="dash-brand">
+            <span className="dash-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 11l9-7 9 7" />
+                <path d="M5.5 10v10h13V10" />
+                <path d="M10 20v-6h4v6" />
+              </svg>
+            </span>
+            <span className="dash-brand-tx">
+              <span className="dash-brand-org">안성교육지원청</span>
+              <span className="dash-brand-title">
+                학교 행정업무
+                <br />
+                활동지원기
               </span>
-              <span className="service-description">{item.description}</span>
-              <span className="service-arrow">→</span>
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+            </span>
+          </div>
 
-// 오른쪽 여백에 고정되는 G-ONE 바로가기 배너 (PC 폭에서만 표시)
-function GoneBanner() {
-  return (
-    <a
-      className="gone-banner"
-      href="https://gdp.goe.go.kr/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="경기 업무협업포털 G-ONE(지원이) 바로가기"
-    >
-      <div className="gone-brand">
-        <span className="gone-logo">G-ONE</span>
-        <span className="gone-portal">경기 업무협업포털</span>
-      </div>
-      <div className="gone-card">
-        <p className="gone-ai-title">[AI 대화] 무엇을 도와드릴까요?</p>
-        <span className="gone-input">무엇이든 물어보세요</span>
-      </div>
-      <p className="gone-desc">
-        지원이가 필요한 지침·매뉴얼을 AI로 찾아드려요
-      </p>
-      <span className="gone-go">바로가기 ›</span>
-    </a>
-  );
-}
-
-function HomePage() {
-  return (
-    <div className="app">
-      <header className="header">
-        <div className="header-inner">
-          <a className="logo-area" href="#home">
-            <img
-              className="logo-mark"
-              src="/logo.png"
-              alt="안성교육지원청"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-            <span className="logo">안성교육지원청 행정업무지원기</span>
-          </a>
-
-          <nav className="navigation">
-            <a href="#home">홈</a>
-            {catalog.map((c) => (
-              <a key={c.key} href={`#${c.sectionId}`}>
-                {c.label}
-              </a>
+          <nav className="dash-menu" aria-label="바로가기">
+            <p className="dash-menu-h">바로가기</p>
+            {DASH_MENU.map((m) => (
+              <button
+                type="button"
+                key={m.key}
+                className={`dash-m${active === m.key ? " is-active" : ""}`}
+                onClick={() => onMenu(m.key)}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  {m.icon}
+                </svg>
+                {m.label}
+              </button>
             ))}
           </nav>
-        </div>
-      </header>
 
-      <main>
-        <section className="hero-split" id="home">
-          <div className="hero-split-inner">
-            <DutyCalendarPanel />
+          <div className="dash-side-bottom">
+            <a
+              className="dash-gone"
+              href="https://gdp.goe.go.kr/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="dash-gone-mark">G1</span>
+              <span className="dash-gone-tx">
+                <span className="dash-gone-t">경기 업무협업포털 G-ONE</span>
+                <span className="dash-gone-d">지원이 · AI 지침 검색</span>
+              </span>
+            </a>
+            <div className="dash-side-mini">
+              <button type="button" onClick={() => setShowNotices(true)}>
+                공지사항
+              </button>
+              <a href="#/admin">관리자</a>
+            </div>
+            <p className="dash-side-note">
+              본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.
+            </p>
           </div>
-        </section>
+        </aside>
 
-        {catalog.map((category) => (
-          <CategorySection key={category.key} category={category} />
-        ))}
+        {/* 오른쪽 2×2 */}
+        <div className="dash-main">
+          <div className="dash-col dash-col-left">
+            {/* 업무 */}
+            <section className="dash-card sz-work" id="dash-work">
+              <div className="dash-card-head">
+                <h2 className="dash-card-title">업무</h2>
+              </div>
+              <div className="dash-card-body">
+                <div className="dash-work-grid">
+                  {WORK_CAT?.items.map((item) => (
+                    <button
+                      type="button"
+                      key={item.slug}
+                      className="dash-tile"
+                      onClick={() => openItem(item.slug)}
+                    >
+                      <span className="dash-tile-ic">
+                        <ItemIcon slug={item.slug} />
+                      </span>
+                      <span className="dash-tile-tx">
+                        <span className="dash-tile-t">{item.title}</span>
+                        <span className="dash-tile-d">{item.description}</span>
+                      </span>
+                      <span className="dash-tile-go" aria-hidden="true">
+                        →
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
 
-        <section className="banner">
-          <div className="section-inner">
-            <NoticesPanel />
+            {/* 행정공통분야 */}
+            <section className="dash-card sz-gong" id="dash-gong">
+              <div className="dash-card-head">
+                <h2 className="dash-card-title">행정공통분야</h2>
+              </div>
+              <div className="dash-card-body">
+                {featured.map((item) => (
+                  <button
+                    type="button"
+                    key={item.slug}
+                    className="dash-lead"
+                    onClick={() => openItem(item.slug)}
+                  >
+                    <ItemIcon slug={item.slug} />
+                    <span className="dash-lead-t">{item.title}</span>
+                    <span className="dash-lead-go" aria-hidden="true">
+                      →
+                    </span>
+                  </button>
+                ))}
+                {groups.map((group) => (
+                  <div className="dash-grp" key={group.name}>
+                    <p className="dash-grp-h">{group.name}</p>
+                    <div className="dash-tags">
+                      {group.items.map((item) => (
+                        <button
+                          type="button"
+                          key={item.slug}
+                          className="dash-tag"
+                          onClick={() => openItem(item.slug)}
+                        >
+                          <ItemIcon slug={item.slug} />
+                          {item.title}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
-      </main>
 
-      <footer className="footer">
-        <div className="footer-inner">
-          <strong>안성교육지원청 행정업무지원기</strong>
-          <p>본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.</p>
-          <a className="admin-link" href="#/admin">
-            관리자
-          </a>
+          <div className="dash-col dash-col-right">
+            {/* 직무달력 */}
+            <section className="dash-card sz-cal" id="dash-cal">
+              <div className="dash-card-head">
+                <h2 className="dash-card-title">직무달력</h2>
+                <button
+                  type="button"
+                  className="dash-more"
+                  onClick={() => {
+                    window.location.hash = "#/calendar";
+                  }}
+                >
+                  전체 보기 ›
+                </button>
+              </div>
+              <div className="dash-card-body">
+                <DutyCalendarCard />
+              </div>
+            </section>
+
+            {/* 안성 생활 정보 */}
+            <section className="dash-card sz-life" id="dash-life">
+              <div className="dash-card-head">
+                <h2 className="dash-card-title">안성 생활 정보</h2>
+              </div>
+              <div className="dash-card-body">
+                <div className="dash-life">
+                  {LIFE_CAT?.items.map((item) => (
+                    <button
+                      type="button"
+                      key={item.slug}
+                      className="dash-lf"
+                      onClick={() => openItem(item.slug)}
+                    >
+                      <span className="dash-lf-ic">
+                        <ItemIcon slug={item.slug} />
+                      </span>
+                      <span className="dash-lf-tx">
+                        <span className="dash-lf-t">{item.title}</span>
+                        <span className="dash-lf-d">{item.description}</span>
+                      </span>
+                      <span className="dash-lf-go" aria-hidden="true">
+                        →
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
-      </footer>
+      </div>
 
-      <GoneBanner />
+      {showNotices && <NoticesModal onClose={() => setShowNotices(false)} />}
     </div>
   );
 }
@@ -934,7 +1070,7 @@ function App() {
     }
   }
 
-  return <HomePage />;
+  return <DashboardHome />;
 }
 
 export default App;
