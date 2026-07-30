@@ -1,0 +1,1 @@
+import{t as e}from"./index-DP_-ewgL.js";var t=e();function n(){return(0,t.jsxs)(`div`,{className:`detail-placeholder`,children:[(0,t.jsx)(`p`,{className:`detail-placeholder-title`,children:`준비 중입니다`}),(0,t.jsx)(`p`,{children:`이 계산기는 순서대로 구현 예정입니다.`})]})}export{n as default};
