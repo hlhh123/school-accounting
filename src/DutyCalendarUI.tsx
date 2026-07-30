@@ -318,7 +318,7 @@ export function DutyCalendarCard() {
   // 이번 달이면 오늘 이후 일정, 아니면 그 달 일정을 앞에서부터
   const dated = tasks.filter((t) => t.day) as (DutyTask & { day: number })[];
   const upcoming = isThisMonth ? dated.filter((t) => t.day >= todayDate) : dated;
-  const list = (upcoming.length ? upcoming : dated).slice(0, 5);
+  const list = (upcoming.length ? upcoming : dated).slice(0, 4);
 
   const step = (e: MouseEvent, dir: number) => {
     e.stopPropagation();

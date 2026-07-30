@@ -775,9 +775,18 @@ const DASH_MENU: DashMenu[] = [
   },
 ];
 
+type Theme = "dark" | "light";
+
 function DashboardHome() {
   const [active, setActive] = useState("home");
   const [showNotices, setShowNotices] = useState(false);
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved =
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem("dash-theme")
+        : null;
+    return saved === "light" ? "light" : "dark";
+  });
 
   // 대시보드에서는 #root의 1126px 둥근 틀을 풀어 화면 전체를 채운다.
   useEffect(() => {
@@ -785,6 +794,17 @@ function DashboardHome() {
     root?.classList.add("root-dashboard");
     return () => root?.classList.remove("root-dashboard");
   }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("dash-theme", theme);
+    } catch {
+      /* 저장 불가 환경 무시 */
+    }
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   const onMenu = (key: string) => {
     setActive(key);
@@ -815,7 +835,7 @@ function DashboardHome() {
     : [];
 
   return (
-    <div className="dashboard">
+    <div className={`dashboard${theme === "light" ? " is-light" : ""}`}>
       <div className="dash-layout">
         {/* 사이드바 */}
         <aside className="dash-side">
@@ -855,6 +875,29 @@ function DashboardHome() {
           </nav>
 
           <div className="dash-side-bottom">
+            <button
+              type="button"
+              className="dash-theme"
+              onClick={toggleTheme}
+              aria-label="화면 모드 전환"
+            >
+              {theme === "dark" ? (
+                <>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.5" />
+                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" />
+                  </svg>
+                  라이트 모드
+                </>
+              ) : (
+                <>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 14.5A8 8 0 019.5 4 7 7 0 1020 14.5z" />
+                  </svg>
+                  다크 모드
+                </>
+              )}
+            </button>
             <a
               className="dash-gone"
               href="https://gdp.goe.go.kr/"

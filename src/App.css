@@ -4060,6 +4060,60 @@ a {
   line-height: 1.5;
 }
 
+/* 다크/라이트 토글 버튼 */
+.dash-theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 11px;
+  background: transparent;
+  border: 1px solid var(--d-line);
+  color: var(--d-tx2);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+.dash-theme:hover {
+  border-color: var(--d-purple);
+  color: var(--d-tx);
+}
+.dash-theme svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--d-purple-lt);
+  stroke-width: 1.7;
+  fill: none;
+  flex: 0 0 auto;
+}
+
+/* ── 라이트 모드 (.dashboard.is-light 토큰 재정의) ── */
+.dashboard.is-light {
+  --d-bg: #eef0f4;
+  --d-side: #ffffff;
+  --d-card: #ffffff;
+  --d-card2: #f4f5f8;
+  --d-line: #e1e4ea;
+  --d-line-soft: #eceef2;
+  --d-purple: #7c3aed;
+  --d-purple-lt: #7c3aed;
+  --d-purple-x: #6d28d9;
+  --d-tx: #1a1b21;
+  --d-tx2: #565b64;
+  --d-tx3: #8f95a0;
+}
+.dashboard.is-light .dash-card-body::-webkit-scrollbar-thumb,
+.dashboard.is-light .dash-side::-webkit-scrollbar-thumb {
+  background: #ced3db;
+}
+
 /* ── 오른쪽 2열 (시안 2: 안쪽 정렬·바깥 여백) ── */
 .dash-main {
   display: flex;
@@ -4410,12 +4464,26 @@ a {
   border-color: var(--d-purple);
   color: var(--d-tx);
 }
-/* MonthCalendar 다크 오버라이드 */
+/* MonthCalendar 다크 오버라이드 + 스크롤 없이 들어가도록 셀을 납작하게 */
+.dash-cal .cal-grid {
+  gap: 2px;
+}
+.dash-cal .cal-dow {
+  margin-bottom: 2px;
+}
 .dash-cal .cal-dow span {
   color: var(--d-tx3);
+  padding: 2px 0;
 }
 .dash-cal .cal-day {
   color: var(--d-tx2);
+  aspect-ratio: auto;
+  min-height: 0;
+  padding: 5px 0;
+  border-radius: 7px;
+}
+.dash-cal .cal-day.has-task::after {
+  bottom: 2px;
 }
 .dash-cal .cal-day.cal-sun,
 .dash-cal .cal-dow .cal-sun {
@@ -4429,22 +4497,22 @@ a {
 }
 .dash-cal .cal-day.is-today {
   background: var(--d-purple);
-  color: #0d0d12;
+  color: #ffffff;
 }
 .dash-cal .cal-day.is-today.has-task::after {
-  background: #0d0d12;
+  background: #ffffff;
 }
 .dash-cal .cal-day:not(.is-today):hover {
   box-shadow: inset 0 0 0 1.5px var(--d-purple);
 }
 .dash-cal-tasks {
-  margin: 12px 0 0;
-  padding: 12px 0 0;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
   border-top: 1px solid var(--d-line-soft);
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 7px;
 }
 .dash-cal-tasks li {
   display: flex;
