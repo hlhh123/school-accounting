@@ -898,18 +898,6 @@ function DashboardHome() {
                 </>
               )}
             </button>
-            <a
-              className="dash-gone"
-              href="https://gdp.goe.go.kr/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="dash-gone-mark">G1</span>
-              <span className="dash-gone-tx">
-                <span className="dash-gone-t">경기 업무협업포털 G-ONE</span>
-                <span className="dash-gone-d">지원이 · AI 지침 검색</span>
-              </span>
-            </a>
             <div className="dash-side-mini">
               <button type="button" onClick={() => setShowNotices(true)}>
                 공지사항
@@ -1048,6 +1036,33 @@ function DashboardHome() {
             </section>
           </div>
         </div>
+
+        {/* 오른쪽 배너 열 (G-ONE + 추후 배너) */}
+        <aside className="dash-banners" aria-label="배너">
+          <a
+            className="dash-gbanner"
+            href="https://gdp.goe.go.kr/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="dash-gb-head">
+              <span className="dash-gb-logo">G-ONE</span>
+              <span className="dash-gb-portal">경기 업무협업포털</span>
+            </div>
+            <div className="dash-gb-card">
+              <p className="dash-gb-ai">[AI 대화] 무엇을 도와드릴까요?</p>
+              <span className="dash-gb-input">무엇이든 물어보세요</span>
+            </div>
+            <p className="dash-gb-desc">
+              지원이가 필요한 지침·매뉴얼을 AI로 찾아드려요
+            </p>
+            <span className="dash-gb-go">바로가기 ›</span>
+          </a>
+
+          <div className="dash-banner-slot" aria-hidden="true">
+            추가 배너 자리
+          </div>
+        </aside>
       </div>
 
       {showNotices && <NoticesModal onClose={() => setShowNotices(false)} />}
