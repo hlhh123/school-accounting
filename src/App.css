@@ -3881,8 +3881,9 @@ a {
 
 .dash-layout {
   display: grid;
-  /* 사이드바 / 본문(폭 캡) / 배너 / 오른쪽 여백(1fr) */
-  grid-template-columns: 268px minmax(0, 880px) 300px 1fr;
+  /* 사이드바 / 본문(폭 캡) / 배너 — 화면이 넓으면 전체를 가운데 정렬(양쪽 균등 여백) */
+  grid-template-columns: 268px minmax(0, 960px) 300px;
+  justify-content: center;
   gap: var(--d-gap);
   height: calc(100vh - 36px);
 }
@@ -4129,7 +4130,7 @@ a {
   gap: var(--d-gap);
 }
 .dash-col-left {
-  flex: 1.36;
+  flex: 1.57;
 }
 .dash-col-right {
   flex: 1;
