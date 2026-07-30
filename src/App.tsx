@@ -949,20 +949,21 @@ function DashboardHome() {
                 <h2 className="dash-card-title">행정공통분야</h2>
               </div>
               <div className="dash-card-body">
-                {featured.map((item) => (
-                  <button
-                    type="button"
-                    key={item.slug}
-                    className="dash-lead"
-                    onClick={() => openItem(item.slug)}
-                  >
-                    <ItemIcon slug={item.slug} />
-                    <span className="dash-lead-t">{item.title}</span>
-                    <span className="dash-lead-go" aria-hidden="true">
-                      →
-                    </span>
-                  </button>
-                ))}
+                {featured.length > 0 && (
+                  <div className="dash-tags dash-overview-row">
+                    {featured.map((item) => (
+                      <button
+                        type="button"
+                        key={item.slug}
+                        className="dash-tag is-overview"
+                        onClick={() => openItem(item.slug)}
+                      >
+                        <ItemIcon slug={item.slug} />
+                        {item.title}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {groups.map((group) => (
                   <div className="dash-grp" key={group.name}>
                     <p className="dash-grp-h">{group.name}</p>
