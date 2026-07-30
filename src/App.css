@@ -3882,7 +3882,7 @@ a {
 .dash-layout {
   display: grid;
   /* 사이드바 / 본문(폭 캡) / 배너 / 오른쪽 여백(1fr) */
-  grid-template-columns: 268px minmax(0, 800px) 300px 1fr;
+  grid-template-columns: 268px minmax(0, 880px) 300px 1fr;
   gap: var(--d-gap);
   height: calc(100vh - 36px);
 }
@@ -4129,7 +4129,7 @@ a {
   gap: var(--d-gap);
 }
 .dash-col-left {
-  flex: 1.15;
+  flex: 1.36;
 }
 .dash-col-right {
   flex: 1;
