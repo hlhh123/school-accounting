@@ -10,12 +10,16 @@ function MonthCalendar({
   taskDays,
   compact,
   onDayHover,
+  onDaySelect,
+  selectedDay,
 }: {
   year: number;
   month: number; // 1-12
   taskDays: Set<number>;
   compact?: boolean;
   onDayHover?: (day: number | null) => void;
+  onDaySelect?: (day: number) => void; // 날짜 클릭 선택(카드용)
+  selectedDay?: number | null;
 }) {
   const startDow = new Date(year, month - 1, 1).getDay();
   const daysInMonth = new Date(year, month, 0).getDate();
@@ -43,15 +47,26 @@ function MonthCalendar({
           ) : (
             <span
               key={i}
+              role={onDaySelect ? "button" : undefined}
+              tabIndex={onDaySelect ? 0 : undefined}
               className={[
                 "cal-day",
                 i % 7 === 0 ? "cal-sun" : "",
                 taskDays.has(d) ? "has-task" : "",
                 isThisMonth && today.getDate() === d ? "is-today" : "",
+                selectedDay === d ? "is-selected" : "",
+                onDaySelect ? "is-clickable" : "",
               ]
                 .filter(Boolean)
                 .join(" ")}
               onMouseEnter={() => onDayHover?.(d)}
+              onClick={() => onDaySelect?.(d)}
+              onKeyDown={(e) => {
+                if (onDaySelect && (e.key === "Enter" || e.key === " ")) {
+                  e.preventDefault();
+                  onDaySelect(d);
+                }
+              }}
             >
               {d}
             </span>
@@ -300,6 +315,8 @@ export function DutyCalendarCard() {
   const todayDate = now.getDate();
   const [data, setData] = useState<Record<number, DutyTask[]>>(dutyCalendar);
   const [offset, setOffset] = useState(0);
+  // 사용자가 클릭한 날짜(없으면 이번 달일 때 오늘)
+  const [picked, setPicked] = useState<number | null>(null);
 
   useEffect(() => {
     fetchDutyByMonth().then(setData);
@@ -315,13 +332,13 @@ export function DutyCalendarCard() {
     tasks.filter((t) => t.day).map((t) => t.day as number),
   );
 
-  // 이번 달이면 오늘 이후 일정, 아니면 그 달 일정을 앞에서부터
-  const dated = tasks.filter((t) => t.day) as (DutyTask & { day: number })[];
-  const upcoming = isThisMonth ? dated.filter((t) => t.day >= todayDate) : dated;
-  const list = (upcoming.length ? upcoming : dated).slice(0, 4);
+  // 선택한 날짜(기본: 이번 달이면 오늘)의 일정만 표시
+  const day = picked ?? (isThisMonth ? todayDate : null);
+  const dayTasks = day != null ? tasks.filter((t) => t.day === day) : [];
 
   const step = (e: MouseEvent, dir: number) => {
     e.stopPropagation();
+    setPicked(null);
     setOffset((o) => o + dir);
   };
 
@@ -339,20 +356,31 @@ export function DutyCalendarCard() {
         </button>
       </div>
 
-      <MonthCalendar year={year} month={month} taskDays={taskDays} compact />
+      <MonthCalendar
+        year={year}
+        month={month}
+        taskDays={taskDays}
+        compact
+        selectedDay={day}
+        onDaySelect={setPicked}
+      />
 
+      <p className="dash-cal-day">
+        {day != null ? `${month}월 ${day}일 일정` : "날짜를 선택하세요"}
+      </p>
       <ul className="dash-cal-tasks">
-        {list.length ? (
-          list.map((t, i) => (
+        {dayTasks.length ? (
+          dayTasks.map((t, i) => (
             <li key={i}>
-              <span className="d">
-                {month}.{t.day}
-              </span>
               <span className="t">{t.title}</span>
             </li>
           ))
         ) : (
-          <li className="dash-cal-empty">이번 달 등록된 일정이 없습니다.</li>
+          <li className="dash-cal-empty">
+            {day != null
+              ? "이 날은 등록된 일정이 없습니다."
+              : "달력에서 날짜를 눌러 주세요."}
+          </li>
         )}
       </ul>
     </div>
