@@ -955,7 +955,7 @@ function DashboardHome() {
                       <button
                         type="button"
                         key={item.slug}
-                        className="dash-tag is-overview"
+                        className="dash-tag"
                         onClick={() => openItem(item.slug)}
                       >
                         <ItemIcon slug={item.slug} />

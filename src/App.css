@@ -4370,18 +4370,9 @@ a {
 .dash-tag:hover svg {
   stroke: var(--d-purple-lt);
 }
-/* 행정공통 전반: 태그 크기 그대로, 은은한 보라 표시만 */
+/* 행정공통 전반: 다른 태그와 동일(강조 없음) */
 .dash-overview-row {
   margin-bottom: 8px;
-}
-.dash-tag.is-overview {
-  background: rgba(139, 92, 246, 0.12);
-  border-color: rgba(139, 92, 246, 0.4);
-  color: var(--d-purple-x);
-  font-weight: 750;
-}
-.dash-tag.is-overview svg {
-  stroke: var(--d-purple-lt);
 }
 
 /* 생활정보 */
