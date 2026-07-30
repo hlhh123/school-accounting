@@ -3881,7 +3881,8 @@ a {
 
 .dash-layout {
   display: grid;
-  grid-template-columns: 268px minmax(0, 1fr) 280px;
+  /* 사이드바 / 본문(폭 캡) / 배너 / 오른쪽 여백(1fr) */
+  grid-template-columns: 268px minmax(0, 740px) 300px 1fr;
   gap: var(--d-gap);
   height: calc(100vh - 36px);
 }
@@ -4128,10 +4129,10 @@ a {
   gap: var(--d-gap);
 }
 .dash-col-left {
-  flex: 1.4;
+  flex: 1.15;
 }
 .dash-col-right {
-  flex: 1.05;
+  flex: 1;
 }
 
 .dash-card {
@@ -4159,14 +4160,14 @@ a {
   flex-grow: 1;
   width: 100%;
 }
-/* 직무달력·생활정보: 폭 축소, 생활정보 최소 */
+/* 직무달력·생활정보: 열을 채우되 생활정보만 살짝 좁게(안쪽 정렬) */
 .dash-card.sz-cal {
   flex-grow: 60;
-  width: 88%;
+  width: 100%;
 }
 .dash-card.sz-life {
   flex-grow: 40;
-  width: 68%;
+  width: 88%;
 }
 
 .dash-card-head {
@@ -4259,6 +4260,7 @@ a {
   fill: none;
 }
 .dash-tile-tx {
+  flex: 1 1 auto;
   min-width: 0;
 }
 .dash-tile-t {
@@ -4289,8 +4291,8 @@ a {
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 13px;
+  padding: 11px 13px;
+  margin-bottom: 11px;
   border-radius: 12px;
   background: rgba(139, 92, 246, 0.12);
   border: 1px solid rgba(139, 92, 246, 0.4);
@@ -4319,10 +4321,10 @@ a {
   color: var(--d-purple-lt);
 }
 .dash-grp + .dash-grp {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 .dash-grp-h {
-  margin: 0 0 7px;
+  margin: 0 0 6px;
   color: var(--d-tx3);
   font-size: 11.5px;
   font-weight: 800;
@@ -4331,19 +4333,19 @@ a {
 .dash-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
 }
 .dash-tag {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 13px;
+  gap: 6px;
+  padding: 7px 11px;
   border-radius: 999px;
   background: var(--d-card2);
   border: 1px solid var(--d-line-soft);
   color: var(--d-tx);
   font: inherit;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 650;
   cursor: pointer;
   white-space: nowrap;
@@ -4352,8 +4354,8 @@ a {
     color 0.15s ease;
 }
 .dash-tag svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   stroke: var(--d-tx2);
   stroke-width: 1.7;
   fill: none;
@@ -4410,6 +4412,7 @@ a {
   fill: none;
 }
 .dash-lf-tx {
+  flex: 1 1 auto;
   min-width: 0;
 }
 .dash-lf-t {
