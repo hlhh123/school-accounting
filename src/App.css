@@ -3977,7 +3977,8 @@ a {
   flex: 0 0 auto;
 }
 .dash-m:hover {
-  background: #1e1e27;
+  background: var(--d-card2);
+  border-color: var(--d-purple);
   color: var(--d-tx);
 }
 .dash-m.is-active {
