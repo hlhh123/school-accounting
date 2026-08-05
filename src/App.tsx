@@ -723,7 +723,7 @@ const LIFE_CAT = catalog.find((c) => c.key === "life");
 const ANSEONG_LINKS: { label: string; href: string }[] = [
   { label: "안성 배움e", href: "https://www.anseong.go.kr/edu/main.do" },
   { label: "안성교육지원청", href: "https://www.goean.kr/" },
-  { label: "안성시청 홈페이지", href: "https://www.anseong.go.kr/main.do" },
+  { label: "안성시청", href: "https://www.anseong.go.kr/main.do" },
   { label: "아트홀 / 평생학습관", href: "https://www.anseong.go.kr/arthall/main.do" },
   { label: "안성 문화관광", href: "https://www.anseong.go.kr/tour/main.do" },
 ];
