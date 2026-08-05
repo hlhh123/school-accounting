@@ -215,6 +215,13 @@ export const CONTRACT_FIELDS: ContractField[] = [
         note: "현장체험학습 용역은 계약심사 제외 대상.",
       },
       {
+        code: "svc-performance",
+        label: "공연·행사 대행 용역(공연업체)",
+        soLimit: 10000,
+        specialLimit: QUOTE_SPECIAL_LIMIT,
+        note: "공연업체·행사대행 등 문화예술 용역. 특정 예술인·단체만 공연할 수 있어 경쟁이 성립되지 않는 경우 시행령 §25①4(예술·창의성 등으로 경쟁이 곤란)에 따라 수의계약이 가능합니다. 규격·가격 산정이 어려운 대규모 행사는 «협상에 의한 계약» 또는 «제안서 평가»도 검토하세요. 강사료 성격의 개인 출연은 용역이 아닌 사례금·강사수당으로 처리할 수 있습니다.",
+      },
+      {
         code: "svc-afterschool",
         label: "늘봄(방과후)학교 용역",
         soLimit: 10000,
