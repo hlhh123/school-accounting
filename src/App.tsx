@@ -1,5 +1,11 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import "./App.css";
+import {
+  fetchMessages,
+  sendMessage,
+  subscribeMessages,
+  type ChatMessage,
+} from "./lib/chat";
 import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
@@ -728,66 +734,155 @@ const ANSEONG_LINKS: { label: string; href: string }[] = [
   { label: "안성 문화관광", href: "https://www.anseong.go.kr/tour/main.do" },
 ];
 
-type DashMenu = { key: string; label: string; icon: ReactNode };
-const DASH_MENU: DashMenu[] = [
-  {
-    key: "home",
-    label: "홈 대시보드",
-    icon: (
-      <>
-        <rect x="3" y="3" width="7" height="7" rx="1.5" />
-        <rect x="14" y="3" width="7" height="7" rx="1.5" />
-        <rect x="3" y="14" width="7" height="7" rx="1.5" />
-        <rect x="14" y="14" width="7" height="7" rx="1.5" />
-      </>
-    ),
-  },
-  {
-    key: "cal",
-    label: "직무달력",
-    icon: (
-      <>
-        <rect x="3" y="4" width="18" height="17" rx="2" />
-        <path d="M3 9h18M8 2v4M16 2v4" />
-      </>
-    ),
-  },
-  {
-    key: "work",
-    label: "업무",
-    icon: (
-      <>
-        <rect x="2.5" y="6" width="19" height="12" rx="2" />
-        <circle cx="12" cy="12" r="2.5" />
-      </>
-    ),
-  },
-  {
-    key: "gong",
-    label: "행정공통분야",
-    icon: (
-      <>
-        <rect x="3" y="4" width="18" height="16" rx="2" />
-        <path d="M3 9h18M8 4v16" />
-      </>
-    ),
-  },
-  {
-    key: "life",
-    label: "안성 생활정보",
-    icon: (
-      <>
-        <path d="M3 11l9-7 9 7" />
-        <path d="M5.5 10v10h13V10" />
-      </>
-    ),
-  },
-];
+// 두 자리로 맞춘 시각 표시(HH:MM)
+function chatTime(iso: string): string {
+  const d = new Date(iso);
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  return `${hh}:${mm}`;
+}
+
+// 사이드바 실시간 질문방(Supabase Realtime 기반 익명 채팅)
+function ChatRoom() {
+  const [msgs, setMsgs] = useState<ChatMessage[]>([]);
+  const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [nick, setNick] = useState(
+    () =>
+      (typeof localStorage !== "undefined" &&
+        localStorage.getItem("chat-nick")) ||
+      "",
+  );
+  const [text, setText] = useState("");
+  const [sending, setSending] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetchMessages()
+      .then((m) => {
+        if (alive) {
+          setMsgs(m);
+          setReady(true);
+        }
+      })
+      .catch(() => {
+        if (alive) {
+          setFailed(true);
+          setReady(true);
+        }
+      });
+    const unsub = subscribeMessages((m) => {
+      setMsgs((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+    });
+    return () => {
+      alive = false;
+      unsub();
+    };
+  }, []);
+
+  // 새 메시지가 오면 맨 아래로 스크롤
+  useEffect(() => {
+    const el = listRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [msgs]);
+
+  const send = async () => {
+    const body = text.trim();
+    if (!body || sending) return;
+    const name = nick.trim() || "익명";
+    try {
+      localStorage.setItem("chat-nick", name);
+    } catch {
+      /* 무시 */
+    }
+    setSending(true);
+    try {
+      const saved = await sendMessage(name, body);
+      setText("");
+      setMsgs((prev) =>
+        prev.some((x) => x.id === saved.id) ? prev : [...prev, saved],
+      );
+    } catch {
+      setFailed(true);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <section className="dash-chat" aria-label="실시간 질문방">
+      <div className="dash-chat-head">
+        <span className="dash-chat-title">
+          <span className="dash-chat-dot" aria-hidden="true" />
+          실시간 질문방
+        </span>
+      </div>
+
+      <div className="dash-chat-list" ref={listRef}>
+        {!ready ? (
+          <p className="dash-chat-empty">불러오는 중…</p>
+        ) : failed ? (
+          <p className="dash-chat-empty">
+            질문방을 불러오지 못했습니다. (chat-setup.sql 실행 필요)
+          </p>
+        ) : msgs.length === 0 ? (
+          <p className="dash-chat-empty">
+            첫 질문을 남겨보세요. 실시간으로 함께 나눠요.
+          </p>
+        ) : (
+          msgs.map((m) => (
+            <div className="dash-chat-msg" key={m.id}>
+              <span className="dash-chat-meta">
+                <b>{m.nickname}</b>
+                <span className="dash-chat-time">{chatTime(m.created_at)}</span>
+              </span>
+              <span className="dash-chat-body">{m.body}</span>
+            </div>
+          ))
+        )}
+      </div>
+
+      <div className="dash-chat-form">
+        <input
+          className="dash-chat-nick"
+          type="text"
+          value={nick}
+          maxLength={12}
+          onChange={(e) => setNick(e.target.value)}
+          placeholder="닉네임"
+          aria-label="닉네임"
+        />
+        <div className="dash-chat-send">
+          <input
+            className="dash-chat-input"
+            type="text"
+            value={text}
+            maxLength={300}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") send();
+            }}
+            placeholder="질문을 입력하세요"
+            aria-label="질문 입력"
+          />
+          <button
+            type="button"
+            onClick={send}
+            disabled={sending || !text.trim()}
+            aria-label="보내기"
+          >
+            ↑
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 type Theme = "dark" | "light";
 
 function DashboardHome() {
-  const [active, setActive] = useState("home");
   const [showNotices, setShowNotices] = useState(false);
   const [theme, setTheme] = useState<Theme>(() => {
     const saved =
@@ -814,26 +909,6 @@ function DashboardHome() {
 
   const toggleTheme = () =>
     setTheme((t) => (t === "dark" ? "light" : "dark"));
-
-  const onMenu = (key: string) => {
-    setActive(key);
-    if (key === "cal") {
-      // 직무달력 카드로 포커스(상세는 카드의 '전체 보기'에서 이동)
-      document.getElementById("dash-cal")?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-      return;
-    }
-    if (key === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    document.getElementById(`dash-${key}`)?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-    });
-  };
 
   const featured = GUIDE_CAT ? GUIDE_CAT.items.filter((i) => i.featured) : [];
   const groups = GUIDE_CAT
@@ -866,22 +941,7 @@ function DashboardHome() {
             </span>
           </div>
 
-          <nav className="dash-menu" aria-label="바로가기">
-            <p className="dash-menu-h">바로가기</p>
-            {DASH_MENU.map((m) => (
-              <button
-                type="button"
-                key={m.key}
-                className={`dash-m${active === m.key ? " is-active" : ""}`}
-                onClick={() => onMenu(m.key)}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  {m.icon}
-                </svg>
-                {m.label}
-              </button>
-            ))}
-          </nav>
+          <ChatRoom />
 
           <div className="dash-side-bottom">
             <button
