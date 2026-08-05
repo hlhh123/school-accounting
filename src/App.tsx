@@ -719,6 +719,15 @@ const WORK_CAT = catalog.find((c) => c.key === "work");
 const GUIDE_CAT = catalog.find((c) => c.key === "guide");
 const LIFE_CAT = catalog.find((c) => c.key === "life");
 
+// 오른쪽 배너 열의 안성 바로가기 링크(외부 사이트, 새 탭)
+const ANSEONG_LINKS: { label: string; href: string }[] = [
+  { label: "안성 배움e", href: "https://www.anseong.go.kr/edu/main.do" },
+  { label: "안성교육지원청", href: "https://www.goean.kr/" },
+  { label: "안성시청 홈페이지", href: "https://www.anseong.go.kr/main.do" },
+  { label: "아트홀 / 평생학습관", href: "https://www.anseong.go.kr/arthall/main.do" },
+  { label: "안성 문화관광", href: "https://www.anseong.go.kr/tour/main.do" },
+];
+
 type DashMenu = { key: string; label: string; icon: ReactNode };
 const DASH_MENU: DashMenu[] = [
   {
@@ -1060,9 +1069,23 @@ function DashboardHome() {
             <span className="dash-gb-go">바로가기 ›</span>
           </a>
 
-          <div className="dash-banner-slot" aria-hidden="true">
-            추가 배너 자리
-          </div>
+          <nav className="dash-links" aria-label="안성 바로가기">
+            <p className="dash-links-h">안성 바로가기</p>
+            {ANSEONG_LINKS.map((l) => (
+              <a
+                key={l.href}
+                className="dash-link"
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="dash-link-t">{l.label}</span>
+                <span className="dash-link-go" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ))}
+          </nav>
         </aside>
       </div>
 
