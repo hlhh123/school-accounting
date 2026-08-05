@@ -123,12 +123,6 @@ export const catalog: CatalogCategory[] = [
         group: "문서와 정보",
       },
       {
-        slug: "pr-press",
-        title: "홍보·보도",
-        description: "보도자료 서식·제출 절차 등 홍보 자료를 안내합니다.",
-        group: "문서와 정보",
-      },
-      {
         slug: "budget-terms",
         title: "예산 용어 설명",
         description: "자주 쓰는 예산 용어를 정리했습니다.",
