@@ -30,5 +30,10 @@ drop policy if exists "chat_admin_delete" on public.chat_messages;
 create policy "chat_admin_delete" on public.chat_messages
   for delete to authenticated using (true);
 
--- 실시간(Realtime) 반영을 위해 publication 에 테이블 추가
-alter publication supabase_realtime add table public.chat_messages;
+-- 실시간(Realtime) 반영을 위해 publication 에 테이블 추가(이미 있으면 무시)
+do $$
+begin
+  alter publication supabase_realtime add table public.chat_messages;
+exception
+  when duplicate_object then null;
+end $$;
