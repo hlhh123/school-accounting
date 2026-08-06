@@ -734,6 +734,18 @@ const ANSEONG_LINKS: { label: string; href: string }[] = [
   { label: "안성 문화관광", href: "https://www.anseong.go.kr/tour/main.do" },
 ];
 
+// 대관·신청 계열은 아래에 따로 묶어 둔다.
+const ANSEONG_APPLY_LINKS: { label: string; href: string }[] = [
+  {
+    label: "아트홀·평생학습관 대관신청",
+    href: "https://www.anseong.go.kr/portal/rentFacility/apiList.do?mId=0710000000",
+  },
+  {
+    label: "공유학교",
+    href: "https://gong-u.goe.go.kr/anseong/contents/view?contentsNo=142&menuLevel=2&menuNo=297",
+  },
+];
+
 // 두 자리로 맞춘 시각 표시(HH:MM)
 function chatTime(iso: string): string {
   const d = new Date(iso);
@@ -755,7 +767,9 @@ function ChatRoom() {
   );
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
+  const [reply, setReply] = useState<ChatMessage | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let alive = true;
@@ -798,8 +812,13 @@ function ChatRoom() {
     }
     setSending(true);
     try {
-      const saved = await sendMessage(name, body);
+      const saved = await sendMessage(
+        name,
+        body,
+        reply ? { id: reply.id, nickname: reply.nickname, body: reply.body } : null,
+      );
       setText("");
+      setReply(null);
       setMsgs((prev) =>
         prev.some((x) => x.id === saved.id) ? prev : [...prev, saved],
       );
@@ -808,6 +827,11 @@ function ChatRoom() {
     } finally {
       setSending(false);
     }
+  };
+
+  const startReply = (m: ChatMessage) => {
+    setReply(m);
+    inputRef.current?.focus();
   };
 
   return (
@@ -836,7 +860,21 @@ function ChatRoom() {
               <span className="dash-chat-meta">
                 <b>{m.nickname}</b>
                 <span className="dash-chat-time">{chatTime(m.created_at)}</span>
+                <button
+                  type="button"
+                  className="dash-chat-reply-btn"
+                  onClick={() => startReply(m)}
+                  aria-label={`${m.nickname} 님에게 답글`}
+                >
+                  답글
+                </button>
               </span>
+              {m.reply_body && (
+                <span className="dash-chat-quote">
+                  <b>{m.reply_nick || "익명"}</b>
+                  <span>{m.reply_body}</span>
+                </span>
+              )}
               <span className="dash-chat-body">{m.body}</span>
             </div>
           ))
@@ -844,6 +882,22 @@ function ChatRoom() {
       </div>
 
       <div className="dash-chat-form">
+        {reply && (
+          <div className="dash-chat-replybar">
+            <span className="dash-chat-replybar-tx">
+              <b>{reply.nickname}</b>
+              <span>{reply.body}</span>
+            </span>
+            <button
+              type="button"
+              className="dash-chat-replybar-x"
+              onClick={() => setReply(null)}
+              aria-label="답글 취소"
+            >
+              ✕
+            </button>
+          </div>
+        )}
         <input
           className="dash-chat-nick"
           type="text"
@@ -855,6 +909,7 @@ function ChatRoom() {
         />
         <div className="dash-chat-send">
           <input
+            ref={inputRef}
             className="dash-chat-input"
             type="text"
             value={text}
@@ -862,6 +917,7 @@ function ChatRoom() {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") send();
+              else if (e.key === "Escape" && reply) setReply(null);
             }}
             placeholder="질문을 입력하세요"
             aria-label="질문 입력"
@@ -1132,6 +1188,24 @@ function DashboardHome() {
           <nav className="dash-links" aria-label="안성 바로가기">
             <p className="dash-links-h">안성 바로가기</p>
             {ANSEONG_LINKS.map((l) => (
+              <a
+                key={l.href}
+                className="dash-link"
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="dash-link-t">{l.label}</span>
+                <span className="dash-link-go" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ))}
+          </nav>
+
+          <nav className="dash-links" aria-label="대관 · 공유학교">
+            <p className="dash-links-h">대관 · 공유학교</p>
+            {ANSEONG_APPLY_LINKS.map((l) => (
               <a
                 key={l.href}
                 className="dash-link"

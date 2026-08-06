@@ -5,8 +5,18 @@ create table if not exists public.chat_messages (
   id uuid primary key default gen_random_uuid(),
   nickname text not null default '익명',
   body text not null,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  -- 답글(인용) — 원문 스냅샷을 함께 저장
+  reply_to uuid,
+  reply_nick text,
+  reply_body text
 );
+
+-- 기존 테이블에도 답글 컬럼 보강(이미 있으면 무시)
+alter table public.chat_messages
+  add column if not exists reply_to  uuid,
+  add column if not exists reply_nick text,
+  add column if not exists reply_body text;
 
 create index if not exists chat_messages_created_idx
   on public.chat_messages (created_at);

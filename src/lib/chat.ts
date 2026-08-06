@@ -5,30 +5,49 @@ export type ChatMessage = {
   nickname: string;
   body: string;
   created_at: string;
+  // 답글(인용) — 원문을 스냅샷으로 저장해 부모 삭제·실시간 반영에도 안전.
+  reply_to: string | null;
+  reply_nick: string | null;
+  reply_body: string | null;
 };
+
+const COLS = "id, nickname, body, created_at, reply_to, reply_nick, reply_body";
 
 // 최근 메시지(오래된 → 최신 순). 실패(테이블 미설정) 시 빈 배열.
 export async function fetchMessages(limit = 60): Promise<ChatMessage[]> {
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("chat_messages")
-    .select("id, nickname, body, created_at")
+    .select(COLS)
     .order("created_at", { ascending: false })
     .limit(limit);
   if (error) throw error;
   return ((data ?? []) as ChatMessage[]).reverse();
 }
 
-// 메시지 전송(익명). 저장된 행을 반환해 즉시 화면에 반영할 수 있게 함.
+export type ReplyTarget = {
+  id: string;
+  nickname: string;
+  body: string;
+};
+
+// 메시지 전송(익명). reply 지정 시 답글로 저장. 저장된 행을 반환.
 export async function sendMessage(
   nickname: string,
   body: string,
+  reply?: ReplyTarget | null,
 ): Promise<ChatMessage> {
   if (!supabase) throw new Error("실시간 질문방이 아직 연결되지 않았습니다.");
   const { data, error } = await supabase
     .from("chat_messages")
-    .insert({ nickname: nickname.trim() || "익명", body: body.trim() })
-    .select("id, nickname, body, created_at")
+    .insert({
+      nickname: nickname.trim() || "익명",
+      body: body.trim(),
+      reply_to: reply?.id ?? null,
+      reply_nick: reply?.nickname ?? null,
+      reply_body: reply ? reply.body.slice(0, 200) : null,
+    })
+    .select(COLS)
     .single();
   if (error) throw error;
   return data as ChatMessage;
