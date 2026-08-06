@@ -730,14 +730,13 @@ const ANSEONG_LINKS: { label: string; href: string }[] = [
   { label: "안성 배움e", href: "https://www.anseong.go.kr/edu/main.do" },
   { label: "안성교육지원청", href: "https://www.goean.kr/" },
   { label: "안성시청", href: "https://www.anseong.go.kr/main.do" },
-  { label: "아트홀 / 평생학습관", href: "https://www.anseong.go.kr/arthall/main.do" },
   { label: "안성 문화관광", href: "https://www.anseong.go.kr/tour/main.do" },
 ];
 
 // 대관·신청 계열은 아래에 따로 묶어 둔다.
 const ANSEONG_APPLY_LINKS: { label: string; href: string }[] = [
   {
-    label: "아트홀·평생학습관 대관신청",
+    label: "아트홀 · 평생학습관",
     href: "https://www.anseong.go.kr/portal/rentFacility/apiList.do?mId=0710000000",
   },
   {
@@ -1203,8 +1202,8 @@ function DashboardHome() {
             ))}
           </nav>
 
-          <nav className="dash-links" aria-label="대관 · 공유학교">
-            <p className="dash-links-h">대관 · 공유학교</p>
+          <nav className="dash-links" aria-label="대관신청">
+            <p className="dash-links-h">대관신청</p>
             {ANSEONG_APPLY_LINKS.map((l) => (
               <a
                 key={l.href}
