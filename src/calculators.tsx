@@ -18,6 +18,7 @@ const HobongCalculator = lazy(() => import("./HobongCalculator"));
 const DcRetirement = lazy(() => import("./calc/DcRetirement"));
 const Insurance4 = lazy(() => import("./calc/Insurance4"));
 const Preparing = lazy(() => import("./calc/Preparing"));
+const TeacherTempSalary = lazy(() => import("./calc/TeacherTempSalary"));
 
 export type CalcEntry = {
   key: string;
@@ -45,6 +46,12 @@ export const CALCULATORS: Record<string, CalcEntry[]> = {
   ],
   // 공무직급여 계산기 — 교육공무직원 급여 서식(01~05)을 웹으로 재구성.
   "salary-worker": [
+    {
+      key: "temp-teacher",
+      title: "기간제교원 급여",
+      desc: "자격·학력·경력을 입력하면 초임호봉을 자동 획정하고 「별표 11」 봉급표로 봉급을 찾아 수당·공제를 반영한 월 실수령액을 계산합니다. 경력별 인정률은 자동 지정 후 담당자가 콤보박스에서 수정할 수 있습니다.",
+      Component: TeacherTempSalary,
+    },
     {
       key: "f01",
       title: "통상임금·퇴직금·연차수당",
