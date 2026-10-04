@@ -1184,6 +1184,22 @@ function DashboardHome() {
             <span className="dash-gb-go">바로가기 ›</span>
           </a>
 
+          <a
+            className="dash-unilife"
+            href="/guides/unilife-2026.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="dash-uni-head">
+              <span className="dash-uni-logo">슬기로운 유니생활</span>
+              <span className="dash-uni-badge">초안 · 검토 중</span>
+            </div>
+            <p className="dash-uni-desc">
+              선배 공무직이 정리한 신규자 실무 가이드 — 에듀파인·지출·급여·4대보험까지
+            </p>
+            <span className="dash-uni-go">보러가기 ›</span>
+          </a>
+
           <nav className="dash-links" aria-label="안성 바로가기">
             <p className="dash-links-h">안성 바로가기</p>
             {ANSEONG_LINKS.map((l) => (

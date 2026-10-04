@@ -4953,6 +4953,67 @@ a {
   color: var(--d-purple-lt);
 }
 
+/* 슬기로운 유니생활 배너 (선배 공무직 실무 가이드) */
+.dash-unilife {
+  display: block;
+  flex: 0 0 auto;
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--d-card);
+  border: 1px solid var(--d-line);
+  text-decoration: none;
+  color: var(--d-tx);
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.dash-unilife:hover {
+  transform: translateY(-2px);
+  border-color: #1f9d73;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+.dash-uni-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.dash-uni-logo {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  background: linear-gradient(90deg, #0f9d70, #34d399);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.dash-uni-badge {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10b981;
+  font-size: 10.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.dash-uni-desc {
+  margin: 0;
+  color: var(--d-tx2);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.dash-uni-go {
+  display: inline-block;
+  margin-top: 11px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #10b981;
+}
+
 /* 직무달력 카드 내부 (DutyCalendarCard) */
 .dash-cal {
   display: flex;

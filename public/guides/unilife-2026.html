@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>슬기로운 유니생활 · 신규자 실무 가이드 (초안)</title>
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --bg:#f7f8fa; --surface:#ffffff; --surface2:#f2f4f6;
+    --border:#e5e8eb; --border-soft:#eef0f2;
+    --text:#191f28; --text2:#4e5968; --text3:#8b95a1;
+    --primary:#0f9d70; --primary-dark:#0b7a58; --primary-bg:#e6f7f1; --primary-border:#b7e6d4;
+    --info-bg:#eff6ff; --info-border:#bfdbfe; --info-text:#1e40af;
+    --warn-bg:#fffaeb; --warn-border:#fde68a; --warn-text:#92400e;
+    --danger-bg:#fef2f2; --danger-border:#fecaca; --danger-text:#b91c1c;
+    --radius:14px;
+    --sidebar-w:272px;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:24px}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:"Pretendard",-apple-system,"Malgun Gothic",system-ui,sans-serif;
+    font-size:16px; line-height:1.75; letter-spacing:-0.012em;
+  }
+  a{color:var(--primary)}
+  .layout{display:flex; min-height:100vh}
+
+  /* ── 좌측 고정 목차 (GitLab Handbook 스타일) ── */
+  .sidebar{
+    width:var(--sidebar-w); flex:0 0 auto;
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+    padding:28px 20px; background:var(--surface); border-right:1px solid var(--border);
+  }
+  .sidebar-back{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13px; font-weight:600; color:var(--text3); text-decoration:none;
+    margin-bottom:18px;
+  }
+  .sidebar-back:hover{color:var(--primary)}
+  .sidebar-title{
+    font-size:19px; font-weight:800; letter-spacing:-0.02em; margin:0 0 2px;
+  }
+  .sidebar-sub{font-size:12.5px; color:var(--text3); margin:0 0 22px}
+  .sidebar-badge{
+    display:inline-block; margin-bottom:20px; padding:4px 10px; border-radius:999px;
+    background:var(--warn-bg); border:1px solid var(--warn-border); color:var(--warn-text);
+    font-size:11.5px; font-weight:700;
+  }
+  .sidebar-nav{display:flex; flex-direction:column; gap:2px}
+  .sidebar-nav a{
+    display:block; padding:9px 10px; border-radius:9px; font-size:13.5px; font-weight:600;
+    color:var(--text2); text-decoration:none; border-left:3px solid transparent;
+  }
+  .sidebar-nav a:hover{background:var(--surface2); color:var(--text)}
+  .sidebar-nav a.active{background:var(--primary-bg); border-left-color:var(--primary); color:var(--primary-dark)}
+
+  /* ── 본문 ── */
+  .main{flex:1 1 auto; min-width:0; padding:40px max(24px,calc((100vw - 760px - var(--sidebar-w))/2)) 120px}
+  .main-inner{max-width:760px}
+
+  .top-banner{
+    display:flex; gap:12px; padding:16px 18px; border-radius:var(--radius);
+    background:var(--warn-bg); border:1px solid var(--warn-border); color:var(--warn-text);
+    font-size:13.5px; line-height:1.7; margin-bottom:36px;
+  }
+  .top-banner b{font-weight:800}
+
+  header.page-head{margin-bottom:40px}
+  header.page-head h1{font-size:clamp(26px,3.4vw,34px); font-weight:800; letter-spacing:-0.03em; margin:0 0 10px}
+  header.page-head p{color:var(--text2); font-size:15px; margin:0; max-width:620px}
+
+  section.chapter{
+    margin:0 0 56px; padding-top:8px; scroll-margin-top:24px;
+    border-top:1px solid var(--border-soft);
+  }
+  section.chapter:first-of-type{border-top:none}
+  section.chapter h2{
+    font-size:21px; font-weight:800; letter-spacing:-0.02em; margin:28px 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .chapter-status{
+    font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px;
+  }
+  .status-sample{background:var(--primary-bg); color:var(--primary-dark); border:1px solid var(--primary-border)}
+  .status-pending{background:var(--surface2); color:var(--text3); border:1px solid var(--border)}
+
+  p.lead{color:var(--text2); margin:0 0 18px}
+
+  .callout{
+    display:flex; gap:12px; padding:16px 18px; border-radius:12px; margin:18px 0; font-size:14px; line-height:1.7;
+  }
+  .callout b{display:block; font-weight:800; margin-bottom:4px}
+  .callout-info{background:var(--info-bg); border:1px solid var(--info-border); color:var(--info-text)}
+  .callout-warn{background:var(--warn-bg); border:1px solid var(--warn-border); color:var(--warn-text)}
+  .callout-danger{background:var(--danger-bg); border:1px solid var(--danger-border); color:var(--danger-text)}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14px}
+  caption{text-align:left; font-size:12.5px; color:var(--text3); margin-bottom:6px}
+  th,td{padding:10px 12px; border-bottom:1px solid var(--border-soft); text-align:left}
+  th{color:var(--text3); font-weight:700; font-size:12.5px}
+  tr:last-child td{border-bottom:none}
+
+  .example-box{
+    background:var(--surface2); border:1px solid var(--border); border-radius:12px;
+    padding:16px 18px; margin:16px 0; font-size:14px; color:var(--text2);
+  }
+  .example-box b{color:var(--text)}
+
+  .pending-card{
+    background:var(--surface2); border:1px dashed var(--border); border-radius:12px;
+    padding:18px; color:var(--text3); font-size:13.5px;
+  }
+
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+  .tag{
+    font-size:11.5px; font-weight:700; padding:4px 9px; border-radius:999px;
+    background:var(--surface2); border:1px solid var(--border); color:var(--text3);
+  }
+
+  @media (max-width: 880px){
+    .sidebar{display:none}
+    .main{padding:28px 18px 100px}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <a class="sidebar-back" href="/">← 안성교육지원청 행정업무지원기</a>
+    <p class="sidebar-title">슬기로운 유니생활</p>
+    <p class="sidebar-sub">선배 공무직이 정리한 신규자 실무 가이드</p>
+    <span class="sidebar-badge">초안 · 디자인 검토 중</span>
+    <nav class="sidebar-nav">
+      <a href="#s1">1. 자주 쓰는 에듀파인 · 공문</a>
+      <a href="#s2">2. 지출 · 카드 · 온라인 구매</a>
+      <a href="#s3">3. 급여 작업 · 자료집계</a>
+      <a href="#s4">4. 세외현금 · 4대보험 · 기관부담금</a>
+      <a href="#s5">5. 대체인력 · 시간강사 신고</a>
+      <a href="#s6">6. 방과후·돌봄·늘봄 강사 신고 · 세금</a>
+      <a href="#s7">7. 복무 · 맞춤형복지 · 스포츠강사</a>
+      <a href="#s8">8. 물품 · 불용 · 폐기</a>
+      <a href="#s9">9. 발전기금 · 정보공시</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="main-inner">
+
+      <div class="top-banner">
+        <span>⚠️</span>
+        <span>
+          <b>이 페이지는 디자인 초안입니다.</b> 왼쪽 목차와 일부 수치(4·6장)만 실제 내용을 담았고,
+          나머지 장은 레이아웃만 먼저 잡아둔 상태입니다. "학교 담당자 확인" 표시가 붙은 항목은
+          계약·학교별 자료 확인 전까지 확정값으로 쓰지 않습니다.
+        </span>
+      </div>
+
+      <header class="page-head">
+        <h1>슬기로운 유니생활</h1>
+        <p>처음 공무직으로 발령받은 분들을 위해, 먼저 겪은 선배가 에듀파인·지출·급여·4대보험 업무를
+          순서대로 정리한 자료입니다. 2026년 기준으로 수치를 검토 중입니다.</p>
+      </header>
+
+      <section class="chapter" id="s1">
+        <h2>1. 자주 쓰는 에듀파인 · 공문 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">문서 작성·결재 진행 확인, 결재 올린 문서 수정·회수 등 매일 쓰는 화면 위주로 정리될 예정입니다.</p>
+        <div class="pending-card">원문 내용은 학교 업무 분장·현재 메뉴 구성을 확인한 뒤 반영합니다.</div>
+      </section>
+
+      <section class="chapter" id="s2">
+        <h2>2. 지출 · 카드 · 온라인 구매 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">품의 → 원인행위 → 지출결의 → 지급명령의 기본 흐름과, 카드·온라인 구매 시 확인할 점을 다룹니다.</p>
+        <div class="pending-card">결재선·증빙 종류는 학교 위임전결 규정에 따라 달라져 별도 확인 후 채웁니다.</div>
+      </section>
+
+      <section class="chapter" id="s3">
+        <h2>3. 급여 작업 · 자료집계 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">월별 급여 자료집계 작성·결재 절차를 다룹니다.</p>
+        <div class="pending-card">학교 직접 지급 대상과 통합급여 대상이 갈리므로, 대상 확정 후 반영합니다.</div>
+      </section>
+
+      <section class="chapter" id="s4">
+        <h2>4. 세외현금 · 4대보험 · 기관부담금 <span class="chapter-status status-sample">표시 예시 적용</span></h2>
+        <p class="lead">2026년 기준 보험료율입니다. 실제 고지액·정산·경감 여부는 개인별로 다를 수 있습니다.</p>
+
+        <table>
+          <caption>2026년 보험료율 (검토 기준일 2026-10-02)</caption>
+          <thead><tr><th>구분</th><th>전체 요율</th><th>근로자 부담</th></tr></thead>
+          <tbody>
+            <tr><td>건강보험</td><td>7.19%</td><td>3.595%</td></tr>
+            <tr><td>국민연금</td><td>9.5%</td><td>4.75%</td></tr>
+            <tr><td>장기요양</td><td colspan="2">건강보험료 × (0.9448 ÷ 7.19) ≈ 13.14%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-warn">
+          <span>
+            <b>자주 하는 실수</b>
+            장기요양보험료는 소득에 바로 13.14%를 곱하는 게 아니라, <b>건강보험료에</b> 위 비율을 곱해서 계산합니다.
+            고지서·기준소득월액은 공단 고지 내용과 개인별로 대조해야 합니다.
+          </span>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">학교확인 Q13 세외 구분·기관부담</span>
+        </div>
+      </section>
+
+      <section class="chapter" id="s5">
+        <h2>5. 대체인력 · 시간강사 신고 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">대체근로자·시간강사의 근로소득 구분과 4대보험 적용 여부를 다룹니다.</p>
+        <div class="pending-card">계약기간·근무시간·보수 산정 방식에 따라 결과가 달라 계약서 기준 재확인 후 반영합니다.</div>
+      </section>
+
+      <section class="chapter" id="s6">
+        <h2>6. 방과후·돌봄·늘봄 강사 신고 · 세금 <span class="chapter-status status-sample">표시 예시 적용</span></h2>
+        <p class="lead">방과후학교 강사 등 노무제공자의 고용보험 필요경비율이 2026년 7월 1일부터 바뀌었습니다.</p>
+
+        <div class="callout callout-info">
+          <span>
+            <b>2026.7.1 ~ 2027.6.30 적용</b>
+            방과후학교·유치원 방과후·어린이집 특별활동 강사 등 해당 직종의 고용·산재 필요경비율이
+            <b>14.9% → 19.3%</b>로 올랐습니다. (고용노동부 고시 2026-45·2026-46)
+          </span>
+        </div>
+
+        <div class="example-box">
+          <b>계산 예시</b> — 비과세 항목이 없는 보수 1,000,000원이라면<br />
+          필요경비 193,000원 → 공제 후 807,000원.
+          <br /><br />
+          <b>807,000원은 보험료가 아닙니다.</b> 가입 대상 여부·실제 보험료율·원 단위 처리까지 확인해야
+          실제로 낼 보험료가 나옵니다.
+        </div>
+
+        <div class="callout callout-danger">
+          <span>
+            <b>직종별로 다르게 적용됩니다</b>
+            보결·교내 교과보충 강사료, 유치원 강사 등은 적용 범위가 각각 다릅니다.
+            학교확인·공단 확인 전까지는 "건강보험·연금 없이 고용·산재만" 식으로 일괄 단정하지 않습니다.
+          </span>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">추가확인 Q09 근로소득 구분</span>
+          <span class="tag">추가확인 Q10 노무보험 적용</span>
+        </div>
+      </section>
+
+      <section class="chapter" id="s7">
+        <h2>7. 복무 · 맞춤형복지 · 스포츠강사 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">육아휴직·연차·맞춤형복지·스포츠강사 계약을 다룹니다.</p>
+        <div class="pending-card">육아휴직 구간별 연차·퇴직 산정은 개별 사례 차이가 커서 노무 담당 확인 후 반영합니다.</div>
+      </section>
+
+      <section class="chapter" id="s8">
+        <h2>8. 물품 · 불용 · 폐기 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">물품 취득·검수·등재부터 불용 결정·폐기까지의 단계를 다룹니다.</p>
+        <div class="pending-card">물품 조례·최신 지침 대조 후 단계별로 반영합니다.</div>
+      </section>
+
+      <section class="chapter" id="s9">
+        <h2>9. 발전기금 · 정보공시 <span class="chapter-status status-pending">내용 반영 예정</span></h2>
+        <p class="lead">발전기금 결산·운영위 보고와 정보공시 입력·제출 절차를 다룹니다.</p>
+        <div class="pending-card">법정 기한(회계연도 종료 후 3개월 이내)과 학교 내부 일정을 구분해 반영합니다.</div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // 스크롤 위치에 맞춰 좌측 목차 활성 항목 표시
+  const links = Array.from(document.querySelectorAll(".sidebar-nav a"));
+  const targets = links
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+  const setActive = () => {
+    let current = targets[0];
+    for (const el of targets) {
+      if (el.getBoundingClientRect().top - 80 <= 0) current = el;
+    }
+    links.forEach((a) =>
+      a.classList.toggle("active", a.getAttribute("href") === "#" + current.id)
+    );
+  };
+  document.addEventListener("scroll", setActive, { passive: true });
+  setActive();
+</script>
+</body>
+</html>
