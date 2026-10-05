@@ -4,8 +4,10 @@ import {
   fetchMessages,
   sendMessage,
   subscribeMessages,
+  deleteMessage,
   type ChatMessage,
 } from "./lib/chat";
+import { useAdminAuth } from "./lib/useAdminAuth";
 import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
@@ -74,14 +76,13 @@ function DetailShell({ children }: { children: ReactNode }) {
       <header className="header">
         <div className="header-inner">
           <button type="button" className="logo-area" onClick={goHome}>
-            <img
-              className="logo-mark"
-              src="/logo.png"
-              alt="안성교육지원청"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
+            <span className="logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 11l9-7 9 7" />
+                <path d="M5.5 10v10h13V10" />
+                <path d="M10 20v-6h4v6" />
+              </svg>
+            </span>
             <span className="logo">안성교육지원청 행정업무지원기</span>
           </button>
           <nav className="navigation">
@@ -761,6 +762,7 @@ function chatTime(iso: string): string {
 
 // 사이드바 실시간 질문방(Supabase Realtime 기반 익명 채팅)
 function ChatRoom() {
+  const { isLoggedIn } = useAdminAuth();
   const [msgs, setMsgs] = useState<ChatMessage[]>([]);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -791,9 +793,14 @@ function ChatRoom() {
           setReady(true);
         }
       });
-    const unsub = subscribeMessages((m) => {
-      setMsgs((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
-    });
+    const unsub = subscribeMessages(
+      (m) => {
+        setMsgs((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+      },
+      (id) => {
+        setMsgs((prev) => prev.filter((x) => x.id !== id));
+      },
+    );
     return () => {
       alive = false;
       unsub();
@@ -839,6 +846,16 @@ function ChatRoom() {
     inputRef.current?.focus();
   };
 
+  const remove = async (m: ChatMessage) => {
+    if (!window.confirm("이 메시지를 삭제할까요?")) return;
+    try {
+      await deleteMessage(m.id);
+      setMsgs((prev) => prev.filter((x) => x.id !== m.id));
+    } catch {
+      window.alert("삭제하지 못했습니다.");
+    }
+  };
+
   return (
     <section className="dash-chat" aria-label="실시간 질문방">
       <div className="dash-chat-head">
@@ -865,14 +882,26 @@ function ChatRoom() {
               <span className="dash-chat-meta">
                 <b>{m.nickname}</b>
                 <span className="dash-chat-time">{chatTime(m.created_at)}</span>
-                <button
-                  type="button"
-                  className="dash-chat-reply-btn"
-                  onClick={() => startReply(m)}
-                  aria-label={`${m.nickname} 님에게 답글`}
-                >
-                  답글
-                </button>
+                <span className="dash-chat-actions">
+                  <button
+                    type="button"
+                    className="dash-chat-reply-btn"
+                    onClick={() => startReply(m)}
+                    aria-label={`${m.nickname} 님에게 답글`}
+                  >
+                    답글
+                  </button>
+                  {isLoggedIn && (
+                    <button
+                      type="button"
+                      className="dash-chat-delete-btn"
+                      onClick={() => remove(m)}
+                      aria-label={`${m.nickname} 님 메시지 삭제`}
+                    >
+                      삭제
+                    </button>
+                  )}
+                </span>
               </span>
               {m.reply_body && (
                 <span className="dash-chat-quote">

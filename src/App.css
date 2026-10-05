@@ -66,9 +66,21 @@ a {
 }
 
 .logo-mark {
-  display: block;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
   height: 42px;
-  width: auto;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+}
+.logo-mark svg {
+  width: 22px;
+  height: 22px;
+  stroke: #ffffff;
+  stroke-width: 1.8;
+  fill: none;
 }
 
 .logo {
@@ -2435,7 +2447,12 @@ a {
   }
 
   .logo-mark {
+    width: 34px;
     height: 34px;
+  }
+  .logo-mark svg {
+    width: 18px;
+    height: 18px;
   }
 
 
@@ -4284,8 +4301,14 @@ a {
   white-space: pre-wrap;
 }
 /* 답글 버튼 — 평소엔 옅게, 메시지에 호버 시 또렷하게 */
-.dash-chat-reply-btn {
+.dash-chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
   margin-left: auto;
+}
+.dash-chat-reply-btn,
+.dash-chat-delete-btn {
   padding: 1px 6px;
   border: 0;
   border-radius: 6px;
@@ -4301,12 +4324,17 @@ a {
     background 0.12s ease,
     color 0.12s ease;
 }
-.dash-chat-msg:hover .dash-chat-reply-btn {
+.dash-chat-msg:hover .dash-chat-reply-btn,
+.dash-chat-msg:hover .dash-chat-delete-btn {
   opacity: 1;
 }
 .dash-chat-reply-btn:hover {
   background: var(--chat-surface);
   color: var(--d-purple-lt);
+}
+.dash-chat-delete-btn:hover {
+  background: var(--chat-surface);
+  color: #f87171;
 }
 /* 카카오톡식 인용 블록 */
 .dash-chat-quote {
