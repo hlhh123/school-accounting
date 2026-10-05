@@ -64,7 +64,8 @@ export const catalog: CatalogCategory[] = [
         slug: "unilife-2026",
         title: "슬기로운 유니생활",
         description: "선배 급여담당 공무원이 쓴 실무 자료",
-        externalUrl: "/guides/unilife-2026.html",
+        // GitHub Pages는 /school-accounting/ 하위 경로로 서빙되므로 BASE_URL 기준으로 연결
+        externalUrl: `${import.meta.env.BASE_URL}guides/unilife-2026.html`,
       },
     ],
   },
