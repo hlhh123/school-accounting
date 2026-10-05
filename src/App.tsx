@@ -1023,11 +1023,7 @@ function DashboardHome() {
             </span>
             <span className="dash-brand-tx">
               <span className="dash-brand-org">안성교육지원청</span>
-              <span className="dash-brand-title">
-                학교 행정업무
-                <br />
-                활동지원기
-              </span>
+              <span className="dash-brand-title">학교 행정업무지원</span>
             </span>
           </div>
 
