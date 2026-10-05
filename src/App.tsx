@@ -625,6 +625,12 @@ const ITEM_ICONS: Record<string, ReactNode> = {
       <path d="M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5" />
     </>
   ),
+  "unilife-2026": (
+    <>
+      <path d="M4 5.5C4 4.1 5.1 3 6.5 3H12v18H6.5A2.5 2.5 0 014 18.5z" />
+      <path d="M20 5.5C20 4.1 18.9 3 17.5 3H12v18h5.5a2.5 2.5 0 002.5-2.5z" />
+    </>
+  ),
   // 생활 정보
   gwansa: (
     <>
@@ -1044,25 +1050,46 @@ function DashboardHome() {
               </div>
               <div className="dash-card-body">
                 <div className="dash-work-grid">
-                  {WORK_CAT?.items.map((item) => (
-                    <button
-                      type="button"
-                      key={item.slug}
-                      className="dash-tile"
-                      onClick={() => openItem(item.slug)}
-                    >
-                      <span className="dash-tile-ic">
-                        <ItemIcon slug={item.slug} />
-                      </span>
-                      <span className="dash-tile-tx">
-                        <span className="dash-tile-t">{item.title}</span>
-                        <span className="dash-tile-d">{item.description}</span>
-                      </span>
-                      <span className="dash-tile-go" aria-hidden="true">
-                        →
-                      </span>
-                    </button>
-                  ))}
+                  {WORK_CAT?.items.map((item) =>
+                    item.externalUrl ? (
+                      <a
+                        key={item.slug}
+                        className="dash-tile"
+                        href={item.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span className="dash-tile-ic">
+                          <ItemIcon slug={item.slug} />
+                        </span>
+                        <span className="dash-tile-tx">
+                          <span className="dash-tile-t">{item.title}</span>
+                          <span className="dash-tile-d">{item.description}</span>
+                        </span>
+                        <span className="dash-tile-go" aria-hidden="true">
+                          →
+                        </span>
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        key={item.slug}
+                        className="dash-tile"
+                        onClick={() => openItem(item.slug)}
+                      >
+                        <span className="dash-tile-ic">
+                          <ItemIcon slug={item.slug} />
+                        </span>
+                        <span className="dash-tile-tx">
+                          <span className="dash-tile-t">{item.title}</span>
+                          <span className="dash-tile-d">{item.description}</span>
+                        </span>
+                        <span className="dash-tile-go" aria-hidden="true">
+                          →
+                        </span>
+                      </button>
+                    ),
+                  )}
                 </div>
               </div>
             </section>
