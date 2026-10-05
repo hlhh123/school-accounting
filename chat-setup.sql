@@ -21,6 +21,9 @@ alter table public.chat_messages
 create index if not exists chat_messages_created_idx
   on public.chat_messages (created_at);
 
+-- 삭제 시 실시간(Realtime) 구독자에게 지운 행의 id가 온전히 전달되도록.
+alter table public.chat_messages replica identity full;
+
 alter table public.chat_messages enable row level security;
 
 -- 누구나(비로그인 포함) 읽기·쓰기 가능. 삭제는 관리자(로그인)만.

@@ -53,9 +53,17 @@ export async function sendMessage(
   return data as ChatMessage;
 }
 
-// 새 메시지 실시간 구독. 정리 함수를 반환.
+// 메시지 삭제(관리자 전용 — RLS로 로그인 사용자만 허용)
+export async function deleteMessage(id: string): Promise<void> {
+  if (!supabase) throw new Error("Supabase가 설정되지 않았습니다.");
+  const { error } = await supabase.from("chat_messages").delete().eq("id", id);
+  if (error) throw error;
+}
+
+// 새 메시지/삭제 실시간 구독. 정리 함수를 반환.
 export function subscribeMessages(
   onInsert: (m: ChatMessage) => void,
+  onDelete?: (id: string) => void,
 ): () => void {
   const sb = supabase;
   if (!sb) return () => {};
@@ -65,6 +73,11 @@ export function subscribeMessages(
       "postgres_changes",
       { event: "INSERT", schema: "public", table: "chat_messages" },
       (payload) => onInsert(payload.new as ChatMessage),
+    )
+    .on(
+      "postgres_changes",
+      { event: "DELETE", schema: "public", table: "chat_messages" },
+      (payload) => onDelete?.((payload.old as { id: string }).id),
     )
     .subscribe();
   return () => {
