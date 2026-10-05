@@ -7,6 +7,7 @@ export type CatalogItem = {
   title: string;
   description: string;
   special?: "gwansa" | "food" | "board"; // 전용 화면이 있는 항목
+  externalUrl?: string; // 내부 라우팅 없이 새 탭으로 바로 여는 정적 페이지
   children?: CatalogItem[]; // 하위 카테고리가 있는 항목 (예: 계약 → 공사/물품/용역/급식)
   group?: string; // 홈 화면에서 묶어 표시할 주제 그룹 (grouped 섹션에서만 사용)
   featured?: boolean; // 그룹 위에 대표 항목으로 크게 표시
@@ -58,6 +59,12 @@ export const catalog: CatalogCategory[] = [
         slug: "salary-worker",
         title: "공무직급여",
         description: "공무직 급여·수당 업무를 확인합니다.",
+      },
+      {
+        slug: "unilife-2026",
+        title: "슬기로운 유니생활",
+        description: "선배 급여담당 공무원이 쓴 실무 자료",
+        externalUrl: "/guides/unilife-2026.html",
       },
     ],
   },
