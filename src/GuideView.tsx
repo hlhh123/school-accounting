@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Block, Guide, GuideSection } from "./guides";
+import type { Block, Guide, GuideSection, GuideTab } from "./guides";
 import type { CatalogItem } from "./catalog";
 import ContractFinder from "./ContractFinder";
 import { CalculatorTabs } from "./calculators";
@@ -121,7 +121,7 @@ function FileLink({
   kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img" | "odt";
 }) {
   return (
-    <li>
+    <li data-filename={name}>
       <a
         className="g-file"
         href={href}
@@ -309,6 +309,20 @@ function GuideSections({
   );
 }
 
+// group 이 연속으로 같은 탭끼리 묶습니다. group 이 없는 탭은 하나짜리 묶음이 됩니다.
+function clusterTabsByGroup(tabs: GuideTab[]): { group?: string; tabs: GuideTab[] }[] {
+  const clusters: { group?: string; tabs: GuideTab[] }[] = [];
+  for (const t of tabs) {
+    const last = clusters[clusters.length - 1];
+    if (last && last.group === t.group) {
+      last.tabs.push(t);
+    } else {
+      clusters.push({ group: t.group, tabs: [t] });
+    }
+  }
+  return clusters;
+}
+
 export default function GuideView({
   item,
   crumb,
@@ -329,6 +343,30 @@ export default function GuideView({
     return (withContent ?? tabs[0]).key;
   });
   const activeTab = tabs?.find((t) => t.key === activeKey) ?? tabs?.[0];
+  const hasTabGroups = tabs?.some((t) => t.group) ?? false;
+
+  // "신규자 바로가기" 배너에서 탭을 전환하면서 특정 자료 항목으로 스크롤 + 강조 표시
+  const [pendingHighlight, setPendingHighlight] = useState<string | null>(null);
+  useEffect(() => {
+    if (!pendingHighlight) return;
+    const timer = window.setTimeout(() => {
+      const el = document.querySelector(
+        `[data-filename="${CSS.escape(pendingHighlight)}"]`,
+      );
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.classList.add("is-highlighted");
+        window.setTimeout(() => el.classList.remove("is-highlighted"), 2200);
+      }
+      setPendingHighlight(null);
+    }, 80);
+    return () => window.clearTimeout(timer);
+  }, [activeKey, pendingHighlight]);
+
+  function goToStartItem(tabKey: string, fileMatch?: string) {
+    setActiveKey(tabKey);
+    if (fileMatch) setPendingHighlight(fileMatch);
+  }
 
   return (
     <section className="guide">
@@ -353,24 +391,80 @@ export default function GuideView({
         {/* 계약 상세페이지: 서식/매뉴얼 위에 «계약방법 찾기» 검색기를 노출 */}
         {item.slug === "contract" && <ContractFinder />}
 
-        {tabs && tabs.length > 0 ? (
-          <>
-            <div className="guide-tabs" role="tablist">
-              {tabs.map((t) => (
+        {guide.start && (
+          <div className="onboard">
+            <div className="onboard-head">
+              <span className="onboard-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+                  <path d="M12 12v9M12 12L3 7.5M12 12l9-4.5" />
+                </svg>
+              </span>
+              <div>
+                <strong>{guide.start.heading}</strong>
+                <span>{guide.start.subheading}</span>
+              </div>
+            </div>
+            <div className="onboard-links">
+              {guide.start.items.map((it) => (
                 <button
-                  key={t.key}
+                  key={it.label}
                   type="button"
-                  role="tab"
-                  aria-selected={t.key === activeTab?.key}
-                  className={`guide-tab${
-                    t.key === activeTab?.key ? " is-active" : ""
-                  }`}
-                  onClick={() => setActiveKey(t.key)}
+                  onClick={() => goToStartItem(it.tabKey, it.fileMatch)}
                 >
-                  {t.label}
+                  {it.label}
                 </button>
               ))}
             </div>
+          </div>
+        )}
+
+        {tabs && tabs.length > 0 ? (
+          <>
+            {hasTabGroups ? (
+              <div className="tabgroups" role="tablist">
+                {clusterTabsByGroup(tabs).map((cluster, i) => (
+                  <div className="tabgroup" key={i}>
+                    {cluster.group && (
+                      <span className="tabgroup-label">{cluster.group}</span>
+                    )}
+                    <div className="tabgroup-tabs">
+                      {cluster.tabs.map((t) => (
+                        <button
+                          key={t.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={t.key === activeTab?.key}
+                          className={`gtab${
+                            t.key === activeTab?.key ? " is-active" : ""
+                          }`}
+                          onClick={() => setActiveKey(t.key)}
+                        >
+                          {t.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="guide-tabs" role="tablist">
+                {tabs.map((t) => (
+                  <button
+                    key={t.key}
+                    type="button"
+                    role="tab"
+                    aria-selected={t.key === activeTab?.key}
+                    className={`guide-tab${
+                      t.key === activeTab?.key ? " is-active" : ""
+                    }`}
+                    onClick={() => setActiveKey(t.key)}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            )}
             {activeTab &&
               (activeTab.kind === "calculator" ? (
                 <CalculatorTabs slug={docGuideKey} itemTitle={item.title} />

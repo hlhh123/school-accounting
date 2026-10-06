@@ -445,6 +445,133 @@ a {
   border-bottom-color: #111111;
 }
 
+/* 신규자 바로가기 배너 (guide.start 가 있을 때만 표시) */
+.onboard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(135deg, #f4f0ff, #fbf7ff);
+  border: 1px solid #e4d9ff;
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+}
+
+.onboard-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.onboard-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.onboard-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.onboard-head strong {
+  font-size: 16px;
+}
+
+.onboard-head span {
+  display: block;
+  color: #888888;
+  font-size: 13px;
+  margin-top: 1px;
+}
+
+.onboard-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.onboard-links button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #e4d9ff;
+  color: #6d28d9;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.onboard-links button:hover {
+  background: #f4f0ff;
+}
+
+/* 탭이 많은 가이드(예: 공무직급여)의 그룹별 탭 바 */
+.tabgroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.tabgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tabgroup-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #aaaaaa;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tabgroup-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.gtab {
+  padding: 9px 14px;
+  border: 0;
+  background: none;
+  font-size: 15px;
+  font-weight: 700;
+  color: #888888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  border-radius: 8px 8px 0 0;
+}
+
+.gtab:hover {
+  color: #111111;
+  background: #fafafa;
+}
+
+.gtab.is-active {
+  color: #111111;
+  border-bottom-color: #7b3fe4;
+  background: #f4f0ff;
+}
+
+/* 바로가기 배너에서 전환했을 때 해당 자료 항목을 잠깐 강조 표시 */
+.g-files li.is-highlighted .g-file {
+  border-color: #7b3fe4;
+  background: #f4f0ff;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
 .guide-empty {
   margin: 8px 0 0;
   color: #999999;
