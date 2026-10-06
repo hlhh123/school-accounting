@@ -33,6 +33,19 @@ export type GuideTab = {
   sections: GuideSection[];
   // 기본은 자료(문서) 탭. "calculator" 면 계산기, "qna" 면 질문게시판으로 표시합니다.
   kind?: "docs" | "calculator" | "qna";
+  // 탭이 많은 가이드(예: 공무직급여)에서 탭 바를 묶어 보여줄 그룹 라벨. 없으면 기존처럼 한 줄로 표시합니다.
+  group?: string;
+};
+// 가이드 상단에 "신규자가 먼저 볼 자료"를 바로가기 배너로 보여줄 때 사용합니다.
+export type GuideStart = {
+  heading: string;
+  subheading: string;
+  items: {
+    label: string;
+    tabKey: string;
+    // 지정하면 탭 전환 후 해당 이름의 자료 항목으로 스크롤하고 잠깐 강조합니다. (files 블록의 name 과 일치해야 함)
+    fileMatch?: string;
+  }[];
 };
 export type Guide = {
   source?: string;
@@ -40,11 +53,13 @@ export type Guide = {
   sections: GuideSection[];
   // tabs 가 있으면 GuideView 가 탭 UI 로 표시하고 각 탭의 sections 를 사용합니다.
   tabs?: GuideTab[];
+  start?: GuideStart;
 };
 
 // 업무·행정공통 카테고리는 기본적으로 '서식 / 매뉴얼' 탭 구조를 사용합니다(지출과 동일).
 // calculator: true 를 주면 급여용 '계산기' 빈 탭(준비 중)이 추가됩니다.
 // extraTabs: 서식/매뉴얼과 별도로 보여줄 주제별 탭(예: 공무직급여의 4대보험·근속재산정 등)을 그대로 끼워 넣습니다.
+// groupLabels: 서식/매뉴얼/계산기/질문 탭에 그룹 라벨을 붙이고 싶을 때 사용합니다(탭이 많을 때만).
 function tabbed(
   slug: string,
   opts: {
@@ -53,18 +68,19 @@ function tabbed(
     extraTabs?: GuideTab[];
     calculator?: boolean;
     qna?: boolean;
+    groupLabels?: { forms?: string; manual?: string; calculator?: string; qna?: string };
   } = {},
 ): GuideTab[] {
   const tabs: GuideTab[] = [
-    { key: "forms", label: "서식", docKey: `${slug}-forms`, sections: opts.forms ?? [] },
-    { key: "manual", label: "매뉴얼", docKey: slug, sections: opts.manual ?? [] },
+    { key: "forms", label: "서식", docKey: `${slug}-forms`, sections: opts.forms ?? [], group: opts.groupLabels?.forms },
+    { key: "manual", label: "매뉴얼", docKey: slug, sections: opts.manual ?? [], group: opts.groupLabels?.manual },
     ...(opts.extraTabs ?? []),
   ];
   if (opts.calculator) {
-    tabs.push({ key: "calc", label: "계산기", sections: [], kind: "calculator" });
+    tabs.push({ key: "calc", label: "계산기", sections: [], kind: "calculator", group: opts.groupLabels?.calculator });
   }
   if (opts.qna) {
-    tabs.push({ key: "qna", label: "질문", sections: [], kind: "qna" });
+    tabs.push({ key: "qna", label: "질문", sections: [], kind: "qna", group: opts.groupLabels?.qna });
   }
   return tabs;
 }
@@ -1884,7 +1900,17 @@ export const guides: Record<string, Guide> = {
   "salary-worker": {
     intro: "공무직 급여·수당 관련 서식과 매뉴얼입니다.",
     sections: [],
+    start: {
+      heading: "처음이신가요?",
+      subheading: "신규 담당자가 가장 먼저 확인해야 할 자료 3가지",
+      items: [
+        { label: "생활임금 안내", tabKey: "manual", fileMatch: "2026년 경기도교육청 생활임금 안내" },
+        { label: "신규자 권한신청 방법", tabKey: "manual", fileMatch: "신규자 권한신청 방법 연수자료" },
+        { label: "급여 업무 매뉴얼(2025)", tabKey: "manual", fileMatch: "교육공무직원 급여 업무 매뉴얼(2025)" },
+      ],
+    },
     tabs: tabbed("salary-worker", {
+      groupLabels: { forms: "자료", manual: "자료", qna: "기타" },
       forms: [
         {
           title: "급여·퇴직금 산출 서식·계산기",
@@ -2087,6 +2113,7 @@ export const guides: Record<string, Guide> = {
           key: "ins4",
           label: "4대보험",
           docKey: "salary-worker-ins4",
+          group: "급여 항목별",
           sections: [
             {
               title: "4대 보험 EDI 사이트",
@@ -2128,6 +2155,7 @@ export const guides: Record<string, Guide> = {
           key: "tenure",
           label: "근속재산정",
           docKey: "salary-worker-tenure",
+          group: "급여 항목별",
           sections: [
             {
               title: "계산식",
@@ -2148,6 +2176,7 @@ export const guides: Record<string, Guide> = {
           key: "ordwage",
           label: "통상임금",
           docKey: "salary-worker-ordwage",
+          group: "급여 항목별",
           sections: [
             {
               title: "계산식",
@@ -2168,6 +2197,7 @@ export const guides: Record<string, Guide> = {
           key: "annualpay",
           label: "연차수당",
           docKey: "salary-worker-annualpay",
+          group: "급여 항목별",
           sections: [
             {
               title: "계산식",
@@ -2188,6 +2218,7 @@ export const guides: Record<string, Guide> = {
           key: "retire",
           label: "퇴직금",
           docKey: "salary-worker-retire",
+          group: "급여 항목별",
           sections: [
             {
               title: "계산식",
@@ -2211,6 +2242,7 @@ export const guides: Record<string, Guide> = {
           key: "service",
           label: "복무·채용",
           docKey: "salary-worker-service",
+          group: "기타",
           sections: [
             {
               title: "복무 및 채용관련 자료",
