@@ -1362,7 +1362,7 @@ export const guides: Record<string, Guide> = {
     ],
   },
 
-  // 공무원급여 (지방공무원·교육공무원) — 서식 / 매뉴얼 / 계산기
+  // 공무원급여 (지방공무원·교육공무원) — 서식 / 매뉴얼
   "salary-official": {
     intro: "공무원 급여·수당 관련 서식과 매뉴얼입니다.",
     sections: [],
@@ -1896,7 +1896,7 @@ export const guides: Record<string, Guide> = {
     }),
   },
 
-  // 공무직급여 (교육공무직원) — 서식 / 매뉴얼 / 계산기
+  // 공무직급여 (교육공무직원) — 서식 / 매뉴얼
   "salary-worker": {
     intro: "공무직 급여·수당 관련 서식과 매뉴얼입니다.",
     sections: [],
@@ -1972,6 +1972,12 @@ export const guides: Record<string, Guide> = {
               type: "files",
               dir: "salary-worker",
               items: [
+                  {
+                    name: "교육공무직원 급여 업무 매뉴얼(2026)",
+                    file: "w075.pdf",
+                    download: "[매뉴얼] 2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf",
+                    kind: "pdf",
+                  },
                   {
                     name: "교육공무직원 급여 업무 매뉴얼(2025)",
                     file: "w007.pdf",

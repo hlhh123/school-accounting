@@ -1,0 +1,3016 @@
+
+
+
+
+
+
+<!--templateType 값만 수정 -->
+
+
+
+<!--//templateType 값만 수정 -->
+
+<!doctype html>
+
+<html lang="ko">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		
+
+		<meta property="og:title" content="경기도광주하남교육지원청">
+
+		<!-- <meta property="og:image" content=""> -->
+
+		<meta property="og:description" content="교육공무직 급여 &lt; 학교행정지원과 | 경기도광주하남교육지원청">
+
+		<meta name="description" lang="ko" content="교육공무직 급여 &lt; 학교행정지원과 | 경기도광주하남교육지원청">
+
+		<title>교육공무직 급여 &lt; 학교행정지원과 | 경기도광주하남교육지원청</title>
+
+		<!-- css -->
+
+		<link rel="stylesheet" href="/00_common/css/basic.css" media="all">
+
+		
+
+		<!-- 레이아웃 CSS -->
+
+		<link rel="stylesheet" href="/00_common/css/template/T1003_layout.css" media="all">
+
+		
+
+		<!-- 서브페이지인 경우에만 사용 -->
+
+		<link rel="stylesheet" href="/00_common/css/con_com_edu.css" media="all"> 
+
+		<link rel="stylesheet" href="/css/web/goegh/sub.css" media="all">
+
+		
+
+		<!-- 레이아웃 커스텀 CSS -->
+
+		<link rel="stylesheet" href="/css/web/goegh/layout_cnt.css" media="all">
+
+		<!-- //css -->
+
+		
+
+		<!-- js -->
+
+		<script src="/00_common/js/jquery.min.js"></script>
+
+		<script src="/00_common/js/slick.min.js"></script>
+
+		<script src="/00_common/js/common_edu.js"></script>
+
+		<script src="/00_common/js/con_com.js"></script>
+
+		<!-- //js -->
+
+
+
+		<!-- 추가  -->
+
+		<script  src="/js/jquery-ui.min.js"></script> <!-- datePicker js -->
+
+		<script  src="/js/jquery.form.js"></script> <!-- ajax -->
+
+	    <link href="/00_common/css/ntt.css" rel="stylesheet"> <!-- 게시판 -->
+
+	    <!-- //추가  -->
+
+	    
+
+	    <!-- 레이아웃 js -->
+
+	    <script src="/js/template/T1003/sub.js"></script>
+
+	    
+
+	    <!-- 개발자 추가 -->		
+
+	    <script  src="/js/co/js_developer.js"></script><!-- 개발자 js -->
+
+	    <!-- //개발자 추가 -->
+
+	    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=267ac3580a6381bd7327a6e1a33ed2cc&libraries=services"></script>
+
+	</head>
+
+	<body>
+
+		<!-- 바로가기 -->
+
+		<div id="skipArea">
+
+			<a href="#subContent">본문으로 바로가기</a><a href="#gnb">메인메뉴 바로가기</a>
+
+		</div>
+
+		<!-- //바로가기 -->
+
+		<div id="wrap"> <!--[D] 팝업이 있을때 #wrap에 클래스 openPop 추가-->
+
+			<!-- 헤더-->
+
+			
+
+
+
+
+
+	
+	
+	
+	<header id="header">
+                <!--전자정부누리집-->
+		<div class="g-header-top">
+			<div class="inner">
+				<p>이 누리집은 대한민국 공식 전자정부 누리집입니다.</p>
+			</div>
+		</div>
+		<!--//전자정부누리집-->
+		<div class="top container">
+			<h1>
+				<a href="/goegh/main.do">
+					<!--LST-->
+					<img src="/images/web/goegh/main/logo.png" alt="경기도광주하남교육지원청">
+					<!--LED-->
+				</a>
+			</h1>
+			<button class="searchOpen" id="searchOpen">
+				<i class="xi-search" aria-hidden="true"></i><span class="hid">검색 활성화</span>
+			</button>
+			<div class="box_search_0">
+				<form name="siteSearchForm" id="searchForm" method="POST" target="_blank" title="새창열림">
+					<input type="text" placeholder="검색어를 입력하세요" id="total_search" name="qt" title="검색어를 입력해주세요">
+					<input type="hidden" name="sysId" value="goegh">
+					<button class="srch_btn" onclick="javascript:goSearchForm();" title="검색결과 새창이동">
+						<i class="xi-search" aria-hidden="true"></i><span class="hid">검색</span>
+					</button>
+				</form>
+				<button class="btnSearchClose" id="btnSearchClose">
+					<i class="xi-close" aria-hidden="true"></i><span class="hid">검색 비활성화</span>
+				</button>
+			</div>
+			<ul class="top_menu">
+				
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<!-- 국공유 디비 처리 -->
+
+							
+
+							
+
+								
+
+							
+
+							
+
+							<!-- //국공유 디비 END -->	
+
+									
+
+							<!-- [담당자알림] sysId가 교육지원청, 샘플페이지 일경우에만 처리 -->
+
+							
+
+								
+
+							
+
+							<li><a href="/goegh/main.do">홈</a></li>
+
+							
+
+							
+
+								
+
+									
+
+										
+
+										
+
+											<li><a href="/goegh/lo/login/loginTotalPage.do"  title="로그인">로그인</a></li>
+
+										
+
+									
+
+										
+
+											
+
+												
+
+												
+
+													<li><a href="https://www.goegh.kr/goegh/sb/sbscrb/insertSbscrbInfo01.do" id="insertSbscrb" title="회원가입">회원가입</a></li>
+
+												
+
+												
+
+											
+
+										
+
+								
+
+								
+
+							
+
+							
+
+							<li><a href="/goegh/sitemap.do">사이트맵</a></li>
+
+							
+
+								
+
+							
+
+							
+
+
+				<li class="fs_ctrl">화면크기
+					<div>
+						<a href="javascript:" class="fs_ctrl_plus_btn" onclick="javascript:zoomIn()">
+							<span class="hid">화면 크기 키우기</span>
+						</a>
+						<a href="javascript:" class="fs_ctrl_reset_btn" onclick="javascript:zoomInit()">
+							<span class="hid">화면 크기 원래대로</span>
+						</a>
+						<a href="javascript:" class="fs_ctrl_mius_btn" onclick="javascript:zoomOut()">
+							<span class="hid">화면 크기 줄이기</span>
+						</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!-- NAV : fullDown / oneDown / oneFull -->
+		<div id="nav" class="oneFull">
+			<div id="blind"></div>
+			<div id="gnb">
+				<!--  depWidth : 1차 depth width 자동계산-->
+				<!--START-->
+				
+				<div class="depth01 depWidth">
+					<ul>
+						<li><a href="/goegh/na/ntt/selectNttList.do?mi=8667&bbsId=5030"  ><span>알림마당</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>알림마당</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8667&bbsId=5030"  ><span>공지사항</span></a></li>
+									
+									<li><a id="8668" href="#?mi=8668"  ><span>입학/전학안내</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8669&cntntsId=1504"  ><span>중입배정안내</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8859&cntntsId=1587"  ><span>전·편입 안내</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8671" href="#?mi=8671"  ><span>교육공무직원도움방</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8672&bbsId=5031"  ><span>자료실 </span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8673&bbsId=5032"  ><span>인력풀</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8674&bbsId=5033"  ><span>조리종사자 대체인력풀</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8675&bbsId=5034"  ><span>시설당직원 대체인력풀</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10304&bbsId=6130"  ><span>지방공무원 결원대체 인력풀</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8676" href="#?mi=8676"  ><span>교육재정공개</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8677&bbsId=5035"  ><span>교육지원청 예결산서</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8679&bbsId=5037"  ><span>업무추진비 집행내역</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8680&bbsId=5038"  ><span>신용카드 사용내역</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=9005&cntntsId=1505"  ><span>G2B입찰</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10169&bbsId=6061"  ><span>학교입찰정보</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8682&bbsId=5039"  ><span>하도급 계약현황</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8683&cntntsId=1893"  ><span>수의계약 내역공개</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8684&bbsId=5040"  ><span>대학수학능력시험</span></a></li>
+									<li><a href="https://hakwon.neis.go.kr/nxui/index.html"   rel="noopener noreferrer" target="_blank" title="새창열림" ><span>학원수강료공개</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=10722&bbsId=6345"  ><span>학교시설개방 정보창구</span></a></li>
+									
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/na/ntt/selectNttList.do?mi=8689&bbsId=5044"  ><span>홍보관</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>홍보관</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8689&bbsId=5044"  ><span>광주하남교육소식</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8688&bbsId=5043"  ><span>보도기사</span></a></li>
+									<li><a id="10637" href="#?mi=10637"  ><span>보도요청</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8687&bbsId=5042"  ><span>보도요청(학교→성과팀)</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8686&bbsId=5041"  ><span>보도배포(성과팀→언론)</span></a></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/na/ntt/selectNttList.do?mi=8691&bbsId=5045"  ><span>교육행정</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>교육행정</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a id="8690" href="#?mi=8690"  ><span>초등교육지원과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8691&bbsId=5045"  ><span>초등교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8692&bbsId=5046"  ><span>유아교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10835&bbsId=6407"  ><span>유치원 운영위원회(사립)</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8693&bbsId=5047"  ><span>너른강온마을배움터</span></a></li>
+									<li><a id="8694" href="#?mi=8694"  ><span>중등교육지원과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8695&bbsId=5048"  ><span>중등교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8697&bbsId=5050"  ><span>학교폭력제로센터</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8698" href="#?mi=8698"  ><span>평생교육건강과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8699&bbsId=5051"  ><span>학원 교습소</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8700&bbsId=5052"  ><span>개인과외교습자</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8701&bbsId=5053"  ><span>공익법인</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8702&bbsId=5054"  ><span>평생교육시설</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8703&bbsId=5055"  ><span>학생건강</span></a></li>
+												<li><a href="https://eeis.schoolkeepa.or.kr/"   rel="noopener noreferrer" target="_blank" title="새창열림" ><span>교육환경보호구역도</span></a></li>
+												<li><a href="https://eeis.schoolkeepa.or.kr/deliberation/hisList.do"   rel="noopener noreferrer" target="_blank" title="새창열림" ><span>교육환경보호구역 심의결과</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8706&bbsId=5056"  ><span>학교도서관</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8707&bbsId=5057"  ><span>급식</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8708" href="#?mi=8708"  ><span>학교행정지원과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8711&bbsId=5060"  ><span>대외협력</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8709&bbsId=5058"  ><span>학교행정지원</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8710&bbsId=5059"  ><span>교육공무직 급여</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10845&bbsId=6415"  ><span>복지</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="10542" href="#?mi=10542"  ><span>지역교육과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=9484&bbsId=5650"  ><span>지역교육협력</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10100&cntntsId=1771"  ><span>방과후·돌봄지원센터</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10799&bbsId=6384"  ><span>문화예술교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10800&bbsId=6385"  ><span>외국어교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10801&bbsId=6386"  ><span>창의융합교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10802&bbsId=6387"  ><span>진로직업교육</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10803&bbsId=6388"  ><span>체육특기자 선발 기준 및 자격</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8712" href="#?mi=8712"  ><span>영재교육원</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8713&cntntsId=1506"  ><span>영재교육원 소개</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8714&bbsId=5061"  ><span>공지사항</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8715&bbsId=5062"  ><span>자료실</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=9586&bbsId=5729"  ><span>대회/홍보/공모</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8716" href="#?mi=8716"  ><span>Wee센터</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8717&cntntsId=1507"  ><span>센터소개</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8718&cntntsId=1508"  ><span>이용안내</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8720&bbsId=5063"  ><span>상담자료실</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8721&bbsId=5064"  ><span>사이버상담</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8722&cntntsId=1509"  ><span>상담네트워크</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8723" href="#?mi=8723"  ><span>특수교육지원센터</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8724&cntntsId=1510"  ><span>센터소개</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8725&bbsId=5065"  ><span>안내사항</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8726&bbsId=5066"  ><span>선정배치</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8727&bbsId=5067"  ><span>자료실</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8728" href="#?mi=8728"  ><span>기획경영과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8729&bbsId=5068"  ><span>기획경영</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8730&bbsId=5069"  ><span>재난대응안전한국훈련</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8731&bbsId=5070"  ><span>을지연습 특집코너</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8732&bbsId=5071"  ><span>학생배치</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8733&bbsId=5072"  ><span>성과사학</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8735" href="#?mi=8735"  ><span>재무관리과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8736&bbsId=5074"  ><span>예산</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8737&bbsId=5075"  ><span>경리</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8738&bbsId=5076"  ><span>관재</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8739&bbsId=5077"  ><span>교육시설과</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8740&bbsId=5078"  ><span>학교시설개선과</span></a></li>
+									<li><a id="8741" href="#?mi=8741"  ><span>감사과</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8742&bbsId=5079"  ><span>청렴게시판</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8743&bbsId=5080"  ><span>감사결과 공개</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8734&bbsId=5073"  ><span>정보화</span></a></li>
+											
+											</ul>
+										</div>
+									</li>
+									<li><a id="8744" href="#?mi=8744"  ><span>하남교육지원센터</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8745&bbsId=5081"  ><span>부서게시판</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8746&bbsId=5082"  ><span>학생배치기획</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=9714&bbsId=5799"  ><span>대외협력재정</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8747&bbsId=5083"  ><span>학원행정운영</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=9715&bbsId=5800"  ><span>교육시설관리</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="9716" href="#?mi=9716"  ><span>교육자원봉사센터</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=9717&bbsId=5801"  ><span>자료실</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="10203" href="#?mi=10203"  ><span>광주하남 공유학교</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10204&cntntsId=1785"  ><span>공유학교 소개</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10209&bbsId=6084"  ><span>프로그램 수강신청</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10212&cntntsId=1788"  ><span>교육자원 소개</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10214&bbsId=6086"  ><span>자료실</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10299&bbsId=6127"  ><span>칭찬 및 제안</span></a></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/na/ntt/selectNttList.do?mi=8748&bbsId=5084"  ><span>참여마당</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>참여마당</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8748&bbsId=5084"  ><span>자유게시판</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8749&bbsId=5085"  ><span>칭찬합시다</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8751&bbsId=5086"  ><span>재해예방 및 안전보건 의견청취함</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8752&bbsId=5087"  ><span>지방공무원인사상담</span></a></li>
+									<li><a id="8753" href="#?mi=8753"  ><span>구인·구직 플랫폼 ‘워크인(Work-人)&apos;</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8754&bbsId=5088"  ><span>구인등록(채용공고)</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10836&cntntsId=1878"  ><span>구직등록</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/goegh/qr/qrspns/selectQrspnsList.do?mi=10458"  ><span>설문조사</span></a></li>
+									<li><a id="10739" href="#?mi=10739"  ><span>주민참여예산</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10740&cntntsId=1863"  ><span>주민참여예산제도 안내</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10754&bbsId=6359"  ><span>주민참여예산제도 공지</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=10741&bbsId=6352"  ><span>참여게시판</span></a></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8760&cntntsId=1512"  ><span>민원/신고</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>민원/신고</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a id="8808" href="#?mi=8808"  ><span>교육행정서비스헌장</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=9897&cntntsId=1762"  ><span>전문</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8760&cntntsId=1512"  ><span>공통이행 기준</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8806&cntntsId=1557"  ><span>부서별 서비스 이행표준 (행정국)</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8807&cntntsId=1558"  ><span>부서별 서비스 이행표준 (교육국)</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=9899&cntntsId=1763"  ><span>부서별이행기준 (하남지원센터)</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8761" href="#?mi=8761"  ><span>민원안내</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8762&cntntsId=1513"  ><span>민원사무안내</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8763&cntntsId=1514"  ><span>민원사전예약안내</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8764&cntntsId=1515"  ><span>평생교육업무안내</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8766&bbsId=5094"  ><span>민원자료실</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8767" href="#?mi=8767"  ><span>전자민원신청</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8768&cntntsId=1517"  ><span>신청서작성</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8769&cntntsId=1518"  ><span>나의민원보기</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8770&cntntsId=1727"  ><span>정부24 이용안내</span></a></li>
+									<li><a id="8771" href="#?mi=8771"  ><span>사이버신고센터</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8750&cntntsId=1956"  ><span>성희롱·성폭력 신고센터</span></a></li>
+												<li><a href="https://www.goe.go.kr/goe/na/ntt/selectNttList.do?mi=11230&amp;bbsId=2772"   rel="noopener noreferrer" target="_blank" title="새창열림" ><span>수능부정행위신고센터</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=8773&bbsId=5095"  ><span>학생선수고충지원센터</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8774&cntntsId=1521"  ><span>갑질 및 직장내 괴롭힘신고센터</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8775&cntntsId=1522"  ><span>공익제보센터</span></a></li>
+												<li><a href="/goegh/na/ntt/selectNttList.do?mi=11305&bbsId=6648"  ><span>미인가 교육시설 신고센터</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10383&cntntsId=1824"  ><span>청원24 안내</span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8776&cntntsId=1523"  ><span>정보공개</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>정보공개</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8776&cntntsId=1523"  ><span>정보공개제도안내</span></a></li>
+									<li><a href="https://www.open.go.kr/com/main/mainView.do"   rel="noopener noreferrer" target="_blank" title="새창열림" ><span>정보공개청구</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=8778&bbsId=5096"  ><span>정보공개자료실</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8779&cntntsId=1524"  ><span>비공개 대상정보 세부기준</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8780&cntntsId=1525"  ><span>사전정보 공표목록</span></a></li>
+									<li><a href="https://www.open.go.kr/othicInfo/infoList/infoList.do"   rel="noopener noreferrer" target="_blank" title="새창열림" ><span>정보목록</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8781&cntntsId=1526"  ><span>공공데이터포털</span></a></li>
+									<li><a href="/goegh/na/ntt/selectNttList.do?mi=10987&bbsId=6499"  ><span>업무협약 현황</span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8782&cntntsId=1527"  ><span>교육지원청안내</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>교육지원청안내</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8782&cntntsId=1527"  ><span>인사말</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10492&cntntsId=1833"  ><span>광주하남교육 비전</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10493&cntntsId=1834"  ><span>광주하남교육 특색사업</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8785&cntntsId=1530"  ><span>연혁</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8786&cntntsId=1531"  ><span>조직안내</span></a></li>
+									<li><a id="8787" href="#?mi=8787"  ><span>관내학교현황</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8788&cntntsId=1532"  ><span>학교전체현황(광주시)</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=10296&cntntsId=1807"  ><span>학교전체현황(하남시)</span></a></li>
+												<li><a href="/goegh/ssm/scholStts/selectScholSttsList.do?mi=8789"  ><span>학교상세현황</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8796" href="#?mi=8796"  ><span>찾아오시는길</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=9702&cntntsId=1631"  ><span>광주하남교육지원청</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=9703&cntntsId=1730"  ><span>하남교육지원센터</span></a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a id="8797" href="#?mi=8797"  ><span>청사안내도</span></a>
+										<div class="depth03">
+											<ul  class="group">
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8802&cntntsId=1563"  ><span>1층</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8803&cntntsId=1564"  ><span>2층</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8804&cntntsId=1565"  ><span>3층</span></a></li>
+												<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8805&cntntsId=1566"  ><span>4층</span></a></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="/goegh/sitemap.do?mi=8798"  ><span>사이트정보</span></a>
+							<div class="depth02">
+								<div class="titBox">
+									<strong>사이트정보</strong>
+									<p>메뉴를 클릭하시면 <br>해당 페이지로 이동합니다</p>
+								</div>
+								<ul class="group">
+									<li><a href="/goegh/sitemap.do?mi=8798"  ><span>사이트맵</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8799&cntntsId=1543"  ><span>이용안내</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8800&cntntsId=1572"  ><span>개인정보처리방침</span></a></li>
+									<li><a href="/goegh/cm/cntnts/cntntsView.do?mi=8801&cntntsId=1545"  ><span>영상정보처리기기 운영관리 방침</span></a></li>
+								</ul>
+							</div>
+						</li>
+						
+						
+					</ul>
+				</div>
+				<!--END-->
+			</div>
+		</div>
+		<!-- //NAV : fullDown / oneDown / oneFull -->
+		
+		<a href="#" class="fullmenu" id="fullmenuOpen"><i class="xi-list" aria-hidden="true"></i><span class="hid">사이트맵 활성화</span></a>
+	
+		<div class="popFullmenu">
+			<div class="fullmenu_wrap">
+				<h2>전체메뉴</h2>
+				<ul class="popUntil"></ul>
+				<div class="fullmenu_group"></div>
+				<a href="#" id="fullmenuClose" class="fullmenuClose"><span class="hid">사이트맵 비활성화</span><i class="xi-close" aria-hidden="true"></i></a>
+			</div>
+		</div>
+	</header>
+
+
+
+			<!-- //헤더 -->
+
+				
+
+			<div id="container">
+
+				<div class="box_mot_1">
+
+					<!-- 컨테이너 -->
+
+					<div id="sub_container">
+
+						<div class="sub_content">
+
+							<div class="clearfix">
+
+								<!-- 서브메뉴 -->
+
+								
+
+
+						<aside id="snb"> 
+							<!--START-->
+						
+						<input type="hidden" id="leftCurrMi" value="8710">
+						<input type="hidden" id="tabBaseMi" value="8710">
+						<input type="hidden" id="tabUpperMi" value="">
+
+						
+						
+						
+							<h2><span>교육행정</span></h2>
+							<nav class="snb_wrap">
+								<ul class='lnb'>
+									<li><a id="currMenuId8690" href="#?mi=8690"  ><span>초등교육지원과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8691" href="/goegh/na/ntt/selectNttList.do?mi=8691&bbsId=5045"  ><span>초등교육</span></a></li>
+											<li><a id="currMenuId8692" href="/goegh/na/ntt/selectNttList.do?mi=8692&bbsId=5046"  ><span>유아교육</span></a></li>
+											<li><a id="currMenuId10835" href="/goegh/na/ntt/selectNttList.do?mi=10835&bbsId=6407"  ><span>유치원 운영위원회(사립)</span></a></li>
+										</ul>
+									<li><a id="currMenuId8693" href="/goegh/na/ntt/selectNttList.do?mi=8693&bbsId=5047"  ><span>너른강온마을배움터</span></a></li>
+									<li><a id="currMenuId8694" href="#?mi=8694"  ><span>중등교육지원과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8695" href="/goegh/na/ntt/selectNttList.do?mi=8695&bbsId=5048"  ><span>중등교육</span></a></li>
+											<li><a id="currMenuId8697" href="/goegh/na/ntt/selectNttList.do?mi=8697&bbsId=5050"  ><span>학교폭력제로센터</span></a></li>
+										</ul>
+									<li><a id="currMenuId8698" href="#?mi=8698"  ><span>평생교육건강과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8699" href="/goegh/na/ntt/selectNttList.do?mi=8699&bbsId=5051"  ><span>학원 교습소</span></a></li>
+											<li><a id="currMenuId8700" href="/goegh/na/ntt/selectNttList.do?mi=8700&bbsId=5052"  ><span>개인과외교습자</span></a></li>
+											<li><a id="currMenuId8701" href="/goegh/na/ntt/selectNttList.do?mi=8701&bbsId=5053"  ><span>공익법인</span></a></li>
+											<li><a id="currMenuId8702" href="/goegh/na/ntt/selectNttList.do?mi=8702&bbsId=5054"  ><span>평생교육시설</span></a></li>
+											<li><a id="currMenuId8703" href="/goegh/na/ntt/selectNttList.do?mi=8703&bbsId=5055"  ><span>학생건강</span></a></li>
+											<li><a id="currMenuId8704" href="https://eeis.schoolkeepa.or.kr/"   rel="noopener noreferrer" target="_blank"  title="새창열림" ><span>교육환경보호구역도</span></a></li>
+											<li><a id="currMenuId8705" href="https://eeis.schoolkeepa.or.kr/deliberation/hisList.do"   rel="noopener noreferrer" target="_blank"  title="새창열림" ><span>교육환경보호구역 심의결과</span></a></li>
+											<li><a id="currMenuId8706" href="/goegh/na/ntt/selectNttList.do?mi=8706&bbsId=5056"  ><span>학교도서관</span></a></li>
+											<li><a id="currMenuId8707" href="/goegh/na/ntt/selectNttList.do?mi=8707&bbsId=5057"  ><span>급식</span></a></li>
+										</ul>
+									<li><a id="currMenuId8708" href="#?mi=8708"  ><span>학교행정지원과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8711" href="/goegh/na/ntt/selectNttList.do?mi=8711&bbsId=5060"  ><span>대외협력</span></a></li>
+											<li><a id="currMenuId8709" href="/goegh/na/ntt/selectNttList.do?mi=8709&bbsId=5058"  ><span>학교행정지원</span></a></li>
+											<li><a id="currMenuId8710" href="/goegh/na/ntt/selectNttList.do?mi=8710&bbsId=5059"  ><span>교육공무직 급여</span></a></li>
+											<li><a id="currMenuId10845" href="/goegh/na/ntt/selectNttList.do?mi=10845&bbsId=6415"  ><span>복지</span></a></li>
+										</ul>
+									<li><a id="currMenuId10542" href="#?mi=10542"  ><span>지역교육과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId9484" href="/goegh/na/ntt/selectNttList.do?mi=9484&bbsId=5650"  ><span>지역교육협력</span></a></li>
+											<li><a id="currMenuId10099" href="/goegh/cm/cntnts/cntntsView.do?mi=10100&cntntsId=1771"  ><span>방과후·돌봄지원센터</span></a></li>
+											<li><a id="currMenuId10799" href="/goegh/na/ntt/selectNttList.do?mi=10799&bbsId=6384"  ><span>문화예술교육</span></a></li>
+											<li><a id="currMenuId10800" href="/goegh/na/ntt/selectNttList.do?mi=10800&bbsId=6385"  ><span>외국어교육</span></a></li>
+											<li><a id="currMenuId10801" href="/goegh/na/ntt/selectNttList.do?mi=10801&bbsId=6386"  ><span>창의융합교육</span></a></li>
+											<li><a id="currMenuId10802" href="/goegh/na/ntt/selectNttList.do?mi=10802&bbsId=6387"  ><span>진로직업교육</span></a></li>
+											<li><a id="currMenuId10803" href="/goegh/na/ntt/selectNttList.do?mi=10803&bbsId=6388"  ><span>체육특기자 선발 기준 및 자격</span></a></li>
+										</ul>
+									<li><a id="currMenuId8712" href="#?mi=8712"  ><span>영재교육원</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8713" href="/goegh/cm/cntnts/cntntsView.do?mi=8713&cntntsId=1506"  ><span>영재교육원 소개</span></a></li>
+											<li><a id="currMenuId8714" href="/goegh/na/ntt/selectNttList.do?mi=8714&bbsId=5061"  ><span>공지사항</span></a></li>
+											<li><a id="currMenuId8715" href="/goegh/na/ntt/selectNttList.do?mi=8715&bbsId=5062"  ><span>자료실</span></a></li>
+											<li><a id="currMenuId9586" href="/goegh/na/ntt/selectNttList.do?mi=9586&bbsId=5729"  ><span>대회/홍보/공모</span></a></li>
+										</ul>
+									<li><a id="currMenuId8716" href="#?mi=8716"  ><span>Wee센터</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8717" href="/goegh/cm/cntnts/cntntsView.do?mi=8717&cntntsId=1507"  ><span>센터소개</span></a></li>
+											<li><a id="currMenuId8718" href="/goegh/cm/cntnts/cntntsView.do?mi=8718&cntntsId=1508"  ><span>이용안내</span></a></li>
+											<li><a id="currMenuId8720" href="/goegh/na/ntt/selectNttList.do?mi=8720&bbsId=5063"  ><span>상담자료실</span></a></li>
+											<li><a id="currMenuId8721" href="/goegh/na/ntt/selectNttList.do?mi=8721&bbsId=5064"  ><span>사이버상담</span></a></li>
+											<li><a id="currMenuId8722" href="/goegh/cm/cntnts/cntntsView.do?mi=8722&cntntsId=1509"  ><span>상담네트워크</span></a></li>
+										</ul>
+									<li><a id="currMenuId8723" href="#?mi=8723"  ><span>특수교육지원센터</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8724" href="/goegh/cm/cntnts/cntntsView.do?mi=8724&cntntsId=1510"  ><span>센터소개</span></a></li>
+											<li><a id="currMenuId8725" href="/goegh/na/ntt/selectNttList.do?mi=8725&bbsId=5065"  ><span>안내사항</span></a></li>
+											<li><a id="currMenuId8726" href="/goegh/na/ntt/selectNttList.do?mi=8726&bbsId=5066"  ><span>선정배치</span></a></li>
+											<li><a id="currMenuId8727" href="/goegh/na/ntt/selectNttList.do?mi=8727&bbsId=5067"  ><span>자료실</span></a></li>
+										</ul>
+									<li><a id="currMenuId8728" href="#?mi=8728"  ><span>기획경영과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8729" href="/goegh/na/ntt/selectNttList.do?mi=8729&bbsId=5068"  ><span>기획경영</span></a></li>
+											<li><a id="currMenuId8730" href="/goegh/na/ntt/selectNttList.do?mi=8730&bbsId=5069"  ><span>재난대응안전한국훈련</span></a></li>
+											<li><a id="currMenuId8731" href="/goegh/na/ntt/selectNttList.do?mi=8731&bbsId=5070"  ><span>을지연습 특집코너</span></a></li>
+											<li><a id="currMenuId8732" href="/goegh/na/ntt/selectNttList.do?mi=8732&bbsId=5071"  ><span>학생배치</span></a></li>
+											<li><a id="currMenuId8733" href="/goegh/na/ntt/selectNttList.do?mi=8733&bbsId=5072"  ><span>성과사학</span></a></li>
+										</ul>
+									<li><a id="currMenuId8735" href="#?mi=8735"  ><span>재무관리과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8736" href="/goegh/na/ntt/selectNttList.do?mi=8736&bbsId=5074"  ><span>예산</span></a></li>
+											<li><a id="currMenuId8737" href="/goegh/na/ntt/selectNttList.do?mi=8737&bbsId=5075"  ><span>경리</span></a></li>
+											<li><a id="currMenuId8738" href="/goegh/na/ntt/selectNttList.do?mi=8738&bbsId=5076"  ><span>관재</span></a></li>
+										</ul>
+									<li><a id="currMenuId8739" href="/goegh/na/ntt/selectNttList.do?mi=8739&bbsId=5077"  ><span>교육시설과</span></a></li>
+									<li><a id="currMenuId8740" href="/goegh/na/ntt/selectNttList.do?mi=8740&bbsId=5078"  ><span>학교시설개선과</span></a></li>
+									<li><a id="currMenuId8741" href="#?mi=8741"  ><span>감사과</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8742" href="/goegh/na/ntt/selectNttList.do?mi=8742&bbsId=5079"  ><span>청렴게시판</span></a></li>
+											<li><a id="currMenuId8743" href="/goegh/na/ntt/selectNttList.do?mi=8743&bbsId=5080"  ><span>감사결과 공개</span></a></li>
+											<li><a id="currMenuId8734" href="/goegh/na/ntt/selectNttList.do?mi=8734&bbsId=5073"  ><span>정보화</span></a></li>
+										
+										</ul>
+									<li><a id="currMenuId8744" href="#?mi=8744"  ><span>하남교육지원센터</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId8745" href="/goegh/na/ntt/selectNttList.do?mi=8745&bbsId=5081"  ><span>부서게시판</span></a></li>
+											<li><a id="currMenuId8746" href="/goegh/na/ntt/selectNttList.do?mi=8746&bbsId=5082"  ><span>학생배치기획</span></a></li>
+											<li><a id="currMenuId9714" href="/goegh/na/ntt/selectNttList.do?mi=9714&bbsId=5799"  ><span>대외협력재정</span></a></li>
+											<li><a id="currMenuId8747" href="/goegh/na/ntt/selectNttList.do?mi=8747&bbsId=5083"  ><span>학원행정운영</span></a></li>
+											<li><a id="currMenuId9715" href="/goegh/na/ntt/selectNttList.do?mi=9715&bbsId=5800"  ><span>교육시설관리</span></a></li>
+										</ul>
+									<li><a id="currMenuId9716" href="#?mi=9716"  ><span>교육자원봉사센터</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId9717" href="/goegh/na/ntt/selectNttList.do?mi=9717&bbsId=5801"  ><span>자료실</span></a></li>
+										</ul>
+									<li><a id="currMenuId10203" href="#?mi=10203"  ><span>광주하남 공유학교</span></a>
+										<ul class='subLnb'>
+											<li><a id="currMenuId10205" href="/goegh/cm/cntnts/cntntsView.do?mi=10204&cntntsId=1785"  ><span>공유학교 소개</span></a></li>
+											<li><a id="currMenuId10208" href="/goegh/na/ntt/selectNttList.do?mi=10209&bbsId=6084"  ><span>프로그램 수강신청</span></a></li>
+											<li><a id="currMenuId10211" href="/goegh/cm/cntnts/cntntsView.do?mi=10212&cntntsId=1788"  ><span>교육자원 소개</span></a></li>
+											<li><a id="currMenuId10214" href="/goegh/na/ntt/selectNttList.do?mi=10214&bbsId=6086"  ><span>자료실</span></a></li>
+											<li><a id="currMenuId10299" href="/goegh/na/ntt/selectNttList.do?mi=10299&bbsId=6127"  ><span>칭찬 및 제안</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+						
+						
+						
+						
+						
+						
+						
+						
+							<!--END-->
+						</aside> 
+
+
+								<!-- //서브메뉴 -->
+
+							</div>
+
+						
+
+							<!-- 서브 영역 -->
+
+							<div id="subContent">
+
+								<div class="subContent_body">
+
+									<div class="title_area">
+
+										<h2 id="pageTitle">교육공무직 급여</h2>
+
+										<div class="title_tside">
+
+											
+
+
+
+
+
+<div class="location">
+
+	<a href="/goegh/main.do" class="home"><i class="xi-home-o"></i><em class="hid">홈</em></a>
+
+	
+
+	
+
+		<span>교육행정</span><span>학교행정지원과</span><strong>교육공무직 급여</strong>
+
+	
+
+</div>
+
+ <!-- 공통 navi(교육지원청) -->
+
+											
+
+
+
+
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
+
+<div class="snsBox">
+
+	<button type="button" class="btnShare"><i class="xi-share-alt"></i><span class="hid">공유</span></button>
+
+	<div class="sns_more">
+
+		<button type="button" class="btnFbook" title="페이스북 새창 열림" onclick="goSns('fbook');"><i class="xi-facebook"></i></button>
+
+		<button type="button" class="btnTwt" title="트위터 새창 열림" onclick="goSns('twt');"><i class="xi-twitter"></i></button>
+
+		<button type="button" class="btnkks" title="카카오톡 새창 열림" onclick="goSns('kkot');"><i class="xi-kakaostory"></i></button>
+
+		<button type="button" class="btnClose" id="snsClose" title="sns영역 닫기"><i class="xi-close" aria-hidden="true"></i></button>
+
+	</div>
+
+	<button type="button" class="btnPrint"><i class="xi-print"></i><span class="hid">인쇄</span></button>
+
+</div>
+
+
+
+<script>
+
+  
+
+//게시물 공유
+
+function goSns(shareTy){ 
+
+	var htmlTitle = '경기도광주하남교육지원청';
+
+	var title = ''; // 메뉴타이틀의 경우 스크립트 추가되어 오류  ;
+
+	var menuTitle = '교육공무직 급여';
+
+	var mi = '8710';
+
+	var _br2 = encodeURIComponent('\n'); 
+
+	var linkUrl = location.href;
+
+	
+
+ 	var KakaoInitYN = 'N';
+
+	
+
+	if(linkUrl.indexOf('?') > -1) {
+
+		if(linkUrl.indexOf('mi=') < 0) {
+
+			linkUrl = linkUrl + '&mi=' +mi;
+
+		}
+
+	} else {
+
+		if(linkUrl.indexOf('mi=') < 0) {
+
+			linkUrl = linkUrl + '?mi=' +mi;
+
+		}
+
+	}
+
+	
+
+	linkUrl = encodeURIComponent(linkUrl);
+
+	
+
+	if(menuTitle != '메뉴명없음') {
+
+		title = htmlTitle + ' : ' + menuTitle;
+
+	} else {
+
+		title = htmlTitle;
+
+	}
+
+	
+
+	title = encodeURIComponent(title);
+
+
+
+	if(shareTy == "fbook") {
+
+		window.open('https://www.facebook.com/sharer/sharer.php?u='+ linkUrl, 'facebook', 'width=626,height=436');
+
+	} else if(shareTy == "twt") {
+
+		window.open('https://twitter.com/intent/tweet?url='+ linkUrl + '&text=' + title, 'twitter', 'width=626,height=436');
+
+	} else if(shareTy == "kkot") {
+
+		
+
+			if(KakaoInitYN == 'N'){
+
+				/*kakao developer에 어플리케이션 등록 후 키 변경  필요*/
+
+				Kakao.init('267ac3580a6381bd7327a6e1a33ed2cc');
+
+ 				KakaoInitYN = 'Y';
+
+			}
+
+			
+
+			var description = '#경기도교육청 #경기도교육청';
+
+			//var description = '#'+$('.header h1 a').attr('title');
+
+			var title = $('.title').text();
+
+			
+
+			if(title == "") {
+
+				title = document.title;
+
+			}
+
+			
+
+			Kakao.Link.sendDefault({
+
+				objectType: 'feed',
+
+				content: {
+
+					title: title, //제목
+
+					description: description, // 로고 title 값(sysNM), 설명
+
+					imageUrl: 'https://www.goegh.kr/images/com/goedu.gif', //이미지URL
+
+					link: {
+
+						mobileWebUrl: location.href, //공유할 URL
+
+						webUrl: location.href //공유할 URL
+
+					}
+
+				},
+
+				/* social: {
+
+					likeCount: 286,
+
+					commentCount: 45,
+
+					sharedCount: 845
+
+				}, */
+
+				buttons: [
+
+				  	{
+
+				  		title: '자세히보기',
+
+				  		link: {
+
+				  			mobileWebUrl: location.href,
+
+				  			webUrl: location.href
+
+				  		}
+
+				  	}
+
+				  	/*, {
+
+				  		title: '링크 보기',
+
+				  		link: {
+
+				  			mobileWebUrl: linkUrl,
+
+				  			webUrl: linkUrl
+
+				  		}
+
+				  	} */
+
+				 ]
+
+		    });
+
+			
+
+	} else if(shareTy == "kkots") {
+
+		window.open('https://story.kakao.com/s/share?url='+ linkUrl + '&text=' + title, 'kakaostory', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=600');
+
+	} else if(shareTy == "band") {
+
+		window.open('http://band.us/plugin/share?body='+ title + _br2 + linkUrl + '&route=' + linkUrl, 'band', 'width=410, height=540, resizable=no');
+
+	} else if(shareTy == "blog") {
+
+		window.open('https://share.naver.com/web/shareView.nhn?url='+ linkUrl + '&title='+title, 'blog', 'width=410, height=540, resizable=no');
+
+	}
+
+}
+
+</script> <!-- 공통 Sns -->
+
+										</div>
+
+									</div>
+
+									<div>
+
+									<!-- contents -->
+
+										
+
+
+
+<div>
+	<!--START-->
+	
+	<!-- 8858 UPPER TAB START-->
+	
+	<!-- 8858 UPPER TAB END-->
+
+	<!-- 8681 UPPER TAB START-->
+	
+	<!-- 8681 UPPER TAB END-->
+
+	<!-- 10099 UPPER TAB START-->
+	
+	<!-- 10099 UPPER TAB END-->
+
+	<!-- 10205 UPPER TAB START-->
+	
+	<!-- 10205 UPPER TAB END-->
+
+	<!-- 10208 UPPER TAB START-->
+	
+	<!-- 10208 UPPER TAB END-->
+
+	<!-- 10211 UPPER TAB START-->
+	
+	<!-- 10211 UPPER TAB END-->
+
+	<!-- 10826 UPPER TAB START-->
+	
+	<!-- 10826 UPPER TAB END-->
+
+	<!-- 8796 UPPER TAB START-->
+	
+	<!-- 8796 UPPER TAB END-->
+
+    <!--END-->
+</div>
+
+
+
+										
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/com/jquery/jquery-confirm.min.css">
+
+<link rel="stylesheet" href="/css/ad/kogl/kogl.css">
+
+<link rel="stylesheet" href="/css/ad/star/star-rating-svg.css">
+
+
+
+<script src="/editor/dext5upload/js/dext5upload.js"></script>
+
+<script src="/js/fileUpload.js"></script>
+
+<script src="/js/jquery-confirm.min.js"></script>
+
+<script src="/js/jquery.bpopup.min.js"></script>
+
+<script src="/js/jquery.star-rating-svg.js"></script>
+
+
+
+
+
+
+
+<script>
+
+	var G_UploadID = "";
+
+	//대용량업로드 생성완료 이벤트
+
+	function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+
+		G_UploadID = uploadID;
+
+		// 기존 파일 추가
+
+		
+
+			DEXT5UPLOAD.AddUploadedFile("69fa3cbd9ea20343bf64b1d05eda374b", "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf", "/upload/goegh/na/bbs_5059/2026/07/CD956A70-E3AF-B4C1-0386-F4AB477DEBCC.pdf", "3400160", "69fa3cbd9ea20343bf64b1d05eda374b", G_UploadID);
+
+		
+
+	}
+
+	
+
+	// 다운로드 전 파일조회수 count하기위한 함수 처리
+
+	function DEXT5UPLOAD_BeforeFileDownload(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent) {
+
+		$.ajax({
+
+			type : "POST",
+
+			url: "/goegh/na/ntt/updateDwldCount.do",
+
+			data : {strItemKey : strItemKey},
+
+			dataType: "json",
+
+			success : function(data) {
+
+				//파일조회수 count이기때문에 별도로 처리X
+
+			},
+
+			error : function(data) {
+
+				alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+			}
+
+		});
+
+		
+
+		return true;
+
+	}
+
+	
+
+	//파일 열기전 파일조회수 count하기위한 함수 처리
+
+	function DEXT5UPLOAD_BeforeFileViewOrOpen(uploadID, strWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, strLargeFile) { 
+
+		$.ajax({
+
+				type : "POST",
+
+				url: "/goegh/na/ntt/updateDwldCount.do",
+
+				data : {strItemKey : strItemKey},
+
+				dataType: "json",
+
+				success : function(data) {
+
+					//파일조회수 count이기때문에 별도로 처리X
+
+				},
+
+				error : function(data) {
+
+					alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+				}
+
+		});
+
+		
+
+		return true;
+
+	}
+
+</script>
+
+
+
+<script>
+
+	
+
+	/* $(document).ready(function() {
+
+		 var noticeUseAt = "N";
+
+		 if ( noticeUseAt == "Y") {
+
+				$(".confmUseDt").hide();
+
+		 } else {
+
+			 $(".confmUseDt").show();
+
+		 }
+
+	}); */
+
+
+
+	$(function() {
+
+		//html5 지원 여부 파악
+
+		var formData = "";
+
+		if (fn_html5Support() && fn_FormDataSupport("answerForm")) {
+
+			// 자바 스크립트 in -> 명시된 속성이 명시된 객체에 존재하면 true 반환, 속성 in 객체명
+
+			formData = new FormData($("#answerForm")[0]);
+
+		} else {
+
+			formData = $("#answerForm").serialize();
+
+		}
+
+		
+
+		$('.nttUpdatePage').click(function() {
+
+			var totalListCheck = "";
+
+			if (totalListCheck == "Y") {
+
+				$('#nttViewForm').attr('action','/goegh/na/ntt/updateNttPage.do?totalListCheck=Y').submit();
+
+			} else {
+
+				$('#nttViewForm').attr('action','/goegh/na/ntt/updateNttPage.do').submit();
+
+			}
+
+		});
+
+		
+
+		$('.insertAnswer').click(function() {
+
+			if ($("#answerCn").valueEmpty()) {
+
+				alert("내용을 입력해주세요.");
+
+				$("#answerCn").focus();
+
+				return false;
+
+			}
+
+			
+
+			if (!confirm('댓글을 등록하시겠습니까?')) {
+
+				return;
+
+			}
+
+			
+
+			$("#answerForm").ajaxSubmit({
+
+				formData : formData,
+
+				url: "/goegh/na/ntt/insertNttAnswer.do",
+
+				dataType: "json",
+
+				async: true,
+
+				success: function(responseText, statusText){
+
+					
+
+					if (responseText.resultAt == 'Y') {
+
+						alert('댓글이 등록되었습니다.');
+
+						
+
+						// 완료 페이지 이동
+
+						goParamPage($("input[name='nttSn']").val(), 'nttSn', '/goegh/na/ntt/selectNttInfo.do');
+
+					} else if (responseText.resultAt == 'L') {
+
+						alert('로그인 또는 본인인증 후 댓글 등록이 가능합니다.');
+
+						
+
+						// 완료 페이지 이동
+
+						location.href = '/goegh/lo/login/loginTotalPage.do';
+
+					} else {
+
+						alert('댓글이 등록 권한이 없습니다.');
+
+					}
+
+					
+
+				}
+
+			});
+
+		});
+
+		
+
+		//게시물 만족도 평가 등록
+
+		$('.insertAssess').click(function() {
+
+			if (!confirm('등록하시겠습니까?')) {
+
+				return;
+
+			}
+
+			
+
+			//만족도평가점수 개발자도구에서 강제로 value값 수정할수있기때문에 방지 차원에서 처리
+
+			var id = $("input[name=assessScore]:checked").attr('id');
+
+			
+
+			if(id == 'assessScore1'){
+
+				$('#assessScore1').val('5');	
+
+			}else if(id == 'assessScore2'){
+
+				$('#assessScore2').val('4');
+
+			}else if(id == 'assessScore3'){
+
+				$('#assessScore3').val('3');
+
+			}else if(id == 'assessScore4'){
+
+				$('#assessScore4').val('2');
+
+			}else if(id == 'assessScore5'){
+
+				$('#assessScore5').val('1');
+
+			}
+
+			
+
+			$.ajax({
+
+				type : "POST",
+
+				url: "/goegh/na/ntt/insertNttAssess.do",
+
+				data : $("#assessForm").serialize(),
+
+				dataType: "json",
+
+				success : function(data) {
+
+					if(data.resultAt == 'E' || data.resultAt == 'N'){
+
+						alert('오류가 발생했습니다. \n관리자에게 문의해주시기 바랍니다.');
+
+					}else if(data.resultAt == 'L'){
+
+						alert('로그인이 필요한 서비스입니다. \n로그인 후 이용해주시기 바랍니다.');
+
+					}else if(data.resultAt == 'D'){
+
+						alert('이미 만족도 평가를 하셨습니다.');
+
+					}else{
+
+						alert('등록이 완료되었습니다.');
+
+						var html = '<div class="tit"><strong>게시물 만족도 평가</strong></div><p>참여해주셔서 감사합니다.</p>';
+
+						$('.poll').html(html);
+
+					} 
+
+				},
+
+				error : function(data) {
+
+					alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+				}
+
+			});
+
+		});
+
+		
+
+		$(document).on("click",".updateAnswer",function(){
+
+			if ($('#answerCn'+$(this).attr('data-id')).valueEmpty()) {
+
+				alert("내용을 입력해주세요.");
+
+				$('#answerCn'+$(this).attr('data-id')).focus();
+
+				return false;
+
+			}
+
+			
+
+			if(!confirm('댓글을 수정하시겠습니까?')){
+
+				return;
+
+			}
+
+			
+
+			$('#answerSn').val($(this).attr('data-id'));
+
+			$('#updtAnswerCn').val($('#answerCn'+$(this).attr('data-id')).val());
+
+			$("#answerForm").ajaxSubmit({
+
+				formData : formData,
+
+				url: "/goegh/na/ntt/updateNttAnswer.do",
+
+				dataType: "json",
+
+				async: true,
+
+				success: function(responseText, statusText){
+
+					
+
+					if (responseText.resultAt == 'X') {
+
+						alert('댓글을 수정할 권한이 없습니다.');
+
+					} else {
+
+						alert('댓글이 수정되었습니다.');
+
+						// 완료 페이지 이동
+
+						goParamPage($("input[name='nttSn']").val(), 'nttSn', '/goegh/na/ntt/selectNttInfo.do');
+
+					}
+
+				}
+
+			});
+
+		});
+
+		
+
+		//파라미터 페이지 이동 
+
+		function goParamPage( setVal, setNm, setUrl ) {
+
+			$("#paramNm").val(setNm);
+
+			$("#paramVal").val(setVal);
+
+			setTrimMenuId();
+
+			$("#mainMenuForm").attr('action', setUrl).submit();
+
+		};
+
+		
+
+		//메뉴 아이디 공백제거
+
+		function setTrimMenuId(){
+
+			var nowMenuId = $.trim($("#nowMenuId").val());
+
+			$("nowMenuId").val(nowMenuId);
+
+		};
+
+		
+
+		$(document).on("click",".answerCancel",function() {
+
+			$('#replyUpdt'+$(this).attr('data-id')).hide();
+
+			$('#replyView'+$(this).attr('data-id')).show();
+
+		});
+
+		
+
+		$(document).on("click",".answerUpdateMode",function() {
+
+			$('#replyView'+$(this).attr('data-id')).hide();
+
+			$('#replyUpdt'+$(this).attr('data-id')).show();
+
+		});
+
+		
+
+		$('.answerDelete').click(function() {
+
+			if(!confirm('댓글을 삭제하시겠습니까?')) {
+
+				return;
+
+			}
+
+			
+
+			$('#answerSn').val($(this).attr('data-id'));
+
+			$("#answerForm").ajaxSubmit({
+
+				formData : formData,
+
+				url: "/goegh/na/ntt/deleteNttAnswer.do",
+
+				dataType: "json",
+
+				async: true,
+
+				success: function(responseText, statusText){
+
+					alert('댓글이 삭제되었습니다.');
+
+					
+
+					// 완료 페이지 이동
+
+					goParamPage($("input[name='nttSn']").val(), 'nttSn', '/goegh/na/ntt/selectNttInfo.do');
+
+				}
+
+			});
+
+		})
+
+		
+
+		
+
+		//채택 수정
+
+		$('.answerUpdateAdopt').click(function() {
+
+
+
+			var adoptYn = $(this).attr('data-value');
+
+			if(adoptYn == 'Y'){
+
+				if(!confirm('채택을 취소하시겠습니까?')) {
+
+					return;
+
+				}
+
+				$('#adoptYn').val('N');
+
+			}else{
+
+				var adoptYnList = "";
+
+				
+
+				
+
+				if(adoptYnList.indexOf("Y") > -1){
+
+					alert('채택은 한개의 댓글만 가능합니다.');
+
+					return;
+
+				} 
+
+				
+
+				if(!confirm('채택 하시겠습니까?')) {
+
+					return;
+
+				}
+
+				$('#adoptYn').val('Y');
+
+			}
+
+			
+
+			$('#answerSn').val($(this).attr('data-id'));
+
+			$("#answerForm").ajaxSubmit({
+
+				formData : formData,
+
+				url: "/goegh/na/ntt/updateNttAnswerAdopt.do",
+
+				dataType: "json",
+
+				async: true,
+
+				success: function(responseText, statusText){
+
+					// 완료 페이지 이동
+
+					goParamPage($("input[name='nttSn']").val(), 'nttSn', '/goegh/na/ntt/selectNttInfo.do');
+
+				},error : function(data) {
+
+					alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+				}
+
+			});
+
+		});
+
+		
+
+		$('.nttUpdateGlad').click(function() {
+
+			
+
+			var classData = $(this).hasClass("on");
+
+			var url = "";
+
+			//좋아요취소
+
+			if(classData){
+
+				url = "/goegh/na/ntt/deleteNttGladInfo.do";
+
+			}
+
+			//좋아요클릭
+
+			else{
+
+				url = "/goegh/na/ntt/insertNttGladInfo.do";
+
+			}
+
+			
+
+			$.ajax({
+
+				type : "POST",
+
+				url: url,
+
+				data : $("#gladForm").serialize(),
+
+				dataType: "json",
+
+				success : function(data) {
+
+					if(data.resultAt == 'E' || data.resultAt == 'N'){
+
+						alert('오류가 발생했습니다. \n관리자에게 문의해주시기 바랍니다.');
+
+					}else if(data.resultAt == 'L'){
+
+						alert('로그인이 필요한 서비스입니다. \n로그인 후 이용해주시기 바랍니다.');
+
+					}else if(data.resultAt == 'F'){
+
+						$('.gladLike').attr('class','xi-heart gladLike');
+
+						$('.nttUpdateGlad').addClass('on');
+
+						$('.gladCnt').text('좋아요 '+data.gladCnt);
+
+					}else{
+
+						if(classData){
+
+							$('.gladLike').attr('class','xi-heart-o gladLike');
+
+							$('.nttUpdateGlad').removeClass('on');
+
+							$('.gladCnt').text('좋아요 '+data.gladCnt);
+
+						}else{
+
+							$('.gladLike').attr('class','xi-heart gladLike');
+
+							$('.nttUpdateGlad').addClass('on');
+
+							$('.gladCnt').text('좋아요 '+data.gladCnt);
+
+						}
+
+					} 
+
+				},
+
+				error : function(data) {
+
+					alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+				}
+
+			});
+
+		});
+
+		
+
+		$('.nttDelete').click(function(){
+
+			
+
+			if(!confirm('게시물을 삭제하시겠습니까?')) {
+
+				return;
+
+			}
+
+			
+
+			// html지원여부파악
+
+			var formData = "";
+
+			
+
+			if (fn_html5Support() && fn_FormDataSupport("nttViewForm")) {
+
+				// 자바 스크립트 in -> 명시된 속성이 명시된 객체에 존재하면 true 반환, 속성 in 객체명
+
+				formData = new FormData($("#nttViewForm")[0]);
+
+			} else {
+
+				formData = $("#nttViewForm").serialize();
+
+			}
+
+			
+
+			//관리자삭제시 삭제사유기입
+
+			
+
+			
+
+		})
+
+		
+
+		// 게시물 이동
+
+		$(".btnMove").click(function() {
+
+			
+
+			if (!confirm("게시물을 이동하시겠습니까?")) {
+
+				return false;
+
+			}
+
+			
+
+			var bbsId = $("#selectMove").val();
+
+			var oriBbsId = $("input[name='bbsId']").val();
+
+			var nttSn = $("input[name='nttSn']").val();
+
+			
+
+			$.ajax({
+
+				type : "post",
+
+				url : "/goegh/na/ntt/updateBbsId.do",
+
+				data : { 
+
+					bbsId : bbsId,
+
+					oriBbsId : oriBbsId,
+
+					nttSn : nttSn,
+
+					mi : $("#nowMenuId").val()
+
+				},
+
+				dataType : "json",
+
+				success : function(data) {
+
+					if (data == 1) {
+
+						alert("게시물이 이동되었습니다.");
+
+					}
+
+					
+
+					// 완료 페이지 이동
+
+					goParamPage($("input[name='bbsId']").val(), 'bbsId', '/goegh/na/ntt/selectNttList.do');
+
+				},
+
+				error : function(data) {
+
+					alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+				}
+
+			});
+
+		});
+
+		
+
+		// 게시물 승인
+
+		$('.confmAtBtn').click(function() {
+
+			var confmTy = $(this).attr("title");
+
+			var confmAt = $(this).attr("data-id");
+
+			var nttSn = $("input[name=nttSn]").val();
+
+			var bbsId = $("input[name=bbsId]").val();
+
+			
+
+			if (!confirm("게시물을 "+confmTy+"하시겠습니까?")) {
+
+				return false;
+
+			}
+
+			
+
+			$.ajax({
+
+				type : "post",
+
+				url : "/goegh/na/ntt/updateNttConfmAt.do",
+
+				data : {
+
+					confmAt : confmAt,
+
+					nttSn : nttSn,
+
+					bbsId : bbsId
+
+				},
+
+				dataType : "json",
+
+				success : function(data) {
+
+					if (data > 0) {
+
+						alert("완료되었습니다.");
+
+					} else {
+
+						alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+					}
+
+					// 완료 페이지 이동
+
+					goParamPage($("input[name='bbsId']").val(), 'bbsId', '/goegh/na/ntt/selectNttList.do');
+
+					
+
+				},
+
+				error : function(data) {
+
+					alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+				}
+
+			});
+
+		});
+
+		
+
+		
+
+		
+
+	});
+
+	
+
+	function updateNttSttus(act) {
+
+		var returnMsg = "";
+
+		
+
+		if (act == "R") {
+
+			returnMsg = "접수되었습니다.";
+
+			
+
+			if (!confirm("접수하시겠습니까?")) {
+
+				return false;
+
+			}
+
+		} else if (act == "C") {
+
+			returnMsg = "완료되었습니다.";
+
+			
+
+			if (!confirm("완료하시겠습니까?")) {
+
+				return false;
+
+			}
+
+		} else if (act == "W") {
+
+			returnMsg = "접수 취소되었습니다.";
+
+			
+
+			if (!confirm("접수를 취소하시겠습니까?")) {
+
+				return false;
+
+			}
+
+		} else {
+
+			alert("올바른 접근이 아닙니다.");
+
+			return false;
+
+		}
+
+		
+
+		$("input[name='nttSttus']").val(act);
+
+		
+
+		$.ajax({
+
+			type : "post",
+
+			url : "/goegh/na/ntt/updateNttSttus.do",
+
+			data : $("#nttViewForm").serialize(),
+
+			dataType : "json",
+
+			success : function(data){
+
+				if (data > 0) {
+
+					alert(returnMsg);
+
+				} else {
+
+					alert("실패하였습니다.");
+
+				}
+
+				// 완료 페이지 이동
+
+				$("#nttViewForm").attr("action","/goegh/na/ntt/selectNttInfo.do").submit();
+
+			},
+
+			error : function(data){
+
+				alert("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+
+			}
+
+		});
+
+	}
+
+	
+
+	$(document).on("click",".btnList",function(){
+
+		$("#nttViewForm input[name=mi]").remove();
+
+		$("#nttViewForm input[name=bbsId]").remove();
+
+		
+
+		var totalListCheck = "";
+
+		if (totalListCheck == "Y") {
+
+			$("#nttViewForm").attr("action","/goegh/nt/ntts/selectNttTotalList.do?mi=8710").submit();
+
+		} else {
+
+			
+
+			// 학급홈페이지 분기처리
+
+			var bbsProps = "";
+
+			if (bbsProps == "CLASHMPG") {
+
+				var clasHmpgId = $("#clasHmpgId").val();
+
+				$("#nttViewForm").attr("action","/goegh/na/ntt/selectNttList.do?mi=8710&bbsId=5059&clasHmpgId=" + clasHmpgId).submit();
+
+			} else {
+
+				$("#nttViewForm").attr("action","/goegh/na/ntt/selectNttList.do?mi=8710&bbsId=5059").submit();
+
+			}
+
+		}
+
+	});
+
+	
+
+	//이전글 다음글 조회
+
+	function prevNextNttInfo(nttSn){
+
+		//$("input[name='nttSn']").val(nttSn);
+
+		$("#nttViewForm input[name=mi]").remove();
+
+		$("#nttViewForm input[name=bbsId]").remove();
+
+		$("#nttViewForm input[name=nttSn]").remove();
+
+		$("#nttViewForm").attr("action","/goegh/na/ntt/selectNttInfo.do?mi=8710&bbsId=5059&nttSn="+nttSn).submit();
+
+	}
+
+	
+
+	//게시물 리스트 이동
+
+	function nttPageMove(currPage){
+
+		$("#nttViewForm input[name=currPage]").val(currPage);
+
+		$("#nttViewForm input[name=mi]").remove();
+
+		$("#nttViewForm input[name=bbsId]").remove();
+
+		
+
+		var totalListCheck = "";
+
+		if (totalListCheck == "Y") {
+
+			$("#nttViewForm").attr("action","/goegh/nt/ntts/selectNttTotalList.do?mi=8710").submit();
+
+		} else {
+
+			$("#nttViewForm").attr("action","/goegh/na/ntt/selectNttList.do?mi=8710&bbsId=5059").submit();
+
+		}
+
+	}
+
+</script>
+
+
+
+<form id="gladForm" name="gladForm" method="post">
+
+		<input type="hidden" name="gladBbsId" value="5059"/>
+
+		<input type="hidden" name="gladNttSn" value="1217382"/>
+
+</form>
+
+
+
+
+
+<form name="nttViewForm" id="nttViewForm" method="post">
+
+	<input type="hidden" name="mi" value="8710"/>
+
+	<input type="hidden" name="bbsId" value="5059"/>
+
+	<input type="hidden" name="bbsPrpos" value="HOMEPAGE"/>
+
+	<input type="hidden" name="nttSn" value="1217382" />
+
+	<input type="hidden" name="nttSttus" value=""/>
+
+	<input type="hidden" name="nttSttusDt" id="nttSttusDt" value=""/>
+
+	<input type="hidden" name="reportResn" id="reportResn"/>
+
+	<input type="hidden" name="reportId" id="reportId"/>
+
+	<input type="hidden" name="upperNttSnAt" id="upperNttSnAt" value="0"/>
+
+	<input type="hidden" name="selectType" id="selectType"  value="" />
+
+	<input type="hidden" name="searchCate" id="searchCate"  value="" />
+
+	<input type="hidden" name="currPage" value=""/>
+
+	<input type="hidden" name="searchType" value=""/>
+
+	<input type="hidden" name="searchValue" value=""/>
+
+	<input type="hidden" name="baseSn" value="1217382"/>
+
+	<input type="hidden" name="listCo" value="10"/>
+
+	
+
+	<input type="hidden" name="srch_aditCol1" value=""/>
+
+	<input type="hidden" name="srch_aditCol2" value=""/>
+
+	<input type="hidden" name="srch_aditCol3" value=""/>
+
+	<input type="hidden" name="srch_aditCol4" value=""/>
+
+	<input type="hidden" name="srch_aditCol5" value=""/>
+
+	<input type="hidden" name="srch_aditCol6" value=""/>
+
+	<input type="hidden" name="srch_aditCol7" value=""/>
+
+	<input type="hidden" name="srch_aditCol8" value=""/>
+
+	<input type="hidden" name="srch_aditCol9" value=""/>
+
+	<input type="hidden" name="srch_aditCol0" value=""/>
+
+
+
+	<input type="hidden" name="clasHmpgId" value=""/>
+
+	
+
+	<!-- 공유 게시물 정보 -->
+
+	<input type="hidden" name="shareNttYn" value=""/>
+
+	<input type="hidden" name="shareNttSn" value=""/>
+
+	<input type="hidden" name="shareBbsId" value=""/>
+
+	
+
+	
+
+	<div class="bbs_ViewA">
+
+		<h3>2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼</h3>
+
+		<ul class="bbsV_data">
+
+			<li>
+
+				<strong>작성자</strong>
+
+				<!-- menuAuthAt 관리자 권한이 있을 시 Y값이 들어간다. 본인글이거나 관리자일 경우 작성자가 보이도록 수정 -->
+
+				
+
+					
+
+					이현화
+
+				
+
+			</li>
+
+			<li>
+
+				<strong>등록일</strong>
+
+				
+
+				2026.07.14	
+
+			</li>
+
+			<li>
+
+				<strong>조회수</strong>
+
+				879
+
+			</li>
+
+		</ul>
+
+	</div>
+
+	
+
+	<div class="bbs_ViewA">
+
+		<div class="bbsV_cont">
+
+			<p><span style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(85, 85, 85); font-family: SCDream; letter-spacing: -0.5px; background-color: rgb(255, 255, 255);">학교 공통행정업무(공무직 급여) 지원에 따른 교육지원청 및 학교 담당자의&nbsp;</span><span style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(85, 85, 85); font-family: SCDream; letter-spacing: -0.5px; background-color: rgb(255, 255, 255);">업무 효율성 강화를 위해 직종별 인건비(급여)와 관련된 사업부서별</span><br style="box-sizing: border-box; color: rgb(85, 85, 85); font-family: SCDream; letter-spacing: -0.5px; background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(85, 85, 85); font-family: SCDream; letter-spacing: -0.5px; background-color: rgb(255, 255, 255);">지침, 운영 계획 등을 공유하고자 붙임과 같이 안내합니다.</span></p>
+
+		</div>
+
+		<div class="bbsV_atchmnfl">
+
+			
+
+			
+
+				<dl>
+
+					<dt><span>첨부파일</span></dt>
+
+					<dd>
+
+						
+
+							<script>
+
+								DEXT5UPLOAD.config.Mode = 'view';
+
+								
+
+								DEXT5UPLOAD.config.ButtonBarView = 'download,download_all';
+
+								
+
+								new Dext5Upload("upload1");
+
+							</script>
+
+						
+
+					</dd>
+
+				</dl>
+
+				<!-- 문서뷰어 (미리보기) -->
+
+				
+
+				<!-- // 문서뷰어 (미리보기) -->
+
+			
+
+		</div>
+
+	</div>
+
+		
+
+	
+
+	
+
+	
+
+	<!-- 버튼 -->
+
+	<div class="btn_st ar mgt20 mgb20">
+
+	
+
+		
+
+	
+
+		
+
+		
+
+	
+
+
+
+	
+
+		
+
+		
+
+			
+
+			
+
+			
+
+		
+
+	
+
+		<a href="javascript:" data-nm="bbsId" data-param="5059" title="목록" class="btn_grL2 btnList">목록</a>
+
+	</div>
+
+	<!-- //버튼 -->
+
+</form>
+
+
+
+
+
+
+
+
+
+<!--게시물 만족도 평가 -->
+
+
+
+
+
+<!--게시물 만족도 평가 이미 했을경우 -->
+
+
+
+
+
+<!-- 다음글 이전글 -->
+
+
+
+	<ul class="bbsV_prne mgb20">
+
+		
+
+		
+
+		<li class="prev"><span>이전글</span>
+
+			<a href="javascript:prevNextNttInfo('1195044');" data-nm="nttSn" data-param="1195044" title="이전글">
+
+				2026년도 경기도교육청 교육공무직원 임금 지급 기준
+
+			</a>
+
+		</li>
+
+		
+
+	</ul>
+
+
+
+<!-- //다음글 이전글 -->
+
+
+
+<!-- 게시물 이동 -->
+
+
+
+<!-- //게시판 이동 -->
+
+									<!-- contents -->
+
+									</div> 
+
+								</div>
+
+									
+
+									<!-- 자료관리자 -->
+
+									
+
+
+
+
+
+								
+
+
+
+									<!--// 자료관리자 -->
+
+							</div>
+
+							<!-- //서브 영역 -->
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- //컨테이너 -->
+
+			<!-- footer -->
+
+			
+
+
+			<!-- 퀵메뉴 -->
+			
+
+
+
+
+
+			<!-- 퀵메뉴 -->
+
+			
+
+			
+
+			<!-- //퀵메뉴 -->
+			
+
+
+
+
+
+
+			<!-- //퀵메뉴 -->
+
+			<footer id="footer">
+				<div class="container">
+					<div class="footBtnWrap">
+						<div class="footBtn">
+							<button type="button" data-idx="1" title="상태 : 축소"><span>교육지원청</span></button>
+							<div id="hmpgGr1">
+								<ul>
+									<li><a href="http://www.goegp.kr" target="_blank" title="새창으로 열기">가평교육지원청</a></li>
+									<li><a href="http://www.goegm.kr" target="_blank" title="새창으로 열기">광명교육지원청</a></li>
+									<li><a href="http://www.goegh.kr" target="_blank" title="새창으로 열기">광주하남교육지원청</a></li>
+									<li><a href="http://www.kengy.go.kr" target="_blank" title="새창으로 열기">고양교육지원청</a></li>
+									<li><a href="http://www.goegn.kr" target="_blank" title="새창으로 열기">구리남양주교육지원청</a></li>
+									<li><a href="https://goegu.kr/index.do" target="_blank" title="새창으로 열기">군포의왕교육지원청</a></li>
+									<li><a href="http://www.gpoe.kr" target="_blank" title="새창으로 열기">김포교육지원청</a></li>
+									<li><a href="http://www.goedy.kr" target="_blank" title="새창으로 열기">동두천양주교육지원청</a></li>
+									<li><a href="https://www.goesn.kr" target="_blank" title="새창으로 열기">성남교육지원청</a></li>
+									<li><a href="http://www.goebc.kr" target="_blank" title="새창으로 열기">부천교육지원청</a></li>
+									<li><a href="http://www.goesw.kr" target="_blank" title="새창으로 열기">수원교육지원청</a></li>
+									<li><a href="http://www.goesh.kr" target="_blank" title="새창으로 열기">시흥교육지원청</a></li>
+									<li><a href="http://www.goeas.kr" target="_blank" title="새창으로 열기">안산교육지원청</a></li>
+									<li><a href="http://www.goean.kr" target="_blank" title="새창으로 열기">안성교육지원청</a></li>
+									<li><a href="http://www.goeay.kr" target="_blank" title="새창으로 열기">안양과천교육지원청</a></li>
+									<li><a href="http://www.goeyp.kr" target="_blank" title="새창으로 열기">양평교육지원청</a></li>
+									<li><a href="http://www.goeyj.kr" target="_blank" title="새창으로 열기">여주교육지원청</a></li>
+									<li><a href="http://www.goeyc.kr" target="_blank" title="새창으로 열기">연천교육지원청</a></li>
+									<li><a href="http://www.goeyi.kr" target="_blank" title="새창으로 열기">교육지원청</a></li>
+									<li><a href="http://www.goeic.kr" target="_blank" title="새창으로 열기">이천교육지원청</a></li>
+									<li><a href="http://www.goeujb.kr" target="_blank" title="새창으로 열기">의정부교육지원청</a></li>
+									<li><a href="http://www.goepj.kr" target="_blank" title="새창으로 열기">파주교육지원청</a></li>
+									<li><a href="http://www.goepc.kr" target="_blank" title="새창으로 열기">포천교육지원청</a></li>
+									<li><a href="http://www.goept.kr" target="_blank" title="새창으로 열기">평택교육지원청</a></li>
+									<li><a href="http://www.goehs.kr" target="_blank" title="새창으로 열기">화성오산교육지원청</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="footBtn">
+							<button type="button" data-idx="2" title="상태 : 축소"><span>유관기관</span></button>
+							<div id="hmpgGr2">
+								<ul>
+									<li><a href="https://www.pyeongtaek.go.kr" target="_blank" title="새창으로 열기">평택시청</a></li>
+									<li><a href="https://119.gg.go.kr/pyeongtaek" target="_blank" title="새창으로 열기">평택소방서</a></li>
+									<li><a href="https://www.ggpolice.go.kr/pt" target="_blank" title="새창으로 열기">평택경찰서</a></li>
+									<li><a href="https://j.nts.go.kr/pyeongtaek/main.do" target="_blank" title="새창으로 열기">평택세무서</a></li>
+									<li><a href="https://www.moe.go.kr/" target="_blank" title="새창으로 열기">교육부</a></li>
+									<li><a href="https://www.kedi.re.kr" target="_blank" title="새창으로 열기">한국교육개발원</a></li>
+									<li><a href="https://www.keris.or.kr" target="_blank" title="새창으로 열기">한국교육학술정보원</a></li>
+									<li><a href="https://www.ebs.co.kr" target="_blank" title="새창으로 열기">EBS</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="footBtn">
+							<button type="button" data-idx="3" title="상태 : 축소"><span>시도교육청</span></button>
+							<div id="hmpgGr3">
+								<ul>
+									<li><a href="http://www.gwe.go.kr" target="_blank" title="새창으로 열기">강원도교육청</a></li>
+									<li><a href="http://www.gen.go.kr" target="_blank" title="새창으로 열기">광주광역시교육청</a></li>
+									<li><a href="http://www.goe.go.kr/" target="_blank" title="새창으로 열기">경기도교육청</a></li>
+									<li><a href="http://www.gne.go.kr" target="_blank" title="새창으로 열기">경상남도교육청</a></li>
+									<li><a href="http://www.gbe.kr/main/main.do" target="_blank" title="새창으로 열기">경상북도교육청</a></li>
+									<li><a href="http://www.dge.go.kr" target="_blank" title="새창으로 열기">대구광역시교육청</a></li>
+									<li><a href="http://www.dje.go.kr" target="_blank" title="새창으로 열기">대전광역시교육청</a></li>
+									<li><a href="http://www.pen.go.kr" target="_blank" title="새창으로 열기">부산광역시교육청</a></li>
+									<li><a href="http://www.sen.go.kr" target="_blank" title="새창으로 열기">서울특별시교육청</a></li>
+									<li><a href="https://www.sje.go.kr/sje/main.do" target="_blank" title="새창으로 열기">세종특별자치시교육청</a></li>
+									<li><a href="http://www.use.go.kr" target="_blank" title="새창으로 열기">울산광역시교육청</a></li>
+									<li><a href="http://www.ice.go.kr" target="_blank" title="새창으로 열기">인청광역시교육청</a></li>
+									<li><a href="http://www.jne.go.kr" target="_blank" title="새창으로 열기">전라남도교육청</a></li>
+									<li><a href="http://www.jbe.go.kr" target="_blank" title="새창으로 열기">전라북도교육청</a></li>
+									<li><a href="http://www.jje.go.kr" target="_blank" title="새창으로 열기">제주특별자치도교육청</a></li>
+									<li><a href="http://www.cne.go.kr" target="_blank" title="새창으로 열기">충청남도교육청</a></li>
+									<li><a href="http://www.cbe.go.kr" target="_blank" title="새창으로 열기">충청북도교육청</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="footBtn">
+							<button type="button" data-idx="4" title="상태 : 축소"><span>직속기관</span></button>
+							<div id="hmpgGr4">
+								<ul>
+									<li><a href="https://www.yulgog.org" target="_blank" title="새창으로 열기">경기도율곡교육연수원</a></li>
+									<li><a href="https://www.gpeti.kr/" target="_blank" title="새창으로 열기">경기도교육청평화교육원</a></li>
+									<li><a href="https://www.gmirae.go.kr" target="_blank" title="새창으로 열기">경기도혁신교육연수원</a></li>
+									<li><a href="https://www.gew.kr/" target="_blank" title="새창으로 열기">경기도교육복지종합센터</a></li>
+									<li><a href="https://www.goeia.go.kr" target="_blank" title="새창으로 열기">경기도교육정보기록원</a></li>
+									<li><a href="https://www.gifle.go.kr/" target="_blank" title="새창으로 열기">경기도언어교육연수원</a></li>
+									<li><a href="https://www.gie.re.kr" target="_blank" title="새창으로 열기">경기도교육연구원</a></li>
+									<li><a href="https://www.gise.kr/" target="_blank" title="새창으로 열기">경기도융합과학교육원</a></li>
+									<li><a href="https://www.goesei.or.kr" target="_blank" title="새창으로 열기">경기도학생교육원</a></li>
+									<li><a href="https://lib.goe.go.kr/lib/index.do" target="_blank" title="새창으로 열기">경기중앙교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/kwa/index.do" target="_blank" title="새창으로 열기">경기도과천교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/gj/index.do" target="_blank" title="새창으로 열기">경기광주교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/gimpo/index.do" target="_blank" title="새창으로 열기">경기김포교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/gn/index.do" target="_blank" title="새창으로 열기">경기여주가남교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/sn/index.do" target="_blank" title="새창으로 열기">경기성남교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/ujb/index.do" target="_blank" title="새창으로 열기">경기의정부교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/pt/index.do" target="_blank" title="새창으로 열기">경기평택교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/pc/index.do" target="_blank" title="새창으로 열기">경기포천교육도서관</a></li>
+									<li><a href="https://lib.goe.go.kr/gglec/index.do" target="_blank" title="새창으로 열기">경기평생교육학습관</a></li>
+									<li><a href="https://lib.goe.go.kr/hs/index.do" target="_blank" title="새창으로 열기">경기화성교육도서관</a></li>
+									<li><a href="http://www.goe416.go.kr/" target="_blank" title="새창으로 열기">4.16민주시민교육원</a></li>
+									<li><a href="https://www.kench.or.kr" target="_blank" title="새창으로 열기">경기도유아체험교육원</a></li>
+									<li><a href="https://www.gtie.go.kr" target="_blank" title="새창으로 열기">경기도교육연수원</a></li>
+									<li><a href="https://www.goese.kr" target="_blank" title="새창으로 열기">경기도교육청 안전교육관</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+		
+					<div class="f_info">
+						<div class="footer_link">
+						<!--LPM_START-->
+						
+						<ul>
+							<li><a href="https://www.goegh.kr/goegh/cm/cntnts/cntntsView.do?mi=8800&amp;cntntsId=1572" ><strong>개인정보처리방침</strong></a></li>
+							<li><a href="/goegh/iv/indvdlView/selectCpyrhtView.do" >저작권정책</a></li>
+							<li><a href="https://www.goegh.kr/goegh/cm/cntnts/cntntsView.do?mi=8801&amp;cntntsId=1545" >영상정보처리기기운영방침</a></li>
+						</ul>
+						<!--LPM_END-->
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+						<address class="address">
+							
+								<span>
+									우))12739 경기도 광주시 광주대로 178
+								</span>
+							
+							<span>
+								
+									Tel : 031)760-4000(평일:09:00~18:00) / 고교입학배정문의 : 경기에듀콜센터(031-1396)&nbsp;&nbsp;|&nbsp;&nbsp;
+								
+								
+									Fax : 031)280-7288 / 당직실  031)760-4099(평일 야간 및 휴일)&nbsp;&nbsp;
+								
+								
+							</span>
+                        </address>
+					
+					
+					<div class="visitant">
+						<h2>방문자 통계</h2>
+						<ul>
+							<li class="today"><strong>Today</strong>0명</li>
+							<li class="total"><strong>Total</strong>0명</li>
+						</ul>
+					</div>
+					
+					<!-- 구글 번역 스크립트 -->
+					<script>
+					function googleTranslateElementInit() {
+						  new google.translate.TranslateElement({pageLanguage: 'ko', includedLanguages: 'de,en,et,fi,hr,id,it,ja,kk,km,ko,mn,si,th,tl,uz,vi,zh-CN,zh-TW,es,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+						}
+					</script>
+					<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+					<!-- //구글 번역 스크립트 -->
+					
+					<!-- 구글 번역 코드 -->
+					<div class="gbSchlTrans">
+						<div id="google_translate_element"></div>
+					</div>
+					<!-- //구글 번역 코드 -->
+					<!-- 웹접근성 마크 -->
+					<div class="wa_mark">
+						<img src="/images/web/goegh/main/WA_Mark.png" alt="과학기술정보통신부 WA(WEB접근성) 품질인증 마크, 웹와치(WebWatch) 2026.03.16 ~ 2027.03.15 ">
+					</div>
+					<!-- //웹접근성 마크 -->
+					
+					
+					
+					
+						<p class="copyright">Copyright © Gyeonggido Gwangju HanamOffice of Education, All Right Reserved.</p>
+					
+					<a href="#" class="btn_top"><span class="hid">상단으로 이동</span></a>
+				</div>
+			</footer>
+			
+<script>
+	$(document).ready(function(){
+		var sysId = "goegh";
+		
+		$.ajax({
+			type : "post",
+			dataType : "json",
+			url : "/" + sysId + "/st/visit/selectVisitTodayToal.do",
+			data : {
+				sysId : sysId
+			},
+			success : function(result){
+				var todayLi = "<strong>Today</strong>" + result.todayCount + "명";
+				var totalLi = "<strong>Total</strong>" + result.totalCount + "명";
+				
+				$(".visitant > ul > .today").html(todayLi);
+				$(".visitant > ul > .total").html(totalLi);
+			},
+			error:function(data){
+				console.log("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+			}
+		});
+	});
+	
+	$(document).ready(function(){
+		$.ajax({
+			type : "POST",
+			url : '/goegh/co/ma/selectUpperCtgryListAjax.do',
+			dataType : "json",
+			success : function(data){
+				for ( i = 0; i < data.length ; i++ ){
+					var ctgrySeq = data[i].ctgrySeq;
+					var title = data[i].title;
+					
+					//타이틀 집어넣기
+					var idx = i+1;
+					var linkBtn = $("button[data-idx="+idx+"]");
+					var titleHtml = "<span>"+title+"</span>"
+					linkBtn.html(titleHtml);
+					
+					//2차 메뉴 그리기
+					footerLink(ctgrySeq,idx);
+				}
+			},
+			error : function(data){
+				console.log("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+			}			
+		});
+	});
+
+	function footerLink(ctgrySeq,dataId) {
+		$.ajax({
+			type : "POST",
+			url : '/goegh/co/ma/selectLowerCtgryListAjax.do',
+			data : {
+				upperCtgrySeq : ctgrySeq
+			},
+			dataType : "json",
+			success : function(data){
+				var dataLength = data.length;
+				var drawHmpg = $("#hmpgGr"+dataId);
+				/* var drawHmpg = document.getElementById("hmpgGr"+dataId); */
+				var innerTxtHmpg  = '<ul>';
+				
+				for (var i = 0; i < dataLength; i++) {
+					var link = data[i].link;
+					var newWinAt = data[i].newWinAt;
+					var title = data[i].title;
+					innerTxtHmpg += '<li><a href="'+link+'"';
+					if(newWinAt == 'Y'){
+						innerTxtHmpg += 'target="_blank" title="새창으로 열기"';
+					}
+					innerTxtHmpg += '>'+title+'</a></li>';
+				}
+				innerTxtHmpg += '</ul>';
+				
+				drawHmpg.html(innerTxtHmpg);
+				/* drawHmpg.innerHTML = innerTxtHmpg; */
+			},
+			error : function(data){
+				console.log("오류가 발생하였습니다.\n관리자에게 문의하세요.");
+			}			
+		});
+	}
+</script>
+
+
+
+
+			<!-- // footer -->
+
+		</div>
+
+        <script  src="/js/common-scroll.js"></script>
+
+        <script  src="/js/common.js"></script>
+
+        <!-- 교육지원청 별도 jsp 호출 -->
+
+        
+
+
+
+
+
+<script>
+
+	function kakaoMapApiView(latitudeS, logitudeS, mapId, mapLevel){
+
+		var latitude = latitudeS;
+
+		var longitude = logitudeS;
+
+		
+
+		var mapContainer = document.getElementById("" + mapId + ""),
+
+		mapOption = {center: new daum.maps.LatLng(latitude, longitude),level: mapLevel};
+
+		
+
+		var map = new daum.maps.Map(mapContainer, mapOption);
+
+		var markerPosition= new daum.maps.LatLng(latitude, longitude);
+
+		var marker = new daum.maps.Marker({position: markerPosition});
+
+		
+
+		marker.setMap(map);
+
+	}
+
+
+
+	$(document).ready(function(){
+
+		
+
+	});
+
+
+
+</script>
+
+        <!-- // 교육지원청 별도 jsp 호출 -->
+
+		<!-- menuForm -->
+
+        
+
+
+
+
+
+<!--공통 메뉴 Form -->
+
+<form name="mainMenuForm" id="mainMenuForm" method="post">
+
+	<input type="hidden" name="mi" id="nowMenuId" value="8710" >
+
+	<input type="hidden" name="paramNm" id="paramNm" value="">
+
+	<input type="hidden" name="paramVal" id="paramVal" value="">
+
+</form>
+
+<!--/공통 메뉴 Form -->
+
+	
+
+<script>
+
+$(function() {
+
+	
+
+	//공통 submit
+
+	$(".menuFormBtn").click(function(){
+
+		var paramVal = $(this).attr('data-param'); 
+
+		var paramNm = $(this).attr('data-nm');
+
+		var paramUrl = $(this).attr('data-url');
+
+		$("#paramVal").val(paramVal);
+
+		$("#paramNm").val(paramNm);
+
+		setTrimMenuId();
+
+		$("#mainMenuForm").attr('action', paramUrl).submit();
+
+	});
+
+	
+
+});
+
+
+
+//파라미터 페이지 이동 
+
+function goParamPage( setVal, setNm, setUrl ) {
+
+	$("#paramNm").val(setNm);
+
+	$("#paramVal").val(setVal);
+
+	setTrimMenuId();
+
+	$("#mainMenuForm").attr('action', setUrl).submit();
+
+};
+
+
+
+//메뉴 아이디 공백제거
+
+function setTrimMenuId(){
+
+	var nowMenuId = $.trim($("#nowMenuId").val());
+
+	$("nowMenuId").val(nowMenuId);
+
+};
+
+</script>
+
+	
+
+	 
+
+	
+
+	
+
+
+
+	
+
+        <!-- /menuForm -->
+
+	</body>
+
+</html>
+
+
+
+
+
+
+
+
+
