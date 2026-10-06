@@ -1905,30 +1905,34 @@ export const guides: Record<string, Guide> = {
                     download: "[서식02] 4대보험 기관·개인 부담금 산출 서식(2026).xlsx",
                     kind: "xls",
                   },
-                  {
-                    name: "확정기여형(DC) 퇴직금 산출 내역서",
-                    file: "w011.xlsx",
-                    download: "[서식03] 확정기여형(DC) 퇴직금 산출 내역서.xlsx",
-                    kind: "xls",
-                  },
-                  {
-                    name: "급식조리원 확정급여형(DB) 퇴직금 계산기",
-                    file: "w012.xlsx",
-                    download: "[서식04] 급식조리원 확정급여형(DB) 퇴직금 계산기.xlsx",
-                    kind: "xls",
-                  },
-                  {
-                    name: "시설당직원 연차휴가 및 미사용수당 계산기",
-                    file: "w013.xlsx",
-                    download: "[서식05] 시설당직원 연차휴가 및 미사용수당 계산기.xlsx",
-                    kind: "xls",
-                  },
-                  {
-                    name: "기간제교사 퇴직금 계산 양식",
-                    file: "w018.xlsx",
-                    download: "[참고] 기간제교사 퇴직금 계산 양식.xlsx",
-                    kind: "xls",
-                  },
+              ],
+            },
+          ],
+        },
+        {
+          title: "4대보험 신고서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                { name: "국민건강보험공단 직장가입자 근무처·근무내역 변경 신고서", file: "w025.hwpx", download: "04-03-06 국민건강보험공단 직장가입자 근무처, 근무내역 변경 신고서.hwpx", kind: "hwp" },
+                { name: "국민연금 분리적용 사업장가입자 전입신고서", file: "w026.hwpx", download: "04-03-07 국민연금 분리적용 사업장가입자 전입신고서.hwpx", kind: "hwp" },
+                { name: "고용산재보험 전근신고서", file: "w027.hwpx", download: "04-03-08 고용산재보험 전근신고서.hwpx", kind: "hwp" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "연차·퇴직금 관리서식",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                { name: "연차유급휴가 관리대장", file: "w041.xlsx", download: "연차유급휴가 관리대장.xlsx", kind: "xls" },
+                { name: "교육공무직원 퇴직적립금 지급 기안", file: "w044.hwpx", download: "교육공무직원 퇴직적립금 지급 기안.hwpx", kind: "hwp" },
+                { name: "퇴직금 대장 관리", file: "w045.hwpx", download: "퇴직금 대장 관리.hwpx", kind: "hwp" },
               ],
             },
           ],
@@ -1984,6 +1988,41 @@ export const guides: Record<string, Guide> = {
                     download: "신규자_권한신청_방법_연수자료.hwp",
                     kind: "hwp",
                   },
+              ],
+            },
+          ],
+        },
+        {
+          title: "근속·통상임금·연차·퇴직금 법적근거",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                { name: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서", file: "w028.hwpx", download: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서.hwpx", kind: "hwp" },
+                { name: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼", file: "w029.pdf", download: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf", kind: "pdf" },
+                { name: "2026년도 경기도교육청 교육공무직원 임금 지급기준", file: "w030.hwp", download: "2026년도 경기도교육청 교육공무직원 임금 지급기준.hwp", kind: "hwp" },
+                { name: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행)", file: "w031.hwpx", download: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행).hwpx", kind: "hwp" },
+                { name: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행)", file: "w032.hwp", download: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행).hwp", kind: "hwp" },
+                { name: "근로기준법(법률)(제21373호)(20260820)", file: "w033.pdf", download: "근로기준법(법률)(제21373호)(20260820).pdf", kind: "pdf" },
+                { name: "2026년 경기도교육청 시설당직원(특수운영직군) 운영 계획", file: "w034.hwp", download: "2026년 경기도교육청 시설당직원(특수운영직군) 운영 계획.hwp", kind: "hwp" },
+                { name: "경기도안성교육지원청 교육과_통상임금 노사지도 지침에 따른 계약제교원 퇴직금 산정 방법 안내", file: "w035.pdf", download: "경기도안성교육지원청 교육과_통상임금 노사지도 지침에 따른 계약제교원 퇴직금 산정 방법 안내.pdf", kind: "pdf" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "4대보험 관련 법령",
+          blocks: [
+            {
+              type: "files",
+              dir: "salary-worker",
+              items: [
+                { name: "고용보험 및 산재보험법 제13조", file: "w019.pdf", download: "고용보험 및 산재보험-제 13조.pdf", kind: "pdf" },
+                { name: "국민건강보험법 제76·77조", file: "w020.pdf", download: "국민건강보험법-제 76 및 77조 법령.pdf", kind: "pdf" },
+                { name: "국민건강보험법", file: "w021.pdf", download: "국민건강보험법.pdf", kind: "pdf" },
+                { name: "국민연금법 제88조", file: "w022.pdf", download: "국민연금법-제 88조 법령.pdf", kind: "pdf" },
+                { name: "국민연금법", file: "w023.pdf", download: "국민연금법.pdf", kind: "pdf" },
               ],
             },
           ],
@@ -2072,22 +2111,6 @@ export const guides: Record<string, Guide> = {
               ],
             },
             {
-              title: "4대 보험 공제 관련 법령 및 근거",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "고용보험 및 산재보험법 제13조", file: "w019.pdf", download: "고용보험 및 산재보험-제 13조.pdf", kind: "pdf" },
-                    { name: "국민건강보험법 제76·77조", file: "w020.pdf", download: "국민건강보험법-제 76 및 77조 법령.pdf", kind: "pdf" },
-                    { name: "국민건강보험법", file: "w021.pdf", download: "국민건강보험법.pdf", kind: "pdf" },
-                    { name: "국민연금법 제88조", file: "w022.pdf", download: "국민연금법-제 88조 법령.pdf", kind: "pdf" },
-                    { name: "국민연금법", file: "w023.pdf", download: "국민연금법.pdf", kind: "pdf" },
-                  ],
-                },
-              ],
-            },
-            {
               title: "4대 보험 계산기 양식",
               blocks: [
                 {
@@ -2099,20 +2122,6 @@ export const guides: Record<string, Guide> = {
                 },
               ],
             },
-            {
-              title: "서식",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "국민건강보험공단 직장가입자 근무처·근무내역 변경 신고서", file: "w025.hwpx", download: "04-03-06 국민건강보험공단 직장가입자 근무처, 근무내역 변경 신고서.hwpx", kind: "hwp" },
-                    { name: "국민연금 분리적용 사업장가입자 전입신고서", file: "w026.hwpx", download: "04-03-07 국민연금 분리적용 사업장가입자 전입신고서.hwpx", kind: "hwp" },
-                    { name: "고용산재보험 전근신고서", file: "w027.hwpx", download: "04-03-08 고용산재보험 전근신고서.hwpx", kind: "hwp" },
-                  ],
-                },
-              ],
-            },
           ],
         },
         {
@@ -2120,23 +2129,6 @@ export const guides: Record<string, Guide> = {
           label: "근속재산정",
           docKey: "salary-worker-tenure",
           sections: [
-            {
-              title: "법적근거",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서", file: "w028.hwpx", download: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서.hwpx", kind: "hwp" },
-                    { name: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼", file: "w029.pdf", download: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf", kind: "pdf" },
-                    { name: "2026년도 경기도교육청 교육공무직원 임금 지급기준", file: "w030.hwp", download: "2026년도 경기도교육청 교육공무직원 임금 지급기준.hwp", kind: "hwp" },
-                    { name: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행)", file: "w031.hwpx", download: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행).hwpx", kind: "hwp" },
-                    { name: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행)", file: "w032.hwp", download: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행).hwp", kind: "hwp" },
-                    { name: "근로기준법(법률)(제21373호)(20260820)", file: "w033.pdf", download: "근로기준법(법률)(제21373호)(20260820).pdf", kind: "pdf" },
-                  ],
-                },
-              ],
-            },
             {
               title: "계산식",
               blocks: [
@@ -2158,23 +2150,6 @@ export const guides: Record<string, Guide> = {
           docKey: "salary-worker-ordwage",
           sections: [
             {
-              title: "법적근거",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서", file: "w028.hwpx", download: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서.hwpx", kind: "hwp" },
-                    { name: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼", file: "w029.pdf", download: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf", kind: "pdf" },
-                    { name: "2026년도 경기도교육청 교육공무직원 임금 지급기준", file: "w030.hwp", download: "2026년도 경기도교육청 교육공무직원 임금 지급기준.hwp", kind: "hwp" },
-                    { name: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행)", file: "w031.hwpx", download: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행).hwpx", kind: "hwp" },
-                    { name: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행)", file: "w032.hwp", download: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행).hwp", kind: "hwp" },
-                    { name: "근로기준법(법률)(제21373호)(20260820)", file: "w033.pdf", download: "근로기준법(법률)(제21373호)(20260820).pdf", kind: "pdf" },
-                  ],
-                },
-              ],
-            },
-            {
               title: "계산식",
               blocks: [
                 {
@@ -2195,24 +2170,6 @@ export const guides: Record<string, Guide> = {
           docKey: "salary-worker-annualpay",
           sections: [
             {
-              title: "법적근거",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서", file: "w028.hwpx", download: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서.hwpx", kind: "hwp" },
-                    { name: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼", file: "w029.pdf", download: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf", kind: "pdf" },
-                    { name: "2026년 경기도교육청 시설당직원(특수운영직군) 운영 계획", file: "w034.hwp", download: "2026년 경기도교육청 시설당직원(특수운영직군) 운영 계획.hwp", kind: "hwp" },
-                    { name: "2026년도 경기도교육청 교육공무직원 임금 지급기준", file: "w030.hwp", download: "2026년도 경기도교육청 교육공무직원 임금 지급기준.hwp", kind: "hwp" },
-                    { name: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행)", file: "w031.hwpx", download: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행).hwpx", kind: "hwp" },
-                    { name: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행)", file: "w032.hwp", download: "경기도교육청 특수운영직군 취업규칙(2025.11.1.시행).hwp", kind: "hwp" },
-                    { name: "근로기준법(법률)(제21373호)(20260820)", file: "w033.pdf", download: "근로기준법(법률)(제21373호)(20260820).pdf", kind: "pdf" },
-                  ],
-                },
-              ],
-            },
-            {
               title: "계산식",
               blocks: [
                 {
@@ -2225,18 +2182,6 @@ export const guides: Record<string, Guide> = {
                 },
               ],
             },
-            {
-              title: "서식",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "연차유급휴가 관리대장", file: "w041.xlsx", download: "연차유급휴가 관리대장.xlsx", kind: "xls" },
-                  ],
-                },
-              ],
-            },
           ],
         },
         {
@@ -2244,24 +2189,6 @@ export const guides: Record<string, Guide> = {
           label: "퇴직금",
           docKey: "salary-worker-retire",
           sections: [
-            {
-              title: "법적근거",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서", file: "w028.hwpx", download: "2025년 경기도교육청-전국학교비정규직연대회의 단체협약서.hwpx", kind: "hwp" },
-                    { name: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼", file: "w029.pdf", download: "2026년 경기도교육청 교육공무직원 급여 업무 매뉴얼.pdf", kind: "pdf" },
-                    { name: "2026년 경기도교육청 시설당직원(특수운영직군) 운영 계획", file: "w034.hwp", download: "2026년 경기도교육청 시설당직원(특수운영직군) 운영 계획.hwp", kind: "hwp" },
-                    { name: "2026년도 경기도교육청 교육공무직원 임금 지급기준", file: "w030.hwp", download: "2026년도 경기도교육청 교육공무직원 임금 지급기준.hwp", kind: "hwp" },
-                    { name: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행)", file: "w031.hwpx", download: "경기도교육청 교육공무직원 취업규칙(2025.11.1.시행).hwpx", kind: "hwp" },
-                    { name: "경기도안성교육지원청 교육과_통상임금 노사지도 지침에 따른 계약제교원 퇴직금 산정 방법 안내", file: "w035.pdf", download: "경기도안성교육지원청 교육과_통상임금 노사지도 지침에 따른 계약제교원 퇴직금 산정 방법 안내.pdf", kind: "pdf" },
-                    { name: "근로기준법(법률)(제21373호)(20260820)", file: "w033.pdf", download: "근로기준법(법률)(제21373호)(20260820).pdf", kind: "pdf" },
-                  ],
-                },
-              ],
-            },
             {
               title: "계산식",
               blocks: [
@@ -2274,19 +2201,6 @@ export const guides: Record<string, Guide> = {
                     { name: "기간제교사 퇴직금 계산 양식", file: "w018.xlsx", download: "기간제교사 퇴직금 계산 양식.xlsx", kind: "xls" },
                     { name: "퇴직금 계산기_교육공무직원", file: "w043.xlsx", download: "퇴직금 계산기_교육공무직원.xlsx", kind: "xls" },
                     { name: "확정기여형(DC) 퇴직금 산출 내역서", file: "w011.xlsx", download: "확정기여형(DC) 퇴직금 산출 내역서.xlsx", kind: "xls" },
-                  ],
-                },
-              ],
-            },
-            {
-              title: "서식",
-              blocks: [
-                {
-                  type: "files",
-                  dir: "salary-worker",
-                  items: [
-                    { name: "교육공무직원 퇴직적립금 지급 기안", file: "w044.hwpx", download: "교육공무직원 퇴직적립금 지급 기안.hwpx", kind: "hwp" },
-                    { name: "퇴직금 대장 관리", file: "w045.hwpx", download: "퇴직금 대장 관리.hwpx", kind: "hwp" },
                   ],
                 },
               ],
