@@ -118,7 +118,7 @@ function FileLink({
   href: string;
   download: string;
   name: string;
-  kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img";
+  kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img" | "odt";
 }) {
   return (
     <li>
@@ -150,7 +150,7 @@ function FilesBlock({
     name: string;
     file: string;
     download: string;
-    kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img";
+    kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img" | "odt";
   }[];
 }) {
   const base = `${import.meta.env.BASE_URL}docs/${dir ?? "expense"}/`;
@@ -164,6 +164,28 @@ function FilesBlock({
           name={f.name}
           kind={f.kind}
         />
+      ))}
+    </ul>
+  );
+}
+
+function LinksBlock({ items }: { items: { label: string; url: string }[] }) {
+  return (
+    <ul className="g-links">
+      {items.map((l, i) => (
+        <li key={i}>
+          <a
+            className="g-link"
+            href={l.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="g-link-label">{l.label}</span>
+            <span className="g-link-open" aria-hidden>
+              ↗
+            </span>
+          </a>
+        </li>
       ))}
     </ul>
   );
@@ -193,6 +215,8 @@ function BlockView({ block }: { block: Block }) {
       return <QaBlock items={block.items} />;
     case "files":
       return <FilesBlock dir={block.dir} items={block.items} />;
+    case "links":
+      return <LinksBlock items={block.items} />;
     case "note":
       return (
         <div className="g-callout">

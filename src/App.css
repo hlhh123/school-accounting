@@ -800,6 +800,47 @@ a {
   background: #6b7280;
 }
 
+.g-file-odt {
+  background: #7c9c3f;
+}
+
+/* 외부 사이트 링크 목록 */
+.g-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.g-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #2d6cdf;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.g-link:hover {
+  border-color: #c9d6ea;
+  background: #f7f9fc;
+}
+
+.g-link-open {
+  color: #999999;
+}
+
 /* 자유게시판 */
 .board {
   padding: 40px 0 80px;
