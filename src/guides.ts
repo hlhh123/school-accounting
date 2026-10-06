@@ -1344,7 +1344,7 @@ export const guides: Record<string, Guide> = {
 
   // 공무원급여 (지방공무원·교육공무원) — 서식 / 매뉴얼 / 계산기
   "salary-official": {
-    intro: "공무원 급여·수당 관련 서식과 매뉴얼입니다. 계산기는 준비 중입니다.",
+    intro: "공무원 급여·수당 관련 서식과 매뉴얼입니다.",
     sections: [],
     tabs: tabbed("salary-official", {
       forms: [
@@ -1872,14 +1872,13 @@ export const guides: Record<string, Guide> = {
           ],
         },
       ],
-      calculator: true,
       qna: true,
     }),
   },
 
   // 공무직급여 (교육공무직원) — 서식 / 매뉴얼 / 계산기
   "salary-worker": {
-    intro: "공무직 급여·수당 관련 서식과 매뉴얼입니다. 계산기는 준비 중입니다.",
+    intro: "공무직 급여·수당 관련 서식과 매뉴얼입니다.",
     sections: [],
     tabs: tabbed("salary-worker", {
       forms: [
@@ -2027,7 +2026,6 @@ export const guides: Record<string, Guide> = {
           ],
         },
       ],
-      calculator: true,
       qna: true,
     }),
   },
