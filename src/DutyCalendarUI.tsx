@@ -343,8 +343,8 @@ export function DutyCalendarCard() {
   };
 
   return (
-    <div className="dash-cal">
-      <div className="dash-cal-nav">
+    <div className="portal-cal">
+      <div className="portal-cal-nav">
         <button type="button" aria-label="이전 달" onClick={(e) => step(e, -1)}>
           ‹
         </button>
@@ -365,10 +365,10 @@ export function DutyCalendarCard() {
         onDaySelect={setPicked}
       />
 
-      <p className="dash-cal-day">
+      <p className="portal-cal-day">
         {day != null ? `${month}월 ${day}일 일정` : "날짜를 선택하세요"}
       </p>
-      <ul className="dash-cal-tasks">
+      <ul className="portal-cal-tasks">
         {dayTasks.length ? (
           dayTasks.map((t, i) => (
             <li key={i}>
@@ -376,7 +376,7 @@ export function DutyCalendarCard() {
             </li>
           ))
         ) : (
-          <li className="dash-cal-empty">
+          <li className="portal-cal-empty">
             {day != null
               ? "이 날은 등록된 일정이 없습니다."
               : "달력에서 날짜를 눌러 주세요."}
