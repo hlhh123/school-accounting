@@ -4635,7 +4635,15 @@ a {
 }
 .portal-hero {
   position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  align-items: start;
   margin-bottom: 40px;
+  text-align: left;
+}
+.portal-hero-main {
+  text-align: left;
 }
 .portal-hero h1 {
   font-size: clamp(29px, 3vw, 43px);
@@ -4643,6 +4651,7 @@ a {
   letter-spacing: -1.7px;
   margin: 0;
   font-weight: 800;
+  text-align: left;
 }
 .portal-hero h1 em {
   font-style: normal;
@@ -4653,6 +4662,154 @@ a {
   line-height: 1.8;
   color: var(--sub);
   margin: 17px 0 26px;
+  text-align: left;
+}
+
+/* 히어로 우측 1/3 — 직무달력 */
+.portal-hero-cal {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 20px 16px;
+  box-shadow: var(--shadow);
+}
+.portal-hero-cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.portal-hero-cal-head h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+}
+.portal-hero-cal-head button {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.portal-hero-cal-head button:hover {
+  color: var(--blue);
+}
+
+/* 직무달력 카드 내부 (DutyCalendarCard, MonthCalendar 라이트 오버라이드) */
+.portal-cal {
+  display: flex;
+  flex-direction: column;
+}
+.portal-cal-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.portal-cal-nav strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--sub);
+}
+.portal-cal-nav button {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--sub);
+  font-size: 15px;
+  line-height: 1;
+}
+.portal-cal-nav button:hover {
+  border-color: var(--blue);
+  color: var(--ink);
+}
+.portal-cal .cal-grid {
+  gap: 2px;
+}
+.portal-cal .cal-dow {
+  margin-bottom: 2px;
+}
+.portal-cal .cal-dow span {
+  color: var(--muted);
+  padding: 2px 0;
+}
+.portal-cal .cal-day {
+  color: var(--sub);
+  aspect-ratio: auto;
+  min-height: 0;
+  padding: 4px 0;
+  border-radius: 7px;
+}
+.portal-cal .cal-day.cal-sun,
+.portal-cal .cal-dow .cal-sun {
+  color: #e2516f;
+}
+.portal-cal .cal-day.has-task {
+  color: var(--ink);
+}
+.portal-cal .cal-day.has-task::after {
+  background: var(--blue);
+  bottom: 2px;
+}
+.portal-cal .cal-day.is-today {
+  background: var(--blue);
+  color: #ffffff;
+}
+.portal-cal .cal-day.is-today.has-task::after {
+  background: #ffffff;
+}
+.portal-cal .cal-day:not(.is-today):hover {
+  box-shadow: inset 0 0 0 1.5px var(--blue);
+}
+.portal-cal .cal-day.is-clickable {
+  cursor: pointer;
+}
+.portal-cal .cal-day.is-selected:not(.is-today) {
+  box-shadow: inset 0 0 0 1.5px var(--blue);
+  color: var(--ink);
+}
+.portal-cal-day {
+  margin: 8px 0 6px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border);
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.portal-cal-tasks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: 90px;
+  overflow-y: auto;
+}
+.portal-cal-tasks li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+.portal-cal-tasks .d {
+  flex: 0 0 auto;
+  color: var(--blue);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.portal-cal-tasks .t {
+  color: var(--sub);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.portal-cal-empty {
+  color: var(--muted);
+  font-size: 12.5px;
 }
 .portal-searchwrap {
   display: flex;
@@ -5117,6 +5274,9 @@ a {
   .portal-workgrid,
   .portal-commongrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .portal-hero {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 740px) {

@@ -18,7 +18,7 @@ import {
   createRestaurant,
   type MatjibKind,
 } from "./lib/matjib";
-import { DutyCalendarView } from "./DutyCalendarUI";
+import { DutyCalendarCard, DutyCalendarView } from "./DutyCalendarUI";
 import GuideView from "./GuideView";
 import BoardView from "./BoardView";
 import { guides } from "./guides";
@@ -1214,32 +1214,49 @@ function DashboardHome() {
 
           <main className="portal-content">
             <div className="portal-hero">
-              <p className="portal-eyebrow">안성 행정업무+ &nbsp;/&nbsp; WORK GUIDE</p>
-              <h1>
-                복잡한 행정업무,
-                <br />
-                <em>찾기는 간단하게.</em>
-              </h1>
-              <p>
-                업무와 행정공통분야의 필요한 자료를
-                <br />한눈에 확인하고 빠르게 찾아보세요.
-              </p>
-              <label className="portal-searchwrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m16 16 5 5" />
-                </svg>
-                <input
-                  ref={searchRef}
-                  type="text"
-                  placeholder="어떤 업무를 찾으시나요? 예: 지출, 복무, 기록물관리"
-                  autoComplete="off"
-                  aria-label="메뉴 검색"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-                <span className="portal-key">Ctrl K</span>
-              </label>
+              <div className="portal-hero-main">
+                <p className="portal-eyebrow">안성 행정업무+ &nbsp;/&nbsp; WORK GUIDE</p>
+                <h1>
+                  복잡한 행정업무,
+                  <br />
+                  <em>찾기는 간단하게.</em>
+                </h1>
+                <p>
+                  업무와 행정공통분야의 필요한 자료를
+                  <br />한눈에 확인하고 빠르게 찾아보세요.
+                </p>
+                <label className="portal-searchwrap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m16 16 5 5" />
+                  </svg>
+                  <input
+                    ref={searchRef}
+                    type="text"
+                    placeholder="어떤 업무를 찾으시나요? 예: 지출, 복무, 기록물관리"
+                    autoComplete="off"
+                    aria-label="메뉴 검색"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                  <span className="portal-key">Ctrl K</span>
+                </label>
+              </div>
+
+              <div className="portal-hero-cal">
+                <div className="portal-hero-cal-head">
+                  <h2>직무달력</h2>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      window.location.hash = "#/calendar";
+                    }}
+                  >
+                    전체 보기 ›
+                  </button>
+                </div>
+                <DutyCalendarCard />
+              </div>
             </div>
 
             <nav className="portal-filterbar" aria-label="업무 구분">
