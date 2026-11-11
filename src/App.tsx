@@ -1047,6 +1047,44 @@ function DashboardHome() {
   const [query, setQuery] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
 
+  // 실시간 질문방 — 마지막으로 열어본 뒤 쌓인 메시지 수를 "+N" 배지로 표시
+  const [chatTotal, setChatTotal] = useState(0);
+  const [chatSeen, setChatSeen] = useState<number>(() => {
+    const saved =
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem("chat-seen-count")
+        : null;
+    return saved ? parseInt(saved, 10) || 0 : 0;
+  });
+  const chatUnread = Math.max(0, chatTotal - chatSeen);
+
+  useEffect(() => {
+    let alive = true;
+    fetchMessages()
+      .then((m) => {
+        if (alive) setChatTotal(m.length);
+      })
+      .catch(() => {});
+    const unsub = subscribeMessages(
+      () => setChatTotal((c) => c + 1),
+      () => setChatTotal((c) => Math.max(0, c - 1)),
+    );
+    return () => {
+      alive = false;
+      unsub();
+    };
+  }, []);
+
+  const openChat = () => {
+    setShowChat(true);
+    setChatSeen(chatTotal);
+    try {
+      localStorage.setItem("chat-seen-count", String(chatTotal));
+    } catch {
+      /* 저장 불가 환경 무시 */
+    }
+  };
+
   // 대시보드에서는 #root의 1126px 둥근 틀을 풀어 화면 전체를 채운다.
   useEffect(() => {
     const root = document.getElementById("root");
@@ -1336,11 +1374,7 @@ function DashboardHome() {
 
         {/* 우측 사이드바: 질문방 · 생활정보 · 기관 바로가기 */}
         <aside className="portal-rightbar">
-          <button
-            type="button"
-            className="portal-rb-chat"
-            onClick={() => setShowChat(true)}
-          >
+          <button type="button" className="portal-rb-chat" onClick={openChat}>
             <span className="portal-smallglyph">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M21 11.5a8.4 8.4 0 01-8.4 8.4 8.3 8.3 0 01-4-1L3 20l1.1-3.3a8.3 8.3 0 01-1-4A8.4 8.4 0 0111.5 4a8.4 8.4 0 019.5 7.5z" />
@@ -1348,7 +1382,12 @@ function DashboardHome() {
               <span className="portal-rb-livedot" />
             </span>
             <span>
-              <strong>실시간 질문방</strong>
+              <strong>
+                실시간 질문방
+                {chatUnread > 0 && (
+                  <span className="portal-rb-badge">+{chatUnread}</span>
+                )}
+              </strong>
               <small>지금 바로 질문하고 답해보세요</small>
             </span>
           </button>
@@ -1386,18 +1425,34 @@ function DashboardHome() {
         </aside>
       </div>
 
-      <a
-        className="portal-fab"
-        href="https://gdp.goe.go.kr/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-          <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z" />
-          <path d="M12 12v9M12 12L3 7.5M12 12l9-4.5" />
-        </svg>
-        G-ONE AI 업무도우미
-      </a>
+      <div className="portal-fab-stack">
+        <a
+          className="portal-fab is-gai"
+          href="https://gaihub.net/programs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <rect x="3" y="3" width="8" height="8" rx="2" />
+            <rect x="13" y="3" width="8" height="8" rx="2" />
+            <rect x="3" y="13" width="8" height="8" rx="2" />
+            <rect x="13" y="13" width="8" height="8" rx="2" />
+          </svg>
+          GAI 업무 효율화 프로그램 모음
+        </a>
+        <a
+          className="portal-fab is-gone"
+          href="https://gdp.goe.go.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+            <path d="M12 12v9M12 12L3 7.5M12 12l9-4.5" />
+          </svg>
+          G-ONE AI 업무도우미
+        </a>
+      </div>
 
       {showNotices && <NoticesModal onClose={() => setShowNotices(false)} />}
       {showChat && (
