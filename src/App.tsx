@@ -18,7 +18,7 @@ import {
   createRestaurant,
   type MatjibKind,
 } from "./lib/matjib";
-import { DutyCalendarCard, DutyCalendarView } from "./DutyCalendarUI";
+import { DutyCalendarView } from "./DutyCalendarUI";
 import GuideView from "./GuideView";
 import BoardView from "./BoardView";
 import { guides } from "./guides";
@@ -522,7 +522,7 @@ function MatjibView() {
   );
 }
 
-// 공지사항 모달 (대시보드 사이드바 버튼으로 열림, 어두운 테마)
+// 공지사항 모달 (상단바 종 아이콘으로 열림)
 function NoticesModal({ onClose }: { onClose: () => void }) {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -537,7 +537,7 @@ function NoticesModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="dash-modal-overlay"
+      className="portal-overlay"
       role="button"
       tabIndex={0}
       aria-label="닫기"
@@ -547,46 +547,48 @@ function NoticesModal({ onClose }: { onClose: () => void }) {
       }}
     >
       <div
-        className="dash-modal"
+        className="portal-modal"
         role="dialog"
         aria-modal="true"
         aria-label="공지사항"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="dash-modal-head">
-          <h3>공지사항</h3>
-          <button type="button" className="dash-modal-x" onClick={onClose}>
-            ✕
-          </button>
-        </div>
+        <h2>공지사항</h2>
         {notices.length === 0 ? (
-          <p className="dash-modal-empty">등록된 공지사항이 없습니다.</p>
+          <p className="portal-modal-empty">등록된 공지사항이 없습니다.</p>
         ) : (
-          <ul className="dash-notice-list">
+          <ul className="portal-notice-list">
             {notices.map((n) => {
               const open = openId === n.id;
               return (
                 <li key={n.id}>
                   <button
                     type="button"
-                    className="dash-notice-line"
+                    className="portal-notice-line"
                     onClick={() => toggle(n.id)}
                     aria-expanded={open}
                   >
-                    <span className="dash-notice-title">
-                      {n.pinned && <span className="dash-notice-pin">고정</span>}
+                    <span className="portal-notice-title">
+                      {n.pinned && <span className="portal-notice-pin">고정</span>}
                       {n.title}
                     </span>
-                    <span className="dash-notice-date">
+                    <span className="portal-notice-date">
                       {n.created_at.slice(0, 10)}
                     </span>
                   </button>
-                  {open && n.body && <p className="dash-notice-body">{n.body}</p>}
+                  {open && n.body && (
+                    <p className="portal-notice-body">{n.body}</p>
+                  )}
                 </li>
               );
             })}
           </ul>
         )}
+        <div className="actions">
+          <button type="button" onClick={onClose}>
+            닫기
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -970,17 +972,80 @@ function ChatRoom() {
   );
 }
 
-type Theme = "dark" | "light";
+function WorkCard({ item }: { item: CatalogItem }) {
+  const inner = (
+    <>
+      <span className="portal-workcard-top">
+        <span className="portal-glyph">
+          <ItemIcon slug={item.slug} />
+        </span>
+        <span className="portal-arrow" aria-hidden="true">
+          ↗
+        </span>
+      </span>
+      <span>
+        <div className="portal-card-title">{item.title}</div>
+        <div className="portal-card-desc">{item.description}</div>
+      </span>
+    </>
+  );
+  if (item.externalUrl) {
+    return (
+      <a
+        className="portal-workcard"
+        href={item.externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className="portal-workcard"
+      onClick={() => openItem(item.slug)}
+    >
+      {inner}
+    </button>
+  );
+}
+
+function CommonCard({ item }: { item: CatalogItem }) {
+  return (
+    <button
+      type="button"
+      className="portal-commoncard"
+      onClick={() => openItem(item.slug)}
+    >
+      <span className="portal-smallglyph">
+        <ItemIcon slug={item.slug} />
+      </span>
+      <span>
+        <strong>{item.title}</strong>
+        <small>{item.description}</small>
+      </span>
+      <span className="portal-arrow" aria-hidden="true">
+        ›
+      </span>
+    </button>
+  );
+}
+
+type PortalFilter = "전체" | "업무" | "행정공통분야";
+
+function matchesQuery(item: CatalogItem, q: string): boolean {
+  if (!q) return true;
+  return `${item.title} ${item.description}`.toLowerCase().includes(q);
+}
 
 function DashboardHome() {
   const [showNotices, setShowNotices] = useState(false);
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved =
-      typeof localStorage !== "undefined"
-        ? localStorage.getItem("dash-theme")
-        : null;
-    return saved === "light" ? "light" : "dark";
-  });
+  const [showChat, setShowChat] = useState(false);
+  const [active, setActive] = useState<PortalFilter>("전체");
+  const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
 
   // 대시보드에서는 #root의 1126px 둥근 틀을 풀어 화면 전체를 채운다.
   useEffect(() => {
@@ -989,292 +1054,365 @@ function DashboardHome() {
     return () => root?.classList.remove("root-dashboard");
   }, []);
 
+  // Ctrl/Cmd+K로 검색창 포커스
   useEffect(() => {
-    try {
-      localStorage.setItem("dash-theme", theme);
-    } catch {
-      /* 저장 불가 환경 무시 */
-    }
-  }, [theme]);
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
-  const toggleTheme = () =>
-    setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const q = query.trim().toLowerCase();
+  const workItems = WORK_CAT?.items ?? [];
+  const guideItems = GUIDE_CAT?.items ?? [];
+  const lifeItems = LIFE_CAT?.items ?? [];
 
-  const featured = GUIDE_CAT ? GUIDE_CAT.items.filter((i) => i.featured) : [];
-  const groups = GUIDE_CAT
-    ? GROUP_ORDER.map((name) => ({
-        name,
-        items: GUIDE_CAT.items.filter((i) => i.group === name),
-      })).filter((g) => g.items.length > 0)
-    : [];
+  const workMatches = workItems.filter((i) => matchesQuery(i, q));
+  const guideMatches = guideItems.filter((i) => matchesQuery(i, q));
+  const featuredMatches = guideMatches.filter((i) => i.featured);
+  const groupMatches = GROUP_ORDER.map((name) => ({
+    name,
+    items: guideMatches.filter((i) => i.group === name),
+  })).filter((g) => g.items.length > 0);
+  const lifeMatches = lifeItems.filter((i) => matchesQuery(i, q));
+
+  const showWork =
+    workMatches.length > 0 && (active === "전체" || active === "업무");
+  const showGuide =
+    (featuredMatches.length > 0 || groupMatches.length > 0) &&
+    (active === "전체" || active === "행정공통분야");
+  const showEmpty = !showWork && !showGuide;
+
+  const siteLinks = [...ANSEONG_LINKS, ...ANSEONG_APPLY_LINKS];
 
   return (
-    <div className={`dashboard${theme === "light" ? " is-light" : ""}`}>
-      <div className="dash-layout">
-        {/* 사이드바 */}
-        <aside className="dash-side">
-          <div className="dash-brand">
-            <span className="dash-logo" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M3 11l9-7 9 7" />
-                <path d="M5.5 10v10h13V10" />
-                <path d="M10 20v-6h4v6" />
-              </svg>
-            </span>
-            <span className="dash-brand-tx">
-              <span className="dash-brand-org">안성교육지원청</span>
-              <span className="dash-brand-title">학교 행정업무지원</span>
-            </span>
+    <div className="portal">
+      <div className="portal-app">
+        {/* 좌측 사이드바 */}
+        <aside className="portal-sidebar">
+          <div className="portal-brand">
+            <span className="portal-brandmark">A</span>
+            안성 <span style={{ color: "#3182f6" }}>행정업무+</span>
           </div>
-
-          <ChatRoom />
-
-          <div className="dash-side-bottom">
+          <button
+            type="button"
+            className={`portal-side-item${active === "전체" ? " is-active" : ""}`}
+            onClick={() => setActive("전체")}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M3 11l9-7 9 7" />
+              <path d="M5.5 10v10h13V10" />
+            </svg>
+            전체 메뉴
+          </button>
+          <p className="portal-side-label">업무</p>
+          <button
+            type="button"
+            className={`portal-side-item${active === "업무" ? " is-active" : ""}`}
+            onClick={() => setActive("업무")}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <rect x="3" y="7" width="18" height="13" rx="2" />
+              <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" />
+            </svg>
+            업무 분야
+          </button>
+          {workItems.map((item) => (
             <button
               type="button"
-              className="dash-theme"
-              onClick={toggleTheme}
-              aria-label="화면 모드 전환"
+              key={item.slug}
+              className="portal-side-sub"
+              onClick={() =>
+                item.externalUrl
+                  ? window.open(item.externalUrl, "_blank", "noopener")
+                  : openItem(item.slug)
+              }
             >
-              {theme === "dark" ? (
-                <>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4.5" />
-                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" />
-                  </svg>
-                  라이트 모드
-                </>
-              ) : (
-                <>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 14.5A8 8 0 019.5 4 7 7 0 1020 14.5z" />
-                  </svg>
-                  다크 모드
-                </>
-              )}
+              {item.title}
             </button>
-            <div className="dash-side-mini">
-              <button type="button" onClick={() => setShowNotices(true)}>
-                공지사항
-              </button>
-              <a href="#/admin">관리자</a>
-            </div>
-            <p className="dash-side-note">
-              본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.
-            </p>
+          ))}
+          <p className="portal-side-label">행정공통분야</p>
+          <button
+            type="button"
+            className={`portal-side-item${active === "행정공통분야" ? " is-active" : ""}`}
+            onClick={() => setActive("행정공통분야")}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V2H6.5A2.5 2.5 0 004 4.5v15z" />
+            </svg>
+            행정공통분야
+          </button>
+          {guideItems.map((item) => (
+            <button
+              type="button"
+              key={item.slug}
+              className="portal-side-sub"
+              onClick={() => openItem(item.slug)}
+            >
+              {item.title}
+            </button>
+          ))}
+          <div className="portal-sidebar-bottom">
+            <button
+              type="button"
+              className="portal-side-item"
+              onClick={() => {
+                window.location.hash = "#/calendar";
+              }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="3" y="5" width="18" height="16" rx="2" />
+                <path d="M8 3v4M16 3v4M3 10h18" />
+              </svg>
+              직무달력
+            </button>
+            <button
+              type="button"
+              className="portal-side-item"
+              onClick={() => {
+                window.location.hash = "#/admin";
+              }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <circle cx="12" cy="8" r="3.4" />
+                <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" />
+              </svg>
+              관리자
+            </button>
           </div>
         </aside>
 
-        {/* 오른쪽 2×2 */}
-        <div className="dash-main">
-          <div className="dash-col dash-col-left">
-            {/* 업무 */}
-            <section className="dash-card sz-work" id="dash-work">
-              <div className="dash-card-head">
-                <h2 className="dash-card-title">업무</h2>
-              </div>
-              <div className="dash-card-body">
-                <div className="dash-work-grid">
-                  {WORK_CAT?.items.map((item) =>
-                    item.externalUrl ? (
-                      <a
-                        key={item.slug}
-                        className="dash-tile"
-                        href={item.externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span className="dash-tile-ic">
-                          <ItemIcon slug={item.slug} />
-                        </span>
-                        <span className="dash-tile-tx">
-                          <span className="dash-tile-t">{item.title}</span>
-                          <span className="dash-tile-d">{item.description}</span>
-                        </span>
-                        <span className="dash-tile-go" aria-hidden="true">
-                          →
-                        </span>
-                      </a>
-                    ) : (
-                      <button
-                        type="button"
-                        key={item.slug}
-                        className="dash-tile"
-                        onClick={() => openItem(item.slug)}
-                      >
-                        <span className="dash-tile-ic">
-                          <ItemIcon slug={item.slug} />
-                        </span>
-                        <span className="dash-tile-tx">
-                          <span className="dash-tile-t">{item.title}</span>
-                          <span className="dash-tile-d">{item.description}</span>
-                        </span>
-                        <span className="dash-tile-go" aria-hidden="true">
-                          →
-                        </span>
-                      </button>
-                    ),
-                  )}
-                </div>
-              </div>
-            </section>
+        <div className="portal-main">
+          <header className="portal-topbar">
+            <span className="portal-crumb">안성교육지원청 · 업무자료 통합 안내</span>
+            <div className="portal-topright">
+              <span>학교 행정업무를 더 간편하게</span>
+              <button
+                type="button"
+                className="portal-topicon"
+                aria-label="공지사항"
+                title="공지사항"
+                onClick={() => setShowNotices(true)}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M9 18v1a3 3 0 006 0v-1M5 11a7 7 0 1114 0c0 4 1.5 5.5 1.5 5.5H3.5S5 15 5 11z" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="portal-pill"
+                onClick={() => searchRef.current?.focus()}
+              >
+                자료 검색 ⌕
+              </button>
+            </div>
+          </header>
 
-            {/* 행정공통분야 */}
-            <section className="dash-card sz-gong" id="dash-gong">
-              <div className="dash-card-head">
-                <h2 className="dash-card-title">행정공통분야</h2>
-              </div>
-              <div className="dash-card-body">
-                {featured.length > 0 && (
-                  <div className="dash-tags dash-overview-row">
-                    {featured.map((item) => (
-                      <button
-                        type="button"
-                        key={item.slug}
-                        className="dash-tag"
-                        onClick={() => openItem(item.slug)}
-                      >
-                        <ItemIcon slug={item.slug} />
-                        {item.title}
-                      </button>
+          <main className="portal-content">
+            <div className="portal-hero">
+              <p className="portal-eyebrow">안성 행정업무+ &nbsp;/&nbsp; WORK GUIDE</p>
+              <h1>
+                복잡한 행정업무,
+                <br />
+                <em>찾기는 간단하게.</em>
+              </h1>
+              <p>
+                업무와 행정공통분야의 필요한 자료를
+                <br />한눈에 확인하고 빠르게 찾아보세요.
+              </p>
+              <label className="portal-searchwrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m16 16 5 5" />
+                </svg>
+                <input
+                  ref={searchRef}
+                  type="text"
+                  placeholder="어떤 업무를 찾으시나요? 예: 지출, 복무, 기록물관리"
+                  autoComplete="off"
+                  aria-label="메뉴 검색"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <span className="portal-key">Ctrl K</span>
+              </label>
+            </div>
+
+            <nav className="portal-filterbar" aria-label="업무 구분">
+              {(["전체", "업무", "행정공통분야"] as PortalFilter[]).map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  className={`portal-filter${active === f ? " is-active" : ""}`}
+                  onClick={() => setActive(f)}
+                >
+                  {f === "전체" ? "전체 보기" : f === "업무" ? "업무 분야" : f}
+                </button>
+              ))}
+            </nav>
+
+            {showWork && (
+              <section className="portal-section">
+                <div className="portal-sectionhead">
+                  <div>
+                    <h2>업무 분야</h2>
+                    <p>학교 행정 실무에서 자주 사용하는 핵심 메뉴</p>
+                  </div>
+                  <span className="portal-count">{workMatches.length}개 메뉴</span>
+                </div>
+                <div className="portal-workgrid">
+                  {workMatches.map((item) => (
+                    <WorkCard key={item.slug} item={item} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {showWork && showGuide && <div className="portal-divider" />}
+
+            {showGuide && (
+              <section className="portal-section">
+                <div className="portal-sectionhead">
+                  <div>
+                    <h2>행정공통분야</h2>
+                    <p>근무·인사부터 문서·시설 운영까지 필요한 업무 안내</p>
+                  </div>
+                  <span className="portal-count">
+                    {guideMatches.length - featuredMatches.length}개 메뉴
+                  </span>
+                </div>
+                {featuredMatches.length > 0 && (
+                  <div className="portal-commongrid" style={{ marginBottom: 27 }}>
+                    {featuredMatches.map((item) => (
+                      <CommonCard key={item.slug} item={item} />
                     ))}
                   </div>
                 )}
-                {groups.map((group) => (
-                  <div className="dash-grp" key={group.name}>
-                    <p className="dash-grp-h">{group.name}</p>
-                    <div className="dash-tags">
+                {groupMatches.map((group) => (
+                  <div key={group.name}>
+                    <h3 className="portal-grouphead">{group.name}</h3>
+                    <div className="portal-commongrid">
                       {group.items.map((item) => (
-                        <button
-                          type="button"
-                          key={item.slug}
-                          className="dash-tag"
-                          onClick={() => openItem(item.slug)}
-                        >
-                          <ItemIcon slug={item.slug} />
-                          {item.title}
-                        </button>
+                        <CommonCard key={item.slug} item={item} />
                       ))}
                     </div>
                   </div>
                 ))}
-              </div>
-            </section>
-          </div>
+              </section>
+            )}
 
-          <div className="dash-col dash-col-right">
-            {/* 직무달력 */}
-            <section className="dash-card sz-cal" id="dash-cal">
-              <div className="dash-card-head">
-                <h2 className="dash-card-title">직무달력</h2>
-                <button
-                  type="button"
-                  className="dash-more"
-                  onClick={() => {
-                    window.location.hash = "#/calendar";
-                  }}
-                >
-                  전체 보기 ›
-                </button>
+            {showEmpty && (
+              <div className="portal-empty">
+                일치하는 메뉴가 없습니다. 다른 검색어를 입력해 보세요.
               </div>
-              <div className="dash-card-body">
-                <DutyCalendarCard />
-              </div>
-            </section>
+            )}
 
-            {/* 안성 생활 정보 */}
-            <section className="dash-card sz-life" id="dash-life">
-              <div className="dash-card-head">
-                <h2 className="dash-card-title">안성 생활 정보</h2>
-              </div>
-              <div className="dash-card-body">
-                <div className="dash-life">
-                  {LIFE_CAT?.items.map((item) => (
-                    <button
-                      type="button"
-                      key={item.slug}
-                      className="dash-lf"
-                      onClick={() => openItem(item.slug)}
-                    >
-                      <span className="dash-lf-ic">
-                        <ItemIcon slug={item.slug} />
-                      </span>
-                      <span className="dash-lf-tx">
-                        <span className="dash-lf-t">{item.title}</span>
-                        <span className="dash-lf-d">{item.description}</span>
-                      </span>
-                      <span className="dash-lf-go" aria-hidden="true">
-                        →
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </div>
+            <div className="portal-footer">
+              본 사이트는 행정업무 편의를 위한 참고용 시스템입니다.
+            </div>
+          </main>
         </div>
 
-        {/* 오른쪽 배너 열 (G-ONE + 추후 배너) */}
-        <aside className="dash-banners" aria-label="배너">
-          <a
-            className="dash-gbanner"
-            href="https://gdp.goe.go.kr/"
-            target="_blank"
-            rel="noopener noreferrer"
+        {/* 우측 사이드바: 질문방 · 생활정보 · 기관 바로가기 */}
+        <aside className="portal-rightbar">
+          <button
+            type="button"
+            className="portal-rb-chat"
+            onClick={() => setShowChat(true)}
           >
-            <div className="dash-gb-head">
-              <span className="dash-gb-logo">G-ONE</span>
-              <span className="dash-gb-portal">경기 업무협업포털</span>
-            </div>
-            <div className="dash-gb-card">
-              <p className="dash-gb-ai">[AI 대화] 무엇을 도와드릴까요?</p>
-              <span className="dash-gb-input">무엇이든 물어보세요</span>
-            </div>
-            <p className="dash-gb-desc">
-              지원이가 필요한 지침·매뉴얼을 AI로 찾아드려요
-            </p>
-            <span className="dash-gb-go">바로가기 ›</span>
-          </a>
+            <span className="portal-smallglyph">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M21 11.5a8.4 8.4 0 01-8.4 8.4 8.3 8.3 0 01-4-1L3 20l1.1-3.3a8.3 8.3 0 01-1-4A8.4 8.4 0 0111.5 4a8.4 8.4 0 019.5 7.5z" />
+              </svg>
+              <span className="portal-rb-livedot" />
+            </span>
+            <span>
+              <strong>실시간 질문방</strong>
+              <small>지금 바로 질문하고 답해보세요</small>
+            </span>
+          </button>
 
-          <nav className="dash-links" aria-label="안성 바로가기">
-            <p className="dash-links-h">안성 바로가기</p>
-            {ANSEONG_LINKS.map((l) => (
-              <a
-                key={l.href}
-                className="dash-link"
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="dash-link-t">{l.label}</span>
-                <span className="dash-link-go" aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            ))}
-          </nav>
+          <div className="portal-rb-section">
+            <p className="portal-rb-head">안성 생활 정보</p>
+            <div className="portal-rb-list">
+              {lifeMatches.map((item) => (
+                <CommonCard key={item.slug} item={item} />
+              ))}
+            </div>
+          </div>
 
-          <nav className="dash-links" aria-label="대관신청">
-            <p className="dash-links-h">대관신청</p>
-            {ANSEONG_APPLY_LINKS.map((l) => (
-              <a
-                key={l.href}
-                className="dash-link"
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="dash-link-t">{l.label}</span>
-                <span className="dash-link-go" aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            ))}
-          </nav>
+          <div className="portal-rb-section">
+            <p className="portal-rb-head">기관·지역 바로가기</p>
+            <div className="portal-rb-list">
+              {siteLinks.map((l) => (
+                <a
+                  key={l.href}
+                  className="portal-commoncard"
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="portal-smallglyph" aria-hidden="true">
+                    ↗
+                  </span>
+                  <span>
+                    <strong>{l.label}</strong>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
         </aside>
       </div>
 
+      <a
+        className="portal-fab"
+        href="https://gdp.goe.go.kr/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+          <path d="M12 12v9M12 12L3 7.5M12 12l9-4.5" />
+        </svg>
+        G-ONE AI 업무도우미
+      </a>
+
       {showNotices && <NoticesModal onClose={() => setShowNotices(false)} />}
+      {showChat && (
+        <div
+          className="portal-overlay"
+          role="button"
+          tabIndex={0}
+          aria-label="닫기"
+          onClick={() => setShowChat(false)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setShowChat(false);
+          }}
+        >
+          <div
+            className="portal-chat-box"
+            role="dialog"
+            aria-modal="true"
+            aria-label="실시간 질문방"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="portal-chat-close"
+              onClick={() => setShowChat(false)}
+              aria-label="닫기"
+            >
+              ✕
+            </button>
+            <ChatRoom />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
