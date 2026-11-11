@@ -5097,9 +5097,24 @@ a {
   box-shadow: 0 0 0 2px #ffffff;
 }
 .portal-rb-chat strong {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 13.5px;
   font-weight: 750;
+}
+.portal-rb-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 7px;
+  border-radius: 999px;
+  background: #f04452;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
 }
 .portal-rb-chat small {
   display: block;
