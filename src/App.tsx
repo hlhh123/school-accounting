@@ -1386,18 +1386,34 @@ function DashboardHome() {
         </aside>
       </div>
 
-      <a
-        className="portal-fab"
-        href="https://gdp.goe.go.kr/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-          <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z" />
-          <path d="M12 12v9M12 12L3 7.5M12 12l9-4.5" />
-        </svg>
-        G-ONE AI 업무도우미
-      </a>
+      <div className="portal-fab-stack">
+        <a
+          className="portal-fab is-gai"
+          href="https://gaihub.net/programs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <rect x="3" y="3" width="8" height="8" rx="2" />
+            <rect x="13" y="3" width="8" height="8" rx="2" />
+            <rect x="3" y="13" width="8" height="8" rx="2" />
+            <rect x="13" y="13" width="8" height="8" rx="2" />
+          </svg>
+          GAI 업무 효율화 프로그램 모음
+        </a>
+        <a
+          className="portal-fab is-gone"
+          href="https://gdp.goe.go.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z" />
+            <path d="M12 12v9M12 12L3 7.5M12 12l9-4.5" />
+          </svg>
+          G-ONE AI 업무도우미
+        </a>
+      </div>
 
       {showNotices && <NoticesModal onClose={() => setShowNotices(false)} />}
       {showChat && (
