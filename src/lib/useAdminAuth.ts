@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
-import { supabase, isSupabaseConfigured, ADMIN_EMAIL } from "./supabase";
+import {
+  supabase,
+  isSupabaseConfigured,
+  ADMIN_EMAIL,
+  initialHashHadRecovery,
+} from "./supabase";
 
 export type AdminAuth = {
   ready: boolean;
   isLoggedIn: boolean;
+  recovering: boolean;
   login: (id: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  requestPasswordReset: () => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
+  clearRecovering: () => void;
 };
 
 export function useAdminAuth(): AdminAuth {
   const [ready, setReady] = useState(!isSupabaseConfigured);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [recovering, setRecovering] = useState(initialHashHadRecovery);
 
   useEffect(() => {
     if (!supabase) return;
@@ -18,8 +28,9 @@ export function useAdminAuth(): AdminAuth {
       setIsLoggedIn(Boolean(data.session));
       setReady(true);
     });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
       setIsLoggedIn(Boolean(session));
+      if (event === "PASSWORD_RECOVERY") setRecovering(true);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
@@ -44,5 +55,37 @@ export function useAdminAuth(): AdminAuth {
     setIsLoggedIn(false);
   };
 
-  return { ready, isLoggedIn, login, logout };
+  const requestPasswordReset = async () => {
+    if (!supabase) {
+      throw new Error(
+        "관리자 기능이 아직 연결되지 않았습니다. Supabase 설정이 필요합니다.",
+      );
+    }
+    const redirectTo = `${window.location.origin}${window.location.pathname}#/admin`;
+    const { error } = await supabase.auth.resetPasswordForEmail(ADMIN_EMAIL, {
+      redirectTo,
+    });
+    if (error) throw new Error("재설정 메일을 보내지 못했습니다. 잠시 후 다시 시도해 주세요.");
+  };
+
+  const updatePassword = async (password: string) => {
+    if (!supabase) {
+      throw new Error("Supabase가 설정되지 않았습니다.");
+    }
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) throw new Error("비밀번호를 변경하지 못했습니다.");
+  };
+
+  const clearRecovering = () => setRecovering(false);
+
+  return {
+    ready,
+    isLoggedIn,
+    recovering,
+    login,
+    logout,
+    requestPasswordReset,
+    updatePassword,
+    clearRecovering,
+  };
 }

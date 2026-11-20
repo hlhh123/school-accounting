@@ -82,13 +82,17 @@ function AdminHeader({ onExit }: { onExit: () => void }) {
 
 function LoginForm({
   onSubmit,
+  onForgotPassword,
 }: {
   onSubmit: (id: string, pw: string) => Promise<void>;
+  onForgotPassword: () => Promise<void>;
 }) {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [resetMsg, setResetMsg] = useState("");
+  const [resetBusy, setResetBusy] = useState(false);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -100,6 +104,21 @@ function LoginForm({
       setError(err instanceof Error ? err.message : "로그인에 실패했습니다.");
     } finally {
       setBusy(false);
+    }
+  };
+
+  const forgotPassword = async () => {
+    setResetMsg("");
+    setResetBusy(true);
+    try {
+      await onForgotPassword();
+      setResetMsg("재설정 메일을 보냈습니다. 관리자 메일함을 확인해 주세요.");
+    } catch (err) {
+      setResetMsg(
+        err instanceof Error ? err.message : "재설정 메일을 보내지 못했습니다.",
+      );
+    } finally {
+      setResetBusy(false);
     }
   };
 
@@ -136,6 +155,96 @@ function LoginForm({
           {busy ? "로그인 중…" : "로그인"}
         </button>
       </form>
+      <button
+        type="button"
+        className="admin-forgot"
+        onClick={forgotPassword}
+        disabled={resetBusy || !isSupabaseConfigured}
+      >
+        {resetBusy ? "메일 보내는 중…" : "비밀번호 찾기"}
+      </button>
+      {resetMsg && <p className="admin-reset-msg">{resetMsg}</p>}
+    </div>
+  );
+}
+
+function PasswordRecoveryForm({
+  onSubmit,
+  onCancel,
+}: {
+  onSubmit: (password: string) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const [pw, setPw] = useState("");
+  const [pw2, setPw2] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const submit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (pw.length < 6) {
+      setError("비밀번호는 6자 이상이어야 합니다.");
+      return;
+    }
+    if (pw !== pw2) {
+      setError("비밀번호가 서로 일치하지 않습니다.");
+      return;
+    }
+    setBusy(true);
+    try {
+      await onSubmit(pw);
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "비밀번호를 변경하지 못했습니다.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  if (done) {
+    return (
+      <div className="admin-login">
+        <h2>비밀번호 변경 완료</h2>
+        <p>새 비밀번호로 변경되었습니다.</p>
+        <button type="button" className="admin-primary" onClick={onCancel}>
+          관리자 화면으로 이동
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-login">
+      <h2>새 비밀번호 설정</h2>
+      <form onSubmit={submit}>
+        <label>
+          새 비밀번호
+          <input
+            type="password"
+            value={pw}
+            onChange={(e) => setPw(e.target.value)}
+            autoComplete="new-password"
+          />
+        </label>
+        <label>
+          새 비밀번호 확인
+          <input
+            type="password"
+            value={pw2}
+            onChange={(e) => setPw2(e.target.value)}
+            autoComplete="new-password"
+          />
+        </label>
+        {error && <p className="admin-error">{error}</p>}
+        <button type="submit" className="admin-primary" disabled={busy}>
+          {busy ? "변경 중…" : "비밀번호 변경"}
+        </button>
+      </form>
+      <button type="button" className="admin-forgot" onClick={onCancel}>
+        취소
+      </button>
     </div>
   );
 }
@@ -657,17 +766,31 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 }
 
 export default function AdminPage({ onExit }: { onExit: () => void }) {
-  const { ready, isLoggedIn, login, logout } = useAdminAuth();
+  const {
+    ready,
+    isLoggedIn,
+    recovering,
+    login,
+    logout,
+    requestPasswordReset,
+    updatePassword,
+    clearRecovering,
+  } = useAdminAuth();
 
   return (
     <div className="app">
       <AdminHeader onExit={onExit} />
       <main className="admin-main">
         <div className="section-inner">
-          {!ready ? (
+          {recovering ? (
+            <PasswordRecoveryForm
+              onSubmit={updatePassword}
+              onCancel={clearRecovering}
+            />
+          ) : !ready ? (
             <p>확인 중…</p>
           ) : !isLoggedIn ? (
-            <LoginForm onSubmit={login} />
+            <LoginForm onSubmit={login} onForgotPassword={requestPasswordReset} />
           ) : (
             <AdminDashboard onLogout={logout} />
           )}

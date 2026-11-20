@@ -8,6 +8,7 @@ import {
   type ChatMessage,
 } from "./lib/chat";
 import { useAdminAuth } from "./lib/useAdminAuth";
+import { initialHashHadRecovery } from "./lib/supabase";
 import AdminPage from "./AdminPage";
 import { fetchNotices, type Notice } from "./lib/notices";
 import { summaryBase, sharedBase, gwansaBase, type TableData } from "./gwansaData";
@@ -1503,7 +1504,14 @@ function App() {
   const hash = useHashRoute();
 
   // 관리자 (#/admin 또는 이전 #admin 호환)
-  if (hash.startsWith("#/admin") || hash.startsWith("#admin")) {
+  // 비밀번호 재설정 메일 링크는 Supabase가 주소 뒤에 자체 토큰(#...type=recovery)을
+  // 붙여 돌아오므로, 그 경우도 관리자 화면으로 보내 새 비밀번호 설정 폼을 띄웁니다.
+  if (
+    hash.startsWith("#/admin") ||
+    hash.startsWith("#admin") ||
+    hash.includes("type=recovery") ||
+    initialHashHadRecovery
+  ) {
     return <AdminPage onExit={goHome} />;
   }
 
