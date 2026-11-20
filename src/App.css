@@ -2300,6 +2300,30 @@ a {
   font-size: 14px;
 }
 
+.admin-forgot {
+  display: block;
+  margin: 14px auto 0;
+  padding: 4px 0;
+  background: none;
+  border: 0;
+  color: #777777;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.admin-forgot:disabled {
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.admin-reset-msg {
+  margin: 10px 0 0;
+  text-align: center;
+  color: #3182f6;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .admin-topbar {
   display: flex;
   align-items: center;

@@ -20,3 +20,10 @@ export const supabase: SupabaseClient | null = isSupabaseConfigured
 
 // 관리자 로그인 계정(Supabase Auth 이메일). 아이디 칸에 이메일 전체를 입력합니다.
 export const ADMIN_EMAIL = "ansaegil2026@gmail.com";
+
+// 비밀번호 재설정 메일 링크로 들어오면 주소 뒤에 Supabase가 토큰(#...type=recovery)을
+// 붙여줍니다. 이 값은 모듈이 처음 로드될 때(= Supabase 클라이언트가 내부적으로 그 토큰을
+// 읽어서 지워버리기 전) 딱 한 번 읽어 저장해 둡니다. 라우팅/화면 분기에서 이 값을 쓰면
+// 토큰이 비동기로 정리되는 타이밍과 경쟁하지 않고 안정적으로 재설정 화면을 띄울 수 있습니다.
+export const initialHashHadRecovery =
+  typeof window !== "undefined" && window.location.hash.includes("type=recovery");
