@@ -383,6 +383,7 @@ export function DutyCalendarCard() {
           </li>
         )}
       </ul>
+      <p className="duty-source">출처: 학습동아리 ‘상록’</p>
     </div>
   );
 }
