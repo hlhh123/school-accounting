@@ -4640,13 +4640,6 @@ a {
 .portal-topright > span {
   margin-right: 8px;
 }
-.portal-pill {
-  border: 1px solid #e8ecf1;
-  border-radius: 100px;
-  padding: 8px 13px;
-  background: #ffffff;
-  font-weight: 650;
-}
 .portal-topicon {
   position: relative;
   width: 38px;
@@ -4866,49 +4859,6 @@ a {
 .portal-cal-empty {
   color: var(--muted);
   font-size: 12.5px;
-}
-.portal-searchwrap {
-  display: flex;
-  align-items: center;
-  max-width: 850px;
-  height: 58px;
-  border: 1px solid #dce3eb;
-  border-radius: 15px;
-  background: #ffffff;
-  box-shadow: 0 4px 13px rgba(20, 55, 90, 0.05);
-  gap: 13px;
-  padding: 0 18px;
-}
-.portal-searchwrap:focus-within {
-  border-color: #70aaff;
-  box-shadow: 0 0 0 4px rgba(49, 130, 246, 0.08);
-}
-.portal-searchwrap svg {
-  width: 20px;
-  height: 20px;
-  stroke: #536477;
-  fill: none;
-  stroke-width: 2;
-  flex: none;
-}
-.portal-searchwrap input {
-  outline: 0;
-  border: 0;
-  min-width: 0;
-  flex: 1;
-  font-size: 14px;
-  color: var(--ink);
-  background: transparent;
-}
-.portal-searchwrap input::placeholder {
-  color: #a0a9b3;
-}
-.portal-key {
-  font-size: 11px;
-  color: #9aa5b3;
-  background: var(--pale);
-  padding: 5px 8px;
-  border-radius: 6px;
 }
 .portal-filterbar {
   display: flex;

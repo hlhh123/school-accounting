@@ -1036,17 +1036,10 @@ function CommonCard({ item }: { item: CatalogItem }) {
 
 type PortalFilter = "전체" | "업무" | "행정공통분야";
 
-function matchesQuery(item: CatalogItem, q: string): boolean {
-  if (!q) return true;
-  return `${item.title} ${item.description}`.toLowerCase().includes(q);
-}
-
 function DashboardHome() {
   const [showNotices, setShowNotices] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [active, setActive] = useState<PortalFilter>("전체");
-  const [query, setQuery] = useState("");
-  const searchRef = useRef<HTMLInputElement>(null);
 
   // 실시간 질문방 — 마지막으로 열어본 뒤 쌓인 메시지 수를 "+N" 배지로 표시
   const [chatTotal, setChatTotal] = useState(0);
@@ -1093,31 +1086,18 @@ function DashboardHome() {
     return () => root?.classList.remove("root-dashboard");
   }, []);
 
-  // Ctrl/Cmd+K로 검색창 포커스
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        searchRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  const q = query.trim().toLowerCase();
   const workItems = WORK_CAT?.items ?? [];
   const guideItems = GUIDE_CAT?.items ?? [];
   const lifeItems = LIFE_CAT?.items ?? [];
 
-  const workMatches = workItems.filter((i) => matchesQuery(i, q));
-  const guideMatches = guideItems.filter((i) => matchesQuery(i, q));
+  const workMatches = workItems;
+  const guideMatches = guideItems;
   const featuredMatches = guideMatches.filter((i) => i.featured);
   const groupMatches = GROUP_ORDER.map((name) => ({
     name,
     items: guideMatches.filter((i) => i.group === name),
   })).filter((g) => g.items.length > 0);
-  const lifeMatches = lifeItems.filter((i) => matchesQuery(i, q));
+  const lifeMatches = lifeItems;
 
   const showWork =
     workMatches.length > 0 && (active === "전체" || active === "업무");
@@ -1241,13 +1221,6 @@ function DashboardHome() {
                   <path d="M9 18v1a3 3 0 006 0v-1M5 11a7 7 0 1114 0c0 4 1.5 5.5 1.5 5.5H3.5S5 15 5 11z" />
                 </svg>
               </button>
-              <button
-                type="button"
-                className="portal-pill"
-                onClick={() => searchRef.current?.focus()}
-              >
-                자료 검색 ⌕
-              </button>
             </div>
           </header>
 
@@ -1264,22 +1237,6 @@ function DashboardHome() {
                   업무와 행정공통분야의 필요한 자료를
                   <br />한눈에 확인하고 빠르게 찾아보세요.
                 </p>
-                <label className="portal-searchwrap">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="m16 16 5 5" />
-                  </svg>
-                  <input
-                    ref={searchRef}
-                    type="text"
-                    placeholder="어떤 업무를 찾으시나요? 예: 지출, 복무, 기록물관리"
-                    autoComplete="off"
-                    aria-label="메뉴 검색"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                  />
-                  <span className="portal-key">Ctrl K</span>
-                </label>
               </div>
 
               <div className="portal-hero-cal">
