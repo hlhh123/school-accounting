@@ -4590,7 +4590,7 @@ a {
   flex: 0 0 auto;
 }
 .portal-side-cat {
-  font-size: 9px;
+  font-size: 8px;
 }
 .portal-side-sub {
   border: 0;
@@ -4600,7 +4600,7 @@ a {
   width: 100%;
   padding: 7px 9px 7px 42px;
   color: #687584;
-  font-size: 8px;
+  font-size: 7px;
   border-radius: 8px;
 }
 .portal-side-sub:hover {
