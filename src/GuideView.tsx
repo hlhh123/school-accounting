@@ -169,7 +169,11 @@ function FilesBlock({
   );
 }
 
-function LinksBlock({ items }: { items: { label: string; url: string }[] }) {
+function LinksBlock({
+  items,
+}: {
+  items: { label: string; url: string; desc?: string; by?: string }[];
+}) {
   return (
     <ul className="g-links">
       {items.map((l, i) => (
@@ -180,9 +184,15 @@ function LinksBlock({ items }: { items: { label: string; url: string }[] }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="g-link-label">{l.label}</span>
-            <span className="g-link-open" aria-hidden>
-              ↗
+            <span className="g-link-main">
+              <span className="g-link-top">
+                <span className="g-link-label">{l.label}</span>
+                <span className="g-link-open" aria-hidden>
+                  ↗
+                </span>
+              </span>
+              {l.desc && <span className="g-link-desc">{l.desc}</span>}
+              {l.by && <span className="g-link-by">{l.by}</span>}
             </span>
           </a>
         </li>

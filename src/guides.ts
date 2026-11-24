@@ -21,7 +21,10 @@ export type Block =
         kind: "pdf" | "hwp" | "doc" | "xls" | "ppt" | "img" | "odt";
       }[];
     }
-  | { type: "links"; items: { label: string; url: string }[] };
+  | {
+      type: "links";
+      items: { label: string; url: string; desc?: string; by?: string }[];
+    };
 
 export type GuideSection = { title: string; blocks: Block[] };
 export type GuideTab = {
@@ -2284,6 +2287,129 @@ export const guides: Record<string, Guide> = {
                     { name: "학교급식 대체인력 채용 확대(정년초과 경력자 채용 가능 기한 연장) 안내(2026.)", file: "w070.hwpx", download: "학교급식 대체인력 채용 확대(정년초과 경력자 채용 가능 기한 연장) 안내(2026.).hwpx", kind: "hwp" },
                     { name: "행정정보 공동이용 사전동의서(행정정보 공동이용 지침)", file: "w071.hwpx", download: "행정정보 공동이용 사전동의서(행정정보 공동이용 지침).hwpx", kind: "hwp" },
                     { name: "휴직원", file: "w072.hwpx", download: "휴직원.hwpx", kind: "hwp" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          key: "calc",
+          label: "계산기",
+          group: "급여 항목별",
+          sections: [
+            {
+              title: "GAI허브(gaihub.net) 공무직 급여·수당 계산기",
+              blocks: [
+                {
+                  type: "note",
+                  text: "아래 도구들은 전국의 교육행정 담당자들이 직접 만들어 GAI허브(gaihub.net)에 공유한 민간 제작 프로그램입니다. 계산 결과는 참고용으로만 활용하고, 실제 지급 전에는 반드시 급여대장·관련 규정과 대조해 확인하세요.",
+                },
+                {
+                  type: "links",
+                  items: [
+                    {
+                      label: "교육공무직 통상임금 계산기",
+                      url: "https://gaihub.net/programs/교육공무직-통상임금-계산기-yogk6",
+                      desc: "교육공무직 통상임금 계산기 (2026회계 기준)",
+                      by: "업무천재고주무관",
+                    },
+                    {
+                      label: "교육공무직원 연차 계산기",
+                      url: "https://gaihub.net/programs/교육공무직원-연차-계산기-h85bj",
+                      desc: "교육공무직원 연차휴가 계산",
+                      by: "리누",
+                    },
+                    {
+                      label: "연차할랭(퇴직 시 비교 가능)",
+                      url: "https://gaihub.net/programs/연차계산기-퇴직시-비교가능-ver-3-2-zrwhm",
+                      desc: "입사일 기준/회계연도 기준 연차계산을 한 번에 비교",
+                      by: "호랭",
+                    },
+                    {
+                      label: "교육공무직원 대체근로자 계약·급여 간편화",
+                      url: "https://gaihub.net/programs/교육공무직원-대체근로자-계약-급여-간편화-ogrht",
+                      desc: "대체인력 채용 시 계약서 생성과 인건비 계산",
+                      by: "구름봉",
+                    },
+                    {
+                      label: "바로교육비 — 조리실무사 교육비 자동계산기",
+                      url: "https://gaihub.net/programs/바로교육비-조리실무사-교육비-자동계산기-yha5r",
+                      desc: "조리실무사 교육비·교육수당 자동계산",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "시간강사 주휴수당·급여 자동계산기",
+                      url: "https://gaihub.net/programs/시간강사-주휴수당-급여-자동계산기-mdt4c",
+                      desc: "수업확인표로 시간강사 주휴수당·급여 자동계산",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "바로봉 — 호봉정정계산기",
+                      url: "https://gaihub.net/programs/바로봉-호봉정정계산기-uqo6p",
+                      desc: "호봉 정정에 따른 급여 차액·소급 지급액 계산",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "비공무원 4대보험 개인별 정리",
+                      url: "https://gaihub.net/programs/비공무원-4대보험-개인별-정리-tg6hu",
+                      desc: "교육공무직 4대보험(건강·연금·고용·산재) 개인별·기관별 정리",
+                      by: "지니33",
+                    },
+                    {
+                      label: "방과후강사 기관부담금 자동계산기",
+                      url: "https://gaihub.net/programs/방과후강사-기관부담금-자동계산기-mjuz9",
+                      desc: "고용·산재보험 고지서로 방과후강사 기관부담금 자동 완성",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "방과후강사 보험관리 에이전트",
+                      url: "https://gaihub.net/programs/방과후강사-보험관리-에이전트-5quv0",
+                      desc: "방과후강사 고용·산재보험 공제·납부 관리, 월보수신고 파일 생성",
+                      by: "구름봉",
+                    },
+                    {
+                      label: "기관부담금 신청 자동서식기",
+                      url: "https://gaihub.net/programs/20일-기관부담금-신청-자동서식기-oep4r",
+                      desc: "고지서·급여대장으로 4대보험 기관부담금 신청 파일 완성",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "4대보험 세외 수납·신고·반환",
+                      url: "https://gaihub.net/programs/10일-이제-두렵지-않아요-4대보험-세외-수납-신고-반환-usrtf",
+                      desc: "자료 6개로 세외 수납·신고금액·반환 목록 정리",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "급여AI상담봇 셀팝이",
+                      url: "https://gaihub.net/programs/급여ai상당봇-셀팝이-jkduw",
+                      desc: "경기도교육청 공무원·교육공무직원 급여상담 AI챗봇",
+                      by: "손셀파",
+                    },
+                    {
+                      label: "가족수당 점검 자동서식기",
+                      url: "https://gaihub.net/programs/가족수당-점검-자동서식기-qugqi",
+                      desc: "나이스 가족사항으로 가족수당 점검결과표 자동완성",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "교육공무직 근무계획표 만들기",
+                      url: "https://gaihub.net/programs/교육공무직-근무계획표-만들기-viqrd",
+                      desc: "방학·근무일정 입력 시 연간 근무계획·유급일수 자동계산",
+                      by: "지니33",
+                    },
+                    {
+                      label: "4대보험 공제내역 고지서 자동화",
+                      url: "https://gaihub.net/programs/4대보험-공제내역-고지서-자동화-qrcpc",
+                      desc: "4대보험 고지서·공제내역 자동 대사(공무직 전용은 아니며 범용 도구)",
+                      by: "소확엑셀",
+                    },
+                    {
+                      label: "'경자야'",
+                      url: "https://gaihub.net/programs/경자야-60g6y",
+                      desc: "4대보험 및 원천세 업무 자동화(공무직 전용은 아니며 범용 도구)",
+                      by: "경자어머니",
+                    },
                   ],
                 },
               ],
