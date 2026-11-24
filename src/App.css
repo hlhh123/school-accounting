@@ -5069,15 +5069,15 @@ a {
 }
 .portal-commoncard strong {
   display: block;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 750;
 }
 .portal-commoncard small {
   display: block;
   color: #919ca9;
-  font-size: 11px;
-  line-height: 1.45;
-  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 5px;
 }
 .portal-commoncard .portal-arrow {
   margin-left: auto;
