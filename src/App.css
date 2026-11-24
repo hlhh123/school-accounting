@@ -4537,22 +4537,22 @@ a {
 .portal-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   padding: 0 10px 31px;
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 800;
   white-space: nowrap;
 }
 .portal-brandmark {
-  height: 32px;
-  width: 32px;
-  border-radius: 10px;
+  height: 28px;
+  width: 28px;
+  border-radius: 9px;
   background: var(--blue);
   color: #ffffff;
   display: grid;
   place-items: center;
   font-weight: 850;
-  font-size: 18px;
+  font-size: 15px;
   flex: 0 0 auto;
 }
 .portal-side-label {
