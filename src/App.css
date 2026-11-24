@@ -4940,6 +4940,7 @@ a {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 19px;
+  text-align: left;
 }
 .portal-sectionhead h2 {
   font-size: 23px;
