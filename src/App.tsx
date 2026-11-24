@@ -1151,7 +1151,7 @@ function DashboardHome() {
           <p className="portal-side-label">업무</p>
           <button
             type="button"
-            className={`portal-side-item${active === "업무" ? " is-active" : ""}`}
+            className={`portal-side-item portal-side-cat${active === "업무" ? " is-active" : ""}`}
             onClick={() => setActive("업무")}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -1177,7 +1177,7 @@ function DashboardHome() {
           <p className="portal-side-label">행정공통분야</p>
           <button
             type="button"
-            className={`portal-side-item${active === "행정공통분야" ? " is-active" : ""}`}
+            className={`portal-side-item portal-side-cat${active === "행정공통분야" ? " is-active" : ""}`}
             onClick={() => setActive("행정공통분야")}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
