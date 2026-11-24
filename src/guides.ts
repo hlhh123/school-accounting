@@ -1895,6 +1895,66 @@ export const guides: Record<string, Guide> = {
           ],
         },
       ],
+      extraTabs: [
+        {
+          key: "calc",
+          label: "계산기",
+          group: "자료",
+          sections: [
+            {
+              title: "GAI허브(gaihub.net) 공무원·교원 급여·호봉 계산기",
+              blocks: [
+                {
+                  type: "note",
+                  text: "아래 도구들은 전국의 교육행정 담당자들이 직접 만들어 GAI허브(gaihub.net)에 공유한 민간 제작 프로그램입니다. 계산 결과는 참고용으로만 활용하고, 실제 지급 전에는 반드시 급여대장·관련 규정과 대조해 확인하세요.",
+                },
+                {
+                  type: "links",
+                  items: [
+                    {
+                      label: "교원·계약제교원 호봉획정 계산 웹",
+                      url: "https://gaihub.net/programs/교원ㆍ계약제교원-호봉획정-계산-웹-onbso",
+                      desc: "교원·계약제교원 호봉획정 계산을 자동화",
+                      by: "리누",
+                    },
+                    {
+                      label: "교원호봉획정도우미X슬교행",
+                      url: "https://gaihub.net/programs/교원호봉획정도우미x슬교행-kxf82",
+                      desc: "교원호봉획정을 도와주는 도우미",
+                      by: "손셀파",
+                    },
+                    {
+                      label: "엑셀을 집어삼킨 충남 호봉획정 프로그램",
+                      url: "https://gaihub.net/programs/엑셀을-집어삼킨-충남-호봉획정-프로그램-kvl6h",
+                      desc: "전국 공개 호봉획정 프로그램들의 장점만 모아 사용법까지 바로 안내",
+                      by: "소확엑셀",
+                    },
+                    {
+                      label: "바로봉 — 호봉정정계산기",
+                      url: "https://gaihub.net/programs/바로봉-호봉정정계산기-uqo6p",
+                      desc: "호봉 정정에 따른 급여 차액·소급 지급액 계산",
+                      by: "똘순이",
+                    },
+                    {
+                      label: "공무원 호봉정정에 따른 급여정산기(엑셀)",
+                      url: "https://gaihub.net/programs/공무원-호봉정정에-따른-급여정산기-엑셀-omnzs",
+                      desc: "공무원 호봉정정에 따른 급여정산(계산)",
+                      by: "손셀파",
+                    },
+                    {
+                      label: "급여AI상담봇 셀팝이",
+                      url: "https://gaihub.net/programs/급여ai상당봇-셀팝이-jkduw",
+                      desc: "경기도교육청 공무원·교육공무직원 급여상담 AI챗봇",
+                      by: "손셀파",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      groupLabels: { forms: "자료", manual: "자료", qna: "기타" },
       qna: true,
     }),
   },
